@@ -16,6 +16,7 @@
 .upperContainer {
   display: flex;
   height: 400px;
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
 
 .recipesContainer {
@@ -69,6 +70,7 @@
   border: 1px solid black;
   height: 140px;
   font-size: 25px;
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
 
 .loginIconText {
