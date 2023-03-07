@@ -1,0 +1,112 @@
+.refrigerator {
+  display: block;
+  width: 390px;
+  height: 100vh;
+}
+
+.mainTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  color: white;
+  background-color: black;
+}
+
+.upperContainer {
+  display: flex;
+  height: 400px;
+}
+
+.recipesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border: 1px solid black;
+}
+
+.iconsContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foodsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border: 1px solid black;
+}
+
+.upperIcons {
+  display: block;
+  font-size: 70px;
+}
+
+.boxIcon {
+  height: 80px;
+}
+
+.arrowIcon {
+  height: 70px;
+  padding-bottom: 0px;
+}
+
+.recipeIcon {
+  height: 80px;
+  margin-top: 10px;
+}
+
+.lowerContainer {
+  display: block;
+}
+
+.loginContainer {
+  border: 1px solid black;
+  height: 140px;
+  font-size: 25px;
+}
+
+.loginIconText {
+  display: flex;
+  width: 100%;
+}
+
+.loginIcon {
+  font-size: 30px;
+  margin-left: 50px;
+}
+
+.loginText {
+  margin-left: 65px;
+}
+
+.freeRecipesContainer {
+  border: 1px solid black;
+  height: 240px;
+}
+
+.freeRecipeIconText {
+  display: flex;
+  width: 100%;
+  font-size: 25px;
+}
+
+.freeRecipeIcon {
+  margin-left: 50px;
+  font-size: 40px;
+}
+
+.freeRecipeText {
+  margin-left: 15px;
+}
+
+.linkRange {
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
