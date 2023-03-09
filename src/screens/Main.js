@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AddFoodsPage } from "./AddFoodsPage";
 import { FreeRecipesPage } from "./FreeRecipesPage";
@@ -41,7 +41,7 @@ export const Main = () => {
     {
       name: "牛ひき肉",
       category: "肉",
-      categoryId: `${10}-${275}-${2135}`,
+      categoryId: `${10}-${278}-${835}`,
       image: "/image/牛ひき肉.jpeg",
     },
     {
@@ -76,6 +76,8 @@ export const Main = () => {
     },
   ];
 
+  const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -83,7 +85,13 @@ export const Main = () => {
         <Route path={"/recipesPage"} element={<RecipesPage />} />
         <Route
           path={"/addFoodsPage"}
-          element={<AddFoodsPage foodList={foodList} />}
+          element={
+            <AddFoodsPage
+              foodList={foodList}
+              foodInTheRefrigerator={foodInTheRefrigerator}
+              setFoodInTheRefrigerator={setFoodInTheRefrigerator}
+            />
+          }
         />
         <Route path={"/loginForm"} element={<LoginForm />} />
         <Route path={"/freeRecipesPage"} element={<FreeRecipesPage />} />
