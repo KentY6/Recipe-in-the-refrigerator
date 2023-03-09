@@ -19,6 +19,13 @@ export const AddFoodsPage = ({
     setFoodInTheRefrigerator([...foodInTheRefrigerator, data]);
   };
 
+  // 冷蔵庫の中の食材を削除する
+  const deleteFood = (name) => {
+    setFoodInTheRefrigerator(
+      foodInTheRefrigerator.filter((food) => food.name !== name)
+    );
+  };
+
   return (
     <div>
       <Link to={"/"} className="returnButton">
@@ -42,7 +49,10 @@ export const AddFoodsPage = ({
                     <FontAwesomeIcon icon={faSquarePlus} />
                   </div>
                   <div className="foodName">{data.name}</div>
-                  <div className="deleteButton">
+                  <div
+                    className="deleteButton"
+                    onClick={() => deleteFood(data.name)}
+                  >
                     <FontAwesomeIcon icon={faSquareMinus} />
                   </div>
                 </div>
@@ -62,7 +72,10 @@ export const AddFoodsPage = ({
               <div key={data.categoryId}>
                 <div className="buttonAndName">
                   <div>{data.name}</div>
-                  <div className="deleteButton">
+                  <div
+                    className="deleteButton"
+                    onClick={() => deleteFood(data.name)}
+                  >
                     <FontAwesomeIcon icon={faSquareMinus} />
                   </div>
                 </div>
