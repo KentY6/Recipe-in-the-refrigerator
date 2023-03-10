@@ -1,7 +1,6 @@
 .refrigerator {
   display: block;
   width: 389px;
-  height: 100vh;
 }
 
 .mainTitle {
@@ -46,6 +45,7 @@
 .upperIcons {
   display: block;
   font-size: 70px;
+  color: black;
 }
 
 .boxIcon {
@@ -76,15 +76,18 @@
 .loginIconText {
   display: flex;
   width: 100%;
+  color: black;
 }
 
 .loginIcon {
   font-size: 30px;
   margin-left: 50px;
+  color: black;
 }
 
 .loginText {
   margin-left: 65px;
+  color: black;
 }
 
 .freeRecipesContainer {
@@ -96,11 +99,13 @@
   display: flex;
   width: 100%;
   font-size: 25px;
+  color: black;
 }
 
 .freeRecipeIcon {
   margin-left: 50px;
   font-size: 40px;
+  color: black;
 }
 
 .freeRecipeText {
@@ -116,4 +121,16 @@
 .foodImage {
   width: 100px;
   height: 100px;
+}
+
+.categoryTab {
+  display: flex;
+}
+
+.categoryText {
+  margin: 10px;
+}
+
+.nonActive {
+  display: none;
 }
