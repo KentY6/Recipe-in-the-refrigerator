@@ -15,7 +15,11 @@ export const AddFoodsPage = ({
 }) => {
   // 食材リストの選択されているカテゴリータブ
   const [categorizedFoodList, setCategorizedFoodList] = useState([]);
+  const [categorizedRefrigerator, setCategorizedRefrigerator] = useState([]);
   const [searchedFoodList, setSearchedFoodList] = useState([]);
+
+  // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
+  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する
   const addFoodInRefrigerator = (data) => {
@@ -44,11 +48,23 @@ export const AddFoodsPage = ({
   };
 
   // カテゴリー検索機能
-  const categorySearch = (selectedCategory) => {
-    setSearchedFoodList("");
-    setCategorizedFoodList(
-      foodList.filter((food) => food.category === selectedCategory)
-    );
+  const categorySearch = (selectedCategory, attribute) => {
+    if (attribute === "foodList") {
+      setSearchedFoodList("");
+      setCategorizedFoodList(
+        foodList.filter((food) => food.category === selectedCategory)
+      );
+    } else {
+      if (attribute === "refrigerator") {
+        setCategorizedRefrigerator(
+          foodInTheRefrigerator.filter(
+            (food) => food.category === selectedCategory
+          )
+        );
+      } else {
+        return;
+      }
+    }
   };
 
   return (
@@ -60,11 +76,19 @@ export const AddFoodsPage = ({
 
       {/* 食材リスト */}
       <div className="foodListContainer">
+        {/* todo:AccordionButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
         <AccordionButton text={"食材リスト"} />
         <div className="foodListBox">
-          <CategoryTab categorySearch={categorySearch} />
+          <CategoryTab
+            categorySearch={categorySearch}
+            foodCategory={foodCategory}
+            setCategorizedFoodList={setCategorizedFoodList}
+            setSearchedFoodList={setSearchedFoodList}
+            attribute={"foodList"}
+          />
           <SearchBar searchFood={searchFood} />
           <div className="foodList">
+            {/* todo:関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
             <List
               isFood={
                 searchedFoodList.length > 0
@@ -85,10 +109,20 @@ export const AddFoodsPage = ({
       <div className="RefrigeratorContainer">
         <AccordionButton text={"冷蔵庫の中身"} />
         <div className="refrigeratorBox">
+          <CategoryTab
+            categorySearch={categorySearch}
+            foodCategory={foodCategory}
+            setCategorizedRefrigerator={setCategorizedRefrigerator}
+            attribute={"refrigerator"}
+          />
           <List
-            isFood={foodInTheRefrigerator}
+            isFood={
+              categorizedRefrigerator.length > 0
+                ? categorizedRefrigerator
+                : foodInTheRefrigerator
+            }
             deleteFood={deleteFood}
-            listOrRefrigerator={"refrigerator"}
+            attribute={"refrigerator"}
           />
         </div>
       </div>
