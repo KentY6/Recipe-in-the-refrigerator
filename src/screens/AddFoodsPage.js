@@ -17,6 +17,10 @@ export const AddFoodsPage = ({
   const [categorizedFoodList, setCategorizedFoodList] = useState([]);
   const [categorizedRefrigerator, setCategorizedRefrigerator] = useState([]);
   const [searchedFoodList, setSearchedFoodList] = useState([]);
+  const [searchedRefrigerator, setSearchedRefrigerator] = useState([]);
+
+  // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
+  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
 
   // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
   const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
@@ -40,11 +44,20 @@ export const AddFoodsPage = ({
   };
 
   // ワード検索機能
-  const searchFood = (searchWord) => {
-    const filterFoodList = foodList.filter(
-      (food) => food.name.indexOf(searchWord) !== -1
-    );
-    setSearchedFoodList(filterFoodList);
+  const searchFood = (searchWord, attribute) => {
+    if (attribute === "foodList") {
+      const filterFoodList = foodList.filter(
+        (food) => food.name.indexOf(searchWord) !== -1
+      );
+      setSearchedFoodList(filterFoodList);
+    } else {
+      if (attribute === "refrigerator") {
+        const filterRefrigerator = foodInTheRefrigerator.filter(
+          (food) => food.name.indexOf(searchWord) !== -1
+        );
+        setSearchedRefrigerator(filterRefrigerator);
+      }
+    }
   };
 
   // カテゴリー検索機能
@@ -56,6 +69,8 @@ export const AddFoodsPage = ({
       );
     } else {
       if (attribute === "refrigerator") {
+        setSearchedRefrigerator("");
+
         setCategorizedRefrigerator(
           foodInTheRefrigerator.filter(
             (food) => food.category === selectedCategory
@@ -86,9 +101,11 @@ export const AddFoodsPage = ({
             setSearchedFoodList={setSearchedFoodList}
             attribute={"foodList"}
           />
-          <SearchBar searchFood={searchFood} />
+
+          <SearchBar searchFood={searchFood} attribute={"foodList"} />
           <div className="foodList">
-            {/* todo:関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
+            {/* todo:isFoodは関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
+
             <List
               isFood={
                 searchedFoodList.length > 0
@@ -115,9 +132,12 @@ export const AddFoodsPage = ({
             setCategorizedRefrigerator={setCategorizedRefrigerator}
             attribute={"refrigerator"}
           />
+          <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
           <List
             isFood={
-              categorizedRefrigerator.length > 0
+              searchedRefrigerator.length > 0
+                ? searchedRefrigerator
+                : categorizedRefrigerator.length > 0
                 ? categorizedRefrigerator
                 : foodInTheRefrigerator
             }
