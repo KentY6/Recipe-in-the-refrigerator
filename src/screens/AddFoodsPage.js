@@ -22,9 +22,6 @@ export const AddFoodsPage = ({
   // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
   const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
 
-  // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
-  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
-
   // 冷蔵庫の中身に食材リストで選択した食材を追加する
   const addFoodInRefrigerator = (data) => {
     // 冷蔵庫の中に入っている食材は追加されないようにする
@@ -70,7 +67,6 @@ export const AddFoodsPage = ({
     } else {
       if (attribute === "refrigerator") {
         setSearchedRefrigerator("");
-
         setCategorizedRefrigerator(
           foodInTheRefrigerator.filter(
             (food) => food.category === selectedCategory
@@ -105,7 +101,6 @@ export const AddFoodsPage = ({
           <SearchBar searchFood={searchFood} attribute={"foodList"} />
           <div className="foodList">
             {/* todo:isFoodは関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
-
             <List
               isFood={
                 searchedFoodList.length > 0
@@ -149,7 +144,9 @@ export const AddFoodsPage = ({
 
       {/* レシピ検索ボタン */}
       <div className="searchRecipe">
-        <SearchButtonLarge text={"冷蔵庫の中身からレシピ検索"} />
+        <Link to={`/recipesPage`}>
+          <SearchButtonLarge text={"冷蔵庫の中身からレシピ検索"} />
+        </Link>
       </div>
     </div>
   );
