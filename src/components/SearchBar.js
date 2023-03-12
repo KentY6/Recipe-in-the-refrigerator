@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-export const SearchBar = ({ searchFood }) => {
+export const SearchBar = ({ searchFood, attribute }) => {
   const [searchWord, setSearchWord] = useState("");
 
   const getInputText = (e) => {
     e.preventDefault();
-    searchFood(searchWord);
+    searchFood(searchWord, attribute);
   };
 
   return (
