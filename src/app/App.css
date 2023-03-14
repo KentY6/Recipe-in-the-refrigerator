@@ -118,19 +118,238 @@
   text-decoration: none;
 }
 
-.foodImage {
-  width: 100px;
-  height: 100px;
-}
-
 .categoryTab {
   display: flex;
+  max-width: 360px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
 }
 
-.categoryText {
+.activeCategoryText {
+  color: black;
+  font-weight: bold;
   margin: 10px;
+  font-size: 20px;
+  border-bottom: 1px solid blue;
+  justify-content: center;
+}
+.nonActiveCategoryText {
+  color: gray;
+  margin: 10px;
+  font-size: 20px;
 }
 
 .nonActive {
-  display: none;
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.nonActiveButton {
+  visibility: hidden;
+}
+
+.returnAndTitle {
+  display: flex;
+}
+
+.returnButton {
+  position: absolute;
+  font-size: 40px;
+  color: black;
+  z-index: 1;
+}
+
+.pageName {
+  position: absolute;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+  z-index: 0;
+}
+
+.foodListContainer {
+  margin-top: 86px;
+}
+
+.foodListBar {
+  display: flex;
+  width: 330px;
+  height: 56px;
+  margin-top: 36px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 0px;
+  background-color: #fa9c9c;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.refrigeratorBar {
+  display: flex;
+  width: 330px;
+  height: 56px;
+  margin-top: 12px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 0px;
+  background-color: #e1e5fb;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.goToRecipesPageBar {
+  display: flex;
+  width: 330px;
+  height: 56px;
+  margin-top: 12px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 0px;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.accordionText {
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.nonActiveAccordionButton {
+  font-size: 30px;
+  margin-right: 15px;
+  transition: 0.5s;
+}
+
+.activeAccordionButton {
+  font-size: 30px;
+  margin-right: 15px;
+  margin-bottom: 5.5px;
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+.foodListBox {
+  display: flex;
+  flex-flow: column;
+  opacity: 1;
+  transition: 0.5s;
+  align-items: center;
+}
+
+.refrigeratorBox {
+  display: flex;
+  flex-flow: column;
+  opacity: 1;
+  transition: 0.5s;
+  align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.textBox {
+  width: 130px;
+  border: 0;
+  border-bottom: 1px solid gray;
+  outline: none;
+  text-align: center;
+  color: gray;
+  font-size: 20px;
+}
+
+.foods {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.activeFood {
+  display: flex;
+  flex-flow: column;
+  width: 140px;
+  height: 140px;
+  margin: 16px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #fa9c9c;
+}
+
+.foodListNonActiveFood {
+  display: flex;
+  flex-flow: column;
+  width: 140px;
+  height: 140px;
+  margin: 16px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.refrigeratorNonActiveFood {
+  display: flex;
+  flex-flow: column;
+  width: 140px;
+  height: 140px;
+  margin: 16px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #e1e5fb;
+}
+
+.buttonAndName {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.addButton {
+  font-size: 24px;
+}
+
+.deleteButton {
+  font-size: 24px;
+}
+
+.foodName {
+  width: 70px;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.foodImage {
+  margin-top: 10px;
+  width: 100px;
+  height: 80px;
 }
