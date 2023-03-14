@@ -2,7 +2,6 @@ import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageName } from "../components/PageName";
 import { AccordionButton } from "../components/AccordionButton";
-import { SearchButtonLarge } from "../components/SearchButtonLarge";
 import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
@@ -13,16 +12,26 @@ export const AddFoodsPage = ({
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
 }) => {
-  // 食材リストの選択されているカテゴリータブ
+  // 選択されているカテゴリータブで検索されたリスト
   const [categorizedFoodList, setCategorizedFoodList] = useState([]);
   const [categorizedRefrigerator, setCategorizedRefrigerator] = useState([]);
+  const [selectedFoodListCategory, setSelectedFoodListCategory] =
+    useState("TOP");
+  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
+    useState("TOP");
+
+  // 検索されたリスト
   const [searchedFoodList, setSearchedFoodList] = useState([]);
   const [searchedRefrigerator, setSearchedRefrigerator] = useState([]);
+
+  // アコーディオンボタンがアクティブか否かのシグナル
+  const [isActiveFoodList, setIsActiveFoodList] = useState(false);
+  const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
 
   // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
   const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
 
-  // 冷蔵庫の中身に食材リストで選択した食材を追加する
+  // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
   const addFoodInRefrigerator = (data) => {
     // 冷蔵庫の中に入っている食材は追加されないようにする
     if (
@@ -33,7 +42,7 @@ export const AddFoodsPage = ({
     else setFoodInTheRefrigerator([...foodInTheRefrigerator, data]);
   };
 
-  // 冷蔵庫の中の食材を削除する
+  // 冷蔵庫の中の食材を削除する機能
   const deleteFood = (name) => {
     setFoodInTheRefrigerator(
       foodInTheRefrigerator.filter((food) => food.name !== name)
@@ -58,19 +67,19 @@ export const AddFoodsPage = ({
   };
 
   // カテゴリー検索機能
-  const categorySearch = (selectedCategory, attribute) => {
+  const categorySearch = (Category, attribute) => {
     if (attribute === "foodList") {
       setSearchedFoodList("");
+      setSelectedFoodListCategory(Category);
       setCategorizedFoodList(
-        foodList.filter((food) => food.category === selectedCategory)
+        foodList.filter((food) => food.category === Category)
       );
     } else {
       if (attribute === "refrigerator") {
         setSearchedRefrigerator("");
+        setSelectedRefrigeratorCategory(Category);
         setCategorizedRefrigerator(
-          foodInTheRefrigerator.filter(
-            (food) => food.category === selectedCategory
-          )
+          foodInTheRefrigerator.filter((food) => food.category === Category)
         );
       } else {
         return;
@@ -80,25 +89,34 @@ export const AddFoodsPage = ({
 
   return (
     <div>
-      <Link to={"/"} className="returnButton">
-        <UndoRoundedIcon />
-      </Link>
-      <PageName pageName={"冷蔵庫に食材を追加する"} />
+      <div className="returnAndTitle">
+        <Link to={"/"} className="returnButton">
+          <UndoRoundedIcon fontSize="40px" />
+        </Link>
+        <PageName pageName={"冷蔵庫に食材を追加する"} />
+      </div>
 
       {/* 食材リスト */}
       <div className="foodListContainer">
         {/* todo:AccordionButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
-        <AccordionButton text={"食材リスト"} />
-        <div className="foodListBox">
+        <AccordionButton
+          text={"食材リスト"}
+          isActive={isActiveFoodList}
+          setIsActive={setIsActiveFoodList}
+          attribute={"foodList"}
+        />
+        <div
+          className={isActiveFoodList === true ? "foodListBox" : "nonActive"}
+        >
+          <SearchBar searchFood={searchFood} attribute={"foodList"} />
           <CategoryTab
             categorySearch={categorySearch}
             foodCategory={foodCategory}
             setCategorizedFoodList={setCategorizedFoodList}
             setSearchedFoodList={setSearchedFoodList}
             attribute={"foodList"}
+            selectedCategory={selectedFoodListCategory}
           />
-
-          <SearchBar searchFood={searchFood} attribute={"foodList"} />
           <div className="foodList">
             {/* todo:isFoodは関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
             <List
@@ -111,7 +129,8 @@ export const AddFoodsPage = ({
               }
               addFoodInRefrigerator={addFoodInRefrigerator}
               deleteFood={deleteFood}
-              attribute={"list"}
+              attribute={"foodList"}
+              foodInTheRefrigerator={foodInTheRefrigerator}
             />
           </div>
         </div>
@@ -119,15 +138,25 @@ export const AddFoodsPage = ({
 
       {/* 冷蔵庫の中身 */}
       <div className="RefrigeratorContainer">
-        <AccordionButton text={"冷蔵庫の中身"} />
-        <div className="refrigeratorBox">
+        <AccordionButton
+          text={"冷蔵庫の中身"}
+          isActive={isActiveRefrigerator}
+          setIsActive={setIsActiveRefrigerator}
+          attribute={"refrigerator"}
+        />
+        <div
+          className={
+            isActiveRefrigerator === true ? "refrigeratorBox" : "nonActive"
+          }
+        >
+          <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
           <CategoryTab
             categorySearch={categorySearch}
             foodCategory={foodCategory}
             setCategorizedRefrigerator={setCategorizedRefrigerator}
             attribute={"refrigerator"}
+            selectedCategory={selectedRefrigeratorCategory}
           />
-          <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
           <List
             isFood={
               searchedRefrigerator.length > 0
@@ -144,8 +173,11 @@ export const AddFoodsPage = ({
 
       {/* レシピ検索ボタン */}
       <div className="searchRecipe">
-        <Link to={`/recipesPage`}>
-          <SearchButtonLarge text={"冷蔵庫の中身からレシピ検索"} />
+        <Link to={`/recipesPage`} className="link">
+          <AccordionButton
+            text={"冷蔵庫の中身からレシピ検索"}
+            attribute={"goToRecipesPage"}
+          />
         </Link>
       </div>
     </div>

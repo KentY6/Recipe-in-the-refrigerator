@@ -1,6 +1,11 @@
 import React from "react";
 
-export const CategoryTab = ({ categorySearch, foodCategory, attribute }) => {
+export const CategoryTab = ({
+  categorySearch,
+  foodCategory,
+  attribute,
+  selectedCategory,
+}) => {
   const inputCategory = (category) => {
     categorySearch(category, attribute);
   };
@@ -9,7 +14,11 @@ export const CategoryTab = ({ categorySearch, foodCategory, attribute }) => {
     <div className="categoryTab">
       {foodCategory.map((category, index) => (
         <div
-          className="categoryText"
+          className={
+            category === selectedCategory
+              ? "activeCategoryText"
+              : "nonActiveCategoryText"
+          }
           onClick={() => inputCategory(category)}
           key={index}
         >
