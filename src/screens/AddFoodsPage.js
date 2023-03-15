@@ -47,6 +47,16 @@ export const AddFoodsPage = ({
     setFoodInTheRefrigerator(
       foodInTheRefrigerator.filter((food) => food.name !== name)
     );
+    if (categorizedRefrigerator.length !== 0) {
+      setCategorizedRefrigerator(
+        categorizedRefrigerator.filter((food) => food.name !== name)
+      );
+    }
+    if (searchedRefrigerator.length !== 0) {
+      setSearchedRefrigerator(
+        searchedRefrigerator.filter((food) => food.name !== name)
+      );
+    }
   };
 
   // ワード検索機能
@@ -87,6 +97,56 @@ export const AddFoodsPage = ({
     }
   };
 
+  // リストに表示する食材を決める
+  const inFoodList = () => {
+    if (searchedFoodList.length > 0) {
+      return searchedFoodList;
+    } else {
+      if (categorizedFoodList.length > 0) {
+        return categorizedFoodList;
+      } else {
+        return foodList;
+      }
+    }
+  };
+  const isFoodList = inFoodList();
+
+  const inRefrigerator = () => {
+    if (searchedRefrigerator.length > 0) {
+      return searchedRefrigerator;
+    } else {
+      if (categorizedRefrigerator.length > 0) {
+        return categorizedRefrigerator;
+      } else {
+        if (selectedRefrigeratorCategory === "TOP") {
+          return foodInTheRefrigerator;
+        } else {
+          if (
+            selectedRefrigeratorCategory !== "TOP" &&
+            foodInTheRefrigerator.length === 0
+          ) {
+            return foodInTheRefrigerator;
+          } else {
+            if (
+              selectedRefrigeratorCategory !== "TOP" &&
+              categorizedRefrigerator.length === 0
+            ) {
+              return "notFound";
+            } else {
+              if (
+                selectedRefrigeratorCategory !== "TOP" &&
+                searchedRefrigerator.length === 0
+              ) {
+                return "notFound";
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+  const isRefrigerator = inRefrigerator();
+
   return (
     <div>
       <div className="returnAndTitle">
@@ -118,15 +178,8 @@ export const AddFoodsPage = ({
             selectedCategory={selectedFoodListCategory}
           />
           <div className="foodList">
-            {/* todo:isFoodは関数を作ってからそれを渡すのが良い(三項演算子でネストを作るのが良くない) */}
             <List
-              isFood={
-                searchedFoodList.length > 0
-                  ? searchedFoodList
-                  : categorizedFoodList.length > 0
-                  ? categorizedFoodList
-                  : foodList
-              }
+              isFood={isFoodList}
               addFoodInRefrigerator={addFoodInRefrigerator}
               deleteFood={deleteFood}
               attribute={"foodList"}
@@ -158,13 +211,7 @@ export const AddFoodsPage = ({
             selectedCategory={selectedRefrigeratorCategory}
           />
           <List
-            isFood={
-              searchedRefrigerator.length > 0
-                ? searchedRefrigerator
-                : categorizedRefrigerator.length > 0
-                ? categorizedRefrigerator
-                : foodInTheRefrigerator
-            }
+            isFood={isRefrigerator}
             deleteFood={deleteFood}
             attribute={"refrigerator"}
           />
