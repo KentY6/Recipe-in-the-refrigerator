@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 export const SearchBar = ({ searchFood, attribute }) => {
-  const [searchWord, setSearchWord] = useState("食材を検索");
+  const [searchWord, setSearchWord] = useState("");
 
   const getInputText = (e) => {
     e.preventDefault();
@@ -15,6 +15,7 @@ export const SearchBar = ({ searchFood, attribute }) => {
         <input
           className="textBox"
           value={searchWord}
+          placeholder="食材を検索"
           onChange={(e) => setSearchWord(e.target.value)}
           type="text"
         />

@@ -22,34 +22,43 @@ export const List = ({
   };
 
   return (
-    <div className="foods">
-      {isFood.map((data) => (
-        <div
-          className={
-            isActiveFood(data) !== undefined
-              ? `activeFood`
-              : `${attribute}NonActiveFood`
-          }
-          key={data.categoryId}
-        >
-          <div className="buttonAndName">
+    <div>
+      {isFood === "notFound" ? (
+        <div></div>
+      ) : (
+        <div className="foods">
+          {isFood.map((data) => (
             <div
-              // 選択した食材のデータを関数に渡す
               className={
-                attribute === "foodList" ? "addButton" : "nonActiveButton"
+                isActiveFood(data) !== undefined
+                  ? `activeFood`
+                  : `${attribute}NonActiveFood`
               }
-              onClick={() => addFoodInRefrigerator(data)}
+              key={data.categoryId}
             >
-              <FontAwesomeIcon icon={faSquarePlus} />
+              <div className="buttonAndName">
+                <div
+                  // 選択した食材のデータを関数に渡す
+                  className={
+                    attribute === "foodList" ? "addButton" : "nonActiveButton"
+                  }
+                  onClick={() => addFoodInRefrigerator(data)}
+                >
+                  <FontAwesomeIcon icon={faSquarePlus} />
+                </div>
+                <div className="foodName">{data.name}</div>
+                <div
+                  className="deleteButton"
+                  onClick={() => deleteFood(data.name)}
+                >
+                  <FontAwesomeIcon icon={faSquareMinus} />
+                </div>
+              </div>
+              <img src={data.image} alt="" className="foodImage" />
             </div>
-            <div className="foodName">{data.name}</div>
-            <div className="deleteButton" onClick={() => deleteFood(data.name)}>
-              <FontAwesomeIcon icon={faSquareMinus} />
-            </div>
-          </div>
-          <img src={data.image} alt="" className="foodImage" />
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };
