@@ -2,7 +2,7 @@ import React from "react";
 import ArrowCircleDownRoundedIcon from "@mui/icons-material/ArrowCircleDownRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-export const AccordionButton = ({ text, isActive, setIsActive, attribute }) => {
+export const RectangleButton = ({ text, isActive, setIsActive, attribute }) => {
   //
 
   // アコーディオン起動
@@ -16,8 +16,8 @@ export const AccordionButton = ({ text, isActive, setIsActive, attribute }) => {
       <div
         className={
           isActive === true
-            ? "activeAccordionButton"
-            : "nonActiveAccordionButton"
+            ? "activeRectangleButton"
+            : "nonActiveRectangleButton"
         }
         onClick={() => toggleIsActive()}
       >

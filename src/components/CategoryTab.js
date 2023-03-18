@@ -2,7 +2,7 @@ import React from "react";
 
 export const CategoryTab = ({
   categorySearch,
-  foodCategory,
+  category,
   attribute,
   selectedCategory,
 }) => {
@@ -11,20 +11,15 @@ export const CategoryTab = ({
   };
 
   return (
-    <div className="categoryTab">
-      {foodCategory.map((category, index) => (
-        <div
-          className={
-            category === selectedCategory
-              ? "activeCategoryText"
-              : "nonActiveCategoryText"
-          }
-          onClick={() => inputCategory(category)}
-          key={index}
-        >
-          {category}
-        </div>
-      ))}
+    <div
+      className={
+        category === selectedCategory
+          ? "activeCategoryText"
+          : "nonActiveCategoryText"
+      }
+      onClick={() => inputCategory(category)}
+    >
+      {category}
     </div>
   );
 };
