@@ -23,7 +23,7 @@ export const List = ({
 
   return (
     <div>
-      {isFood === "notFound" ? (
+      {isFood.length === 0 ? (
         <div></div>
       ) : (
         <div className="foods">

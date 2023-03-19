@@ -1,7 +1,7 @@
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
-import { PageName } from "../components/PageName";
-import { AccordionButton } from "../components/AccordionButton";
+import { PageTitle } from "../components/PageTitle";
+import { RectangleButton } from "../components/RectangleButton";
 import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
@@ -11,25 +11,28 @@ export const AddFoodsPage = ({
   foodList,
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
+  foodCategory,
 }) => {
-  // 選択されているカテゴリータブで検索されたリスト
-  const [categorizedFoodList, setCategorizedFoodList] = useState([]);
-  const [categorizedRefrigerator, setCategorizedRefrigerator] = useState([]);
+  // カテゴリー検索されたリスト
+  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
+    []
+  );
+  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
+    useState([]);
   const [selectedFoodListCategory, setSelectedFoodListCategory] =
     useState("TOP");
   const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
     useState("TOP");
 
   // 検索されたリスト
-  const [searchedFoodList, setSearchedFoodList] = useState([]);
-  const [searchedRefrigerator, setSearchedRefrigerator] = useState([]);
+  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
+  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
+    []
+  );
 
   // アコーディオンボタンがアクティブか否かのシグナル
   const [isActiveFoodList, setIsActiveFoodList] = useState(false);
   const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
-
-  // todo:カテゴリーは親コンポーネントで管理して子コンポーネント単体をmapする
-  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
   const addFoodInRefrigerator = (data) => {
@@ -40,6 +43,7 @@ export const AddFoodsPage = ({
     )
       return;
     else setFoodInTheRefrigerator([...foodInTheRefrigerator, data]);
+    setSelectedRefrigeratorCategory("TOP");
   };
 
   // 冷蔵庫の中の食材を削除する機能
@@ -47,14 +51,14 @@ export const AddFoodsPage = ({
     setFoodInTheRefrigerator(
       foodInTheRefrigerator.filter((food) => food.name !== name)
     );
-    if (categorizedRefrigerator.length !== 0) {
-      setCategorizedRefrigerator(
-        categorizedRefrigerator.filter((food) => food.name !== name)
+    if (categorizedFoodInRefrigerator.length !== 0) {
+      setCategorizedFoodInRefrigerator(
+        categorizedFoodInRefrigerator.filter((food) => food.name !== name)
       );
     }
-    if (searchedRefrigerator.length !== 0) {
-      setSearchedRefrigerator(
-        searchedRefrigerator.filter((food) => food.name !== name)
+    if (searchedFoodInRefrigerator.length !== 0) {
+      setSearchedFoodInRefrigerator(
+        searchedFoodInRefrigerator.filter((food) => food.name !== name)
       );
     }
   };
@@ -65,87 +69,77 @@ export const AddFoodsPage = ({
       const filterFoodList = foodList.filter(
         (food) => food.name.indexOf(searchWord) !== -1
       );
-      setSearchedFoodList(filterFoodList);
-    } else {
-      if (attribute === "refrigerator") {
-        const filterRefrigerator = foodInTheRefrigerator.filter(
-          (food) => food.name.indexOf(searchWord) !== -1
-        );
-        setSearchedRefrigerator(filterRefrigerator);
-      }
+      setSearchedFoodInFoodList(filterFoodList);
+      setSelectedFoodListCategory("TOP");
+    }
+    if (attribute === "refrigerator") {
+      const filterRefrigerator = foodInTheRefrigerator.filter(
+        (food) => food.name.indexOf(searchWord) !== -1
+      );
+      setSearchedFoodInRefrigerator(filterRefrigerator);
+      setSelectedRefrigeratorCategory("TOP");
     }
   };
 
   // カテゴリー検索機能
   const categorySearch = (Category, attribute) => {
     if (attribute === "foodList") {
-      setSearchedFoodList("");
+      setSearchedFoodInFoodList("");
       setSelectedFoodListCategory(Category);
-      setCategorizedFoodList(
+      setCategorizedFoodInFoodList(
         foodList.filter((food) => food.category === Category)
       );
-    } else {
-      if (attribute === "refrigerator") {
-        setSearchedRefrigerator("");
-        setSelectedRefrigeratorCategory(Category);
-        setCategorizedRefrigerator(
-          foodInTheRefrigerator.filter((food) => food.category === Category)
-        );
-      } else {
-        return;
-      }
+    }
+    if (attribute === "refrigerator") {
+      setSearchedFoodInRefrigerator("");
+      setSelectedRefrigeratorCategory(Category);
+      setCategorizedFoodInRefrigerator(
+        foodInTheRefrigerator.filter((food) => food.category === Category)
+      );
+      return;
     }
   };
 
   // リストに表示する食材を決める
-  const inFoodList = () => {
-    if (searchedFoodList.length > 0) {
-      return searchedFoodList;
-    } else {
-      if (categorizedFoodList.length > 0) {
-        return categorizedFoodList;
-      } else {
-        return foodList;
-      }
+  const whichFoodInFoodList = () => {
+    // 配列を作ってそこに入れるようにする
+    let whichFoodArray = [];
+    // カテゴリーがTOPの時
+    if (selectedFoodListCategory === "TOP") {
+      whichFoodArray = foodList;
     }
+    if (searchedFoodInFoodList.length > 0) {
+      whichFoodArray = searchedFoodInFoodList;
+    }
+    if (
+      categorizedFoodInFoodList.length > 0 &&
+      selectedFoodListCategory !== "TOP"
+    ) {
+      whichFoodArray = categorizedFoodInFoodList;
+    }
+    return whichFoodArray;
   };
-  const isFoodList = inFoodList();
+  const whichFoodInFoodListResult = whichFoodInFoodList();
 
-  const inRefrigerator = () => {
-    if (searchedRefrigerator.length > 0) {
-      return searchedRefrigerator;
-    } else {
-      if (categorizedRefrigerator.length > 0) {
-        return categorizedRefrigerator;
-      } else {
-        if (selectedRefrigeratorCategory === "TOP") {
-          return foodInTheRefrigerator;
-        } else {
-          if (
-            selectedRefrigeratorCategory !== "TOP" &&
-            foodInTheRefrigerator.length === 0
-          ) {
-            return foodInTheRefrigerator;
-          } else {
-            if (
-              selectedRefrigeratorCategory !== "TOP" &&
-              categorizedRefrigerator.length === 0
-            ) {
-              return "notFound";
-            } else {
-              if (
-                selectedRefrigeratorCategory !== "TOP" &&
-                searchedRefrigerator.length === 0
-              ) {
-                return "notFound";
-              }
-            }
-          }
-        }
-      }
+  const whichFoodInRefrigerator = () => {
+    // 配列を作ってそこに入れるようにする
+    let whichFoodArray = [];
+    // カテゴリーがTOPの時
+    if (selectedRefrigeratorCategory === "TOP") {
+      whichFoodArray = foodInTheRefrigerator;
     }
+    if (searchedFoodInRefrigerator.length > 0) {
+      whichFoodArray = searchedFoodInRefrigerator;
+    }
+    if (
+      categorizedFoodInRefrigerator.length > 0 &&
+      selectedRefrigeratorCategory !== "TOP"
+    ) {
+      whichFoodArray = categorizedFoodInRefrigerator;
+    }
+    return whichFoodArray;
   };
-  const isRefrigerator = inRefrigerator();
+  const whichFoodInRefrigeratorResult = whichFoodInRefrigerator();
 
   return (
     <div>
@@ -153,13 +147,13 @@ export const AddFoodsPage = ({
         <Link to={"/"} className="returnButton">
           <UndoRoundedIcon fontSize="40px" />
         </Link>
-        <PageName pageName={"冷蔵庫に食材を追加する"} />
+        <PageTitle PageTitle={"冷蔵庫に食材を追加する"} />
       </div>
 
       {/* 食材リスト */}
       <div className="foodListContainer">
-        {/* todo:AccordionButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
-        <AccordionButton
+        {/* todo:RectangleButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
+        <RectangleButton
           text={"食材リスト"}
           isActive={isActiveFoodList}
           setIsActive={setIsActiveFoodList}
@@ -169,17 +163,21 @@ export const AddFoodsPage = ({
           className={isActiveFoodList === true ? "foodListBox" : "nonActive"}
         >
           <SearchBar searchFood={searchFood} attribute={"foodList"} />
-          <CategoryTab
-            categorySearch={categorySearch}
-            foodCategory={foodCategory}
-            setCategorizedFoodList={setCategorizedFoodList}
-            setSearchedFoodList={setSearchedFoodList}
-            attribute={"foodList"}
-            selectedCategory={selectedFoodListCategory}
-          />
+          <div className="categoryTab">
+            {foodCategory.map((category, index) => (
+              <CategoryTab
+                categorySearch={categorySearch}
+                category={category}
+                attribute={"foodList"}
+                selectedCategory={selectedFoodListCategory}
+                key={index}
+              />
+            ))}
+          </div>
+
           <div className="foodList">
             <List
-              isFood={isFoodList}
+              isFood={whichFoodInFoodListResult}
               addFoodInRefrigerator={addFoodInRefrigerator}
               deleteFood={deleteFood}
               attribute={"foodList"}
@@ -191,7 +189,7 @@ export const AddFoodsPage = ({
 
       {/* 冷蔵庫の中身 */}
       <div className="RefrigeratorContainer">
-        <AccordionButton
+        <RectangleButton
           text={"冷蔵庫の中身"}
           isActive={isActiveRefrigerator}
           setIsActive={setIsActiveRefrigerator}
@@ -203,15 +201,19 @@ export const AddFoodsPage = ({
           }
         >
           <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
-          <CategoryTab
-            categorySearch={categorySearch}
-            foodCategory={foodCategory}
-            setCategorizedRefrigerator={setCategorizedRefrigerator}
-            attribute={"refrigerator"}
-            selectedCategory={selectedRefrigeratorCategory}
-          />
+          <div className="categoryTab">
+            {foodCategory.map((category, index) => (
+              <CategoryTab
+                categorySearch={categorySearch}
+                category={category}
+                attribute={"refrigerator"}
+                selectedCategory={selectedRefrigeratorCategory}
+                key={index}
+              />
+            ))}
+          </div>
           <List
-            isFood={isRefrigerator}
+            isFood={whichFoodInRefrigeratorResult}
             deleteFood={deleteFood}
             attribute={"refrigerator"}
           />
@@ -221,7 +223,7 @@ export const AddFoodsPage = ({
       {/* レシピ検索ボタン */}
       <div className="searchRecipe">
         <Link to={`/recipesPage`} className="link">
-          <AccordionButton
+          <RectangleButton
             text={"冷蔵庫の中身からレシピ検索"}
             attribute={"goToRecipesPage"}
           />

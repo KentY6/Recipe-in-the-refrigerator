@@ -76,6 +76,8 @@ export const Main = () => {
     },
   ];
 
+  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
+
   const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
 
   return (
@@ -90,6 +92,7 @@ export const Main = () => {
               foodList={foodList}
               foodInTheRefrigerator={foodInTheRefrigerator}
               setFoodInTheRefrigerator={setFoodInTheRefrigerator}
+              foodCategory={foodCategory}
             />
           }
         />

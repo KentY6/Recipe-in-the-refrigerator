@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Title } from "../components/Title";
+import { MainTitle } from "../components/MainTitle";
 import KitchenRoundedIcon from "@mui/icons-material/KitchenRounded";
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import RestaurantRoundedIcon from "@mui/icons-material/RestaurantRounded";
@@ -13,7 +13,7 @@ export const MenuPage = () => {
   return (
     <div className="refrigerator">
       <div className="mainTitle">
-        <Title title={`Recipe in the refrigerator`} />
+        <MainTitle MainTitle={`Recipe in the refrigerator`} />
       </div>
       <div className="upperContainer">
         <div className="recipesContainer">
