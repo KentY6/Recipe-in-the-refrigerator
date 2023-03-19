@@ -43,6 +43,7 @@ export const AddFoodsPage = ({
     )
       return;
     else setFoodInTheRefrigerator([...foodInTheRefrigerator, data]);
+    setSelectedRefrigeratorCategory("TOP");
   };
 
   // 冷蔵庫の中の食材を削除する機能
@@ -70,14 +71,13 @@ export const AddFoodsPage = ({
       );
       setSearchedFoodInFoodList(filterFoodList);
       setSelectedFoodListCategory("TOP");
-    } else {
-      if (attribute === "refrigerator") {
-        const filterRefrigerator = foodInTheRefrigerator.filter(
-          (food) => food.name.indexOf(searchWord) !== -1
-        );
-        setSearchedFoodInRefrigerator(filterRefrigerator);
-        setSelectedRefrigeratorCategory("TOP");
-      }
+    }
+    if (attribute === "refrigerator") {
+      const filterRefrigerator = foodInTheRefrigerator.filter(
+        (food) => food.name.indexOf(searchWord) !== -1
+      );
+      setSearchedFoodInRefrigerator(filterRefrigerator);
+      setSelectedRefrigeratorCategory("TOP");
     }
   };
 
@@ -89,30 +89,35 @@ export const AddFoodsPage = ({
       setCategorizedFoodInFoodList(
         foodList.filter((food) => food.category === Category)
       );
-    } else {
-      if (attribute === "refrigerator") {
-        setSearchedFoodInRefrigerator("");
-        setSelectedRefrigeratorCategory(Category);
-        setCategorizedFoodInRefrigerator(
-          foodInTheRefrigerator.filter((food) => food.category === Category)
-        );
-      } else {
-        return;
-      }
+    }
+    if (attribute === "refrigerator") {
+      setSearchedFoodInRefrigerator("");
+      setSelectedRefrigeratorCategory(Category);
+      setCategorizedFoodInRefrigerator(
+        foodInTheRefrigerator.filter((food) => food.category === Category)
+      );
+      return;
     }
   };
 
   // リストに表示する食材を決める
   const whichFoodInFoodList = () => {
-    if (searchedFoodInFoodList.length > 0) {
-      return searchedFoodInFoodList;
-    } else {
-      if (categorizedFoodInFoodList.length > 0) {
-        return categorizedFoodInFoodList;
-      } else {
-        return foodList;
-      }
+    // 配列を作ってそこに入れるようにする
+    let whichFoodArray = [];
+    // カテゴリーがTOPの時
+    if (selectedFoodListCategory === "TOP") {
+      whichFoodArray = foodList;
     }
+    if (searchedFoodInFoodList.length > 0) {
+      whichFoodArray = searchedFoodInFoodList;
+    }
+    if (
+      categorizedFoodInFoodList.length > 0 &&
+      selectedFoodListCategory !== "TOP"
+    ) {
+      whichFoodArray = categorizedFoodInFoodList;
+    }
+    return whichFoodArray;
   };
   const whichFoodInFoodListResult = whichFoodInFoodList();
 
@@ -126,7 +131,10 @@ export const AddFoodsPage = ({
     if (searchedFoodInRefrigerator.length > 0) {
       whichFoodArray = searchedFoodInRefrigerator;
     }
-    if (categorizedFoodInRefrigerator.length > 0) {
+    if (
+      categorizedFoodInRefrigerator.length > 0 &&
+      selectedRefrigeratorCategory !== "TOP"
+    ) {
       whichFoodArray = categorizedFoodInRefrigerator;
     }
     return whichFoodArray;
@@ -160,8 +168,6 @@ export const AddFoodsPage = ({
               <CategoryTab
                 categorySearch={categorySearch}
                 category={category}
-                setCategorizedFoodInFoodList={setCategorizedFoodInFoodList}
-                setSearchedFoodInFoodList={setSearchedFoodInFoodList}
                 attribute={"foodList"}
                 selectedCategory={selectedFoodListCategory}
                 key={index}
@@ -200,8 +206,6 @@ export const AddFoodsPage = ({
               <CategoryTab
                 categorySearch={categorySearch}
                 category={category}
-                setCategorizedFoodInFoodList={setCategorizedFoodInRefrigerator}
-                setSearchedFoodInFoodList={setSearchedFoodInRefrigerator}
                 attribute={"refrigerator"}
                 selectedCategory={selectedRefrigeratorCategory}
                 key={index}
