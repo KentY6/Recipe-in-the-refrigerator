@@ -12,6 +12,9 @@ export const AddFoodsPage = ({
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
   foodCategory,
+  getRecipesAPI,
+  recipesData,
+  setRecipesData,
 }) => {
   // カテゴリー検索されたリスト
   const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
@@ -44,6 +47,8 @@ export const AddFoodsPage = ({
       return;
     else setFoodInTheRefrigerator([...foodInTheRefrigerator, data]);
     setSelectedRefrigeratorCategory("TOP");
+    // 追加した食材でAPIをたたく
+    getRecipesAPI(data);
   };
 
   // 冷蔵庫の中の食材を削除する機能
@@ -60,6 +65,9 @@ export const AddFoodsPage = ({
       setSearchedFoodInRefrigerator(
         searchedFoodInRefrigerator.filter((food) => food.name !== name)
       );
+    }
+    if (recipesData.length > 0) {
+      setRecipesData(recipesData.filter((food) => food.name !== name));
     }
   };
 
