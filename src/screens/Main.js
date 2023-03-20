@@ -95,8 +95,13 @@ export const Main = () => {
       )
 
       .then((res) => {
-        let apiData = res.data.result;
-        setRecipesData([...recipesData, ...apiData]);
+        const apiData = res.data.result;
+        // 取得したAPIのオブジェクトにAPI取得に使用した食材を項目として追加する
+        const mapApiData = apiData.map((source) => ({
+          ...source,
+          foodName: food.name,
+        }));
+        setRecipesData([...recipesData, ...mapApiData]);
       })
 
       .catch((err) => console.log(err));

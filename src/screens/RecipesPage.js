@@ -2,6 +2,7 @@ import React from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
+import { Recipes } from "../components/Recipes";
 
 export const RecipesPage = ({ recipesData }) => {
   return (
@@ -12,24 +13,7 @@ export const RecipesPage = ({ recipesData }) => {
         </Link>
         <PageTitle PageTitle={"レシピ一覧"} />
       </div>
-      {recipesData.map((data, index) => (
-        <div className="recipes" key={data.recipeId}>
-          <div
-            className="recipe"
-            onClick={() => window.open(data.recipeUrl)}
-            key={data.recipesTitle}
-          >
-            <div>{data.recipeTitle}</div>
-            {/* <div>{data.name}</div> */}
-            <img className="recipe-image" alt="" src={data.mediumImageUrl} />
-            <ul className="material">
-              {data.recipeMaterial.map((material, index) => (
-                <li className="material-list" key={index}>{`${material}`}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
+      <Recipes recipesData={recipesData} />
     </div>
   );
 };

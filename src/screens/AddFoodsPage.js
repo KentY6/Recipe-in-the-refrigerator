@@ -67,7 +67,7 @@ export const AddFoodsPage = ({
       );
     }
     if (recipesData.length > 0) {
-      setRecipesData(recipesData.filter((food) => food.name !== name));
+      setRecipesData(recipesData.filter((food) => food.foodName !== name));
     }
   };
 
