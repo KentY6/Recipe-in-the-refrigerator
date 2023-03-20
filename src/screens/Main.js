@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AddFoodsPage } from "./AddFoodsPage";
@@ -77,14 +78,40 @@ export const Main = () => {
   ];
 
   const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
-
+  // 冷蔵庫の中身
   const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
+
+  // 取得したレシピAPI
+  const [recipesData, setRecipesData] = useState([]);
+
+  // APIキー
+  const appID = process.env.REACT_APP_Application_ID;
+
+  // API取得
+  const getRecipesAPI = (food) => {
+    axios
+      .get(
+        `https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=${appID}&categoryId=${food.categoryId}`
+      )
+
+      .then((res) => {
+        let apiData = res.data.result;
+        setRecipesData([...recipesData, ...apiData]);
+      })
+
+      .catch((err) => console.log(err));
+  };
+
+  console.log(recipesData);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/"} element={<MenuPage />} />
-        <Route path={"/recipesPage"} element={<RecipesPage />} />
+        <Route
+          path={"/recipesPage"}
+          element={<RecipesPage recipesData={recipesData} />}
+        />
         <Route
           path={"/addFoodsPage"}
           element={
@@ -93,6 +120,9 @@ export const Main = () => {
               foodInTheRefrigerator={foodInTheRefrigerator}
               setFoodInTheRefrigerator={setFoodInTheRefrigerator}
               foodCategory={foodCategory}
+              getRecipesAPI={getRecipesAPI}
+              recipesData={recipesData}
+              setRecipesData={setRecipesData}
             />
           }
         />
