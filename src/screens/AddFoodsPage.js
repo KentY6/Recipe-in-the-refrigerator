@@ -150,7 +150,7 @@ export const AddFoodsPage = ({
   const whichFoodInRefrigeratorResult = whichFoodInRefrigerator();
 
   return (
-    <div>
+    <div className="addFoodsPage">
       <div className="returnAndTitle">
         <Link to={"/"} className="returnButton">
           <UndoRoundedIcon fontSize="40px" />
@@ -171,16 +171,18 @@ export const AddFoodsPage = ({
           className={isActiveFoodList === true ? "foodListBox" : "nonActive"}
         >
           <SearchBar searchFood={searchFood} attribute={"foodList"} />
-          <div className="categoryTab">
-            {foodCategory.map((category, index) => (
-              <CategoryTab
-                categorySearch={categorySearch}
-                category={category}
-                attribute={"foodList"}
-                selectedCategory={selectedFoodListCategory}
-                key={index}
-              />
-            ))}
+          <div className="tabsBox">
+            <div className="categoryTab">
+              {foodCategory.map((category, index) => (
+                <CategoryTab
+                  categorySearch={categorySearch}
+                  category={category}
+                  attribute={"foodList"}
+                  selectedCategory={selectedFoodListCategory}
+                  key={index}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="foodList">
@@ -209,16 +211,18 @@ export const AddFoodsPage = ({
           }
         >
           <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
-          <div className="categoryTab">
-            {foodCategory.map((category, index) => (
-              <CategoryTab
-                categorySearch={categorySearch}
-                category={category}
-                attribute={"refrigerator"}
-                selectedCategory={selectedRefrigeratorCategory}
-                key={index}
-              />
-            ))}
+          <div className="tabsBox">
+            <div className="categoryTab">
+              {foodCategory.map((category, index) => (
+                <CategoryTab
+                  categorySearch={categorySearch}
+                  category={category}
+                  attribute={"refrigerator"}
+                  selectedCategory={selectedRefrigeratorCategory}
+                  key={index}
+                />
+              ))}
+            </div>
           </div>
           <List
             isFood={whichFoodInRefrigeratorResult}
