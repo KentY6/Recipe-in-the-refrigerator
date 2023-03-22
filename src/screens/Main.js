@@ -96,10 +96,12 @@ export const Main = () => {
 
       .then((res) => {
         const apiData = res.data.result;
+
         // 取得したAPIのオブジェクトにAPI取得に使用した食材を項目として追加する
         const mapApiData = apiData.map((source) => ({
           ...source,
           foodName: food.name,
+          category: food.category,
         }));
         setRecipesData([...recipesData, ...mapApiData]);
       })
@@ -107,15 +109,19 @@ export const Main = () => {
       .catch((err) => console.log(err));
   };
 
-  console.log(recipesData);
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/"} element={<MenuPage />} />
         <Route
           path={"/recipesPage"}
-          element={<RecipesPage recipesData={recipesData} />}
+          element={
+            <RecipesPage
+              recipesData={recipesData}
+              foodInTheRefrigerator={foodInTheRefrigerator}
+              foodCategory={foodCategory}
+            />
+          }
         />
         <Route
           path={"/addFoodsPage"}
