@@ -7,27 +7,29 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
   );
 
   return (
-    <div className="recipeList">
-      {isRecipes.map((data) => (
-        <div className="recipes" key={data.recipeId}>
-          <div
-            className="recipe"
-            onClick={() => window.open(data.recipeUrl)}
-            key={data.recipesTitle}
-          >
-            <div>{data.recipeTitle}</div>
-            <div>{data.foodName}</div>
-            <img className="recipe-image" alt="" src={data.mediumImageUrl} />
-            <ul className="material">
-              {/* 冷蔵庫に入っていない食材のみを表示する */}
-              {data.recipeMaterial
-                .filter(
-                  (material) => !mapFoodInTheRefrigerator.includes(material)
-                )
-                .map((data, index) => (
-                  <li className="material-list" key={index}>{`${data}`}</li>
-                ))}
-            </ul>
+    <div className="recipesList">
+      {isRecipes.map((data, index) => (
+        <div
+          className="recipe"
+          onClick={() => window.open(data.recipeUrl)}
+          key={data.recipeTitle}
+        >
+          <div className="imageAndOther">
+            <img className="recipeImage" alt="" src={data.mediumImageUrl} />
+            <div className="recipeOther">
+              <div className="foodTag">{data.foodName}</div>
+              <div className="recipeTitle">{data.recipeTitle}</div>
+              <ul className="material">
+                {/* 冷蔵庫に入っていない食材のみを表示する */}
+                {data.recipeMaterial
+                  .filter(
+                    (material) => !mapFoodInTheRefrigerator.includes(material)
+                  )
+                  .map((data, index) => (
+                    <li className="materialList" key={index}>{`・${data}`}</li>
+                  ))}
+              </ul>
+            </div>
           </div>
         </div>
       ))}

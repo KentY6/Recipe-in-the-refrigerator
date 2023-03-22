@@ -65,25 +65,30 @@ export const RecipesPage = ({
         </Link>
         <PageTitle PageTitle={"レシピ一覧"} />
       </div>
-      <SearchBar searchFood={searchFood} attribute={"recipes"} />
-      <div className="categoryTab">
-        {foodCategory.map((category, index) => (
-          <CategoryTab
-            categorySearch={categorySearch}
-            category={category}
-            attribute={"recipes"}
-            selectedCategory={selectedRecipesCategory}
-            key={index}
-          />
-        ))}
-      </div>
+      <div className="recipesZone">
+        <div className="searchContainer"></div>
+        <SearchBar searchFood={searchFood} attribute={"recipes"} />
+        <div className="tabsBox">
+          <div className="categoryTab">
+            {foodCategory.map((category, index) => (
+              <CategoryTab
+                categorySearch={categorySearch}
+                category={category}
+                attribute={"recipes"}
+                selectedCategory={selectedRecipesCategory}
+                key={index}
+              />
+            ))}
+          </div>
+          <div className="redText">冷蔵庫に無い食材は赤文字で表示されます</div>
+        </div>
 
-      <div>冷蔵庫に無い食材は赤文字で表示されます</div>
-      <RecipesList
-        recipesData={recipesData}
-        foodInTheRefrigerator={foodInTheRefrigerator}
-        isRecipes={whichRecipeInRecipesListResult}
-      />
+        <RecipesList
+          recipesData={recipesData}
+          foodInTheRefrigerator={foodInTheRefrigerator}
+          isRecipes={whichRecipeInRecipesListResult}
+        />
+      </div>
     </div>
   );
 };
