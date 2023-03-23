@@ -7,7 +7,7 @@ import {
 
 export const List = ({
   isFood,
-  addFoodInRefrigerator,
+  addFood,
   deleteFood,
   attribute,
   foodInTheRefrigerator,
@@ -42,7 +42,7 @@ export const List = ({
                   className={
                     attribute === "foodList" ? "addButton" : "nonActiveButton"
                   }
-                  onClick={() => addFoodInRefrigerator(data)}
+                  onClick={() => addFood(data)}
                 >
                   <FontAwesomeIcon icon={faSquarePlus} />
                 </div>

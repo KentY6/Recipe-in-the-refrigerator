@@ -80,6 +80,8 @@ export const Main = () => {
   const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
   // 冷蔵庫の中身
   const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
+  // フリーレシピ検索用食材
+  const [foodInFreeRecipesBox, setFoodInFreeRecipesBox] = useState([]);
 
   // カテゴリー検索されたリスト
   const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
@@ -88,6 +90,8 @@ export const Main = () => {
   const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
     useState([]);
   const [categorizedRecipes, setCategorizedRecipes] = useState([]);
+  const [categorizedFoodInFreeRecipes, setCategorizedFoodInFreeRecipes] =
+    useState([]);
 
   // 選択されたカテゴリータブ
   const [selectedFoodListCategory, setSelectedFoodListCategory] =
@@ -95,6 +99,8 @@ export const Main = () => {
   const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
     useState("TOP");
   const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+  const [selectedFreeRecipesCategory, setSelectedFreeRecipesCategory] =
+    useState("TOP");
 
   // ワード検索されたリスト
   const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
@@ -102,9 +108,11 @@ export const Main = () => {
     []
   );
   const [searchedRecipes, setSearchedRecipes] = useState([]);
+  const [seachedFreeRecipes, setSeachedFreeRecipes] = useState([]);
 
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
+  const [freeRecipesData, setFreeRecipesData] = useState([]);
 
   // APIキー
   const appID = process.env.REACT_APP_Application_ID;
@@ -235,7 +243,19 @@ export const Main = () => {
           }
         />
         <Route path={"/loginForm"} element={<LoginForm />} />
-        <Route path={"/freeRecipesPage"} element={<FreeRecipesPage />} />
+        <Route
+          path={"/freeRecipesPage"}
+          element={
+            <FreeRecipesPage
+              foodList={foodList}
+              attribute={"freeRecipes"}
+              getRecipesAPI={getRecipesAPI}
+              foodInFreeRecipesBox={foodInFreeRecipesBox}
+              setFoodInFreeRecipesBox={setFoodInFreeRecipesBox}
+              setSelectedFreeRecipesCategory={setSelectedFreeRecipesCategory}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
