@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
@@ -10,35 +10,12 @@ export const RecipesPage = ({
   recipesData,
   foodInTheRefrigerator,
   foodCategory,
+  searchFood,
+  categorySearch,
+  categorizedRecipes,
+  searchedRecipes,
+  selectedRecipesCategory,
 }) => {
-  const [searchedRecipes, setSearchedRecipes] = useState([]);
-  const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
-  const [categorizedRecipes, setCategorizedRecipes] = useState([]);
-
-  // ワード検索機能
-  const searchFood = (searchWord, attribute) => {
-    if (attribute === "recipes") {
-      const filterRecipes = recipesData.filter((data) =>
-        data.recipeMaterial.includes(searchWord)
-      );
-      setSearchedRecipes(filterRecipes);
-      setSelectedRecipesCategory("TOP");
-    }
-    return;
-  };
-
-  // カテゴリー検索機能
-  const categorySearch = (Category, attribute) => {
-    if (attribute === "recipes") {
-      setSearchedRecipes("");
-      setSelectedRecipesCategory(Category);
-      setCategorizedRecipes(
-        recipesData.filter((data) => data.category === Category)
-      );
-    }
-    return;
-  };
-
   // リストに表示するレシピを決める
   const whichRecipeInRecipesList = () => {
     // 配列を作ってそこに入れるようにする

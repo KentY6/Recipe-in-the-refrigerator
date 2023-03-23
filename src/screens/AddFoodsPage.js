@@ -15,24 +15,18 @@ export const AddFoodsPage = ({
   getRecipesAPI,
   recipesData,
   setRecipesData,
+  searchFood,
+  categorySearch,
+  categorizedFoodInFoodList,
+  categorizedFoodInRefrigerator,
+  setCategorizedFoodInRefrigerator,
+  searchedFoodInFoodList,
+  searchedFoodInRefrigerator,
+  setSearchedFoodInRefrigerator,
+  selectedFoodListCategory,
+  selectedRefrigeratorCategory,
+  setSelectedRefrigeratorCategory,
 }) => {
-  // カテゴリー検索されたリスト
-  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
-    []
-  );
-  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
-    useState([]);
-  const [selectedFoodListCategory, setSelectedFoodListCategory] =
-    useState("TOP");
-  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
-    useState("TOP");
-
-  // 検索されたリスト
-  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
-  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
-    []
-  );
-
   // アコーディオンボタンがアクティブか否かのシグナル
   const [isActiveFoodList, setIsActiveFoodList] = useState(false);
   const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
@@ -68,43 +62,6 @@ export const AddFoodsPage = ({
     }
     if (recipesData.length > 0) {
       setRecipesData(recipesData.filter((food) => food.foodName !== name));
-    }
-  };
-
-  // ワード検索機能
-  const searchFood = (searchWord, attribute) => {
-    if (attribute === "foodList") {
-      const filterFoodList = foodList.filter((food) =>
-        food.name.includes(searchWord)
-      );
-      setSearchedFoodInFoodList(filterFoodList);
-      setSelectedFoodListCategory("TOP");
-    }
-    if (attribute === "refrigerator") {
-      const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
-        food.name.includes(searchWord)
-      );
-      setSearchedFoodInRefrigerator(filterRefrigerator);
-      setSelectedRefrigeratorCategory("TOP");
-    }
-  };
-
-  // カテゴリー検索機能
-  const categorySearch = (Category, attribute) => {
-    if (attribute === "foodList") {
-      setSearchedFoodInFoodList("");
-      setSelectedFoodListCategory(Category);
-      setCategorizedFoodInFoodList(
-        foodList.filter((food) => food.category === Category)
-      );
-    }
-    if (attribute === "refrigerator") {
-      setSearchedFoodInRefrigerator("");
-      setSelectedRefrigeratorCategory(Category);
-      setCategorizedFoodInRefrigerator(
-        foodInTheRefrigerator.filter((food) => food.category === Category)
-      );
-      return;
     }
   };
 
