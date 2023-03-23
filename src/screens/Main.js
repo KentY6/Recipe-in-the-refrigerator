@@ -81,6 +81,28 @@ export const Main = () => {
   // 冷蔵庫の中身
   const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
 
+  // カテゴリー検索されたリスト
+  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
+    []
+  );
+  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
+    useState([]);
+  const [categorizedRecipes, setCategorizedRecipes] = useState([]);
+
+  // 選択されたカテゴリータブ
+  const [selectedFoodListCategory, setSelectedFoodListCategory] =
+    useState("TOP");
+  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
+    useState("TOP");
+  const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+
+  // ワード検索されたリスト
+  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
+  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
+    []
+  );
+  const [searchedRecipes, setSearchedRecipes] = useState([]);
+
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
 
@@ -109,6 +131,57 @@ export const Main = () => {
       .catch((err) => console.log(err));
   };
 
+  // ワード検索機能
+  const searchFood = (searchWord, attribute) => {
+    if (attribute === "foodList") {
+      const filterFoodList = foodList.filter((food) =>
+        food.name.includes(searchWord)
+      );
+      setSearchedFoodInFoodList(filterFoodList);
+      setSelectedFoodListCategory("TOP");
+    }
+    if (attribute === "refrigerator") {
+      const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
+        food.name.includes(searchWord)
+      );
+      setSearchedFoodInRefrigerator(filterRefrigerator);
+      setSelectedRefrigeratorCategory("TOP");
+    }
+    if (attribute === "recipes") {
+      const filterRecipes = recipesData.filter((data) =>
+        data.recipeMaterial.includes(searchWord)
+      );
+      setSearchedRecipes(filterRecipes);
+      setSelectedRecipesCategory("TOP");
+    }
+  };
+
+  // カテゴリー検索機能
+  const categorySearch = (Category, attribute) => {
+    if (attribute === "foodList") {
+      setSearchedFoodInFoodList("");
+      setSelectedFoodListCategory(Category);
+      setCategorizedFoodInFoodList(
+        foodList.filter((food) => food.category === Category)
+      );
+    }
+    if (attribute === "refrigerator") {
+      setSearchedFoodInRefrigerator("");
+      setSelectedRefrigeratorCategory(Category);
+      setCategorizedFoodInRefrigerator(
+        foodInTheRefrigerator.filter((food) => food.category === Category)
+      );
+    }
+    if (attribute === "recipes") {
+      setSearchedRecipes("");
+      setSelectedRecipesCategory(Category);
+      setCategorizedRecipes(
+        recipesData.filter((data) => data.category === Category)
+      );
+    }
+    return;
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -120,6 +193,14 @@ export const Main = () => {
               recipesData={recipesData}
               foodInTheRefrigerator={foodInTheRefrigerator}
               foodCategory={foodCategory}
+              searchFood={searchFood}
+              categorySearch={categorySearch}
+              // カテゴリー検索されたリスト
+              categorizedRecipes={categorizedRecipes}
+              // ワード検索されたリスト
+              searchedRecipes={searchedRecipes}
+              // 選択されたカテゴリータブ
+              selectedRecipesCategory={selectedRecipesCategory}
             />
           }
         />
@@ -134,6 +215,22 @@ export const Main = () => {
               getRecipesAPI={getRecipesAPI}
               recipesData={recipesData}
               setRecipesData={setRecipesData}
+              searchFood={searchFood}
+              categorySearch={categorySearch}
+              // カテゴリー検索されたリスト
+              categorizedFoodInFoodList={categorizedFoodInFoodList}
+              categorizedFoodInRefrigerator={categorizedFoodInRefrigerator}
+              setCategorizedFoodInRefrigerator={
+                setCategorizedFoodInRefrigerator
+              }
+              // ワード検索されたリスト
+              searchedFoodInFoodList={searchedFoodInFoodList}
+              searchedFoodInRefrigerator={searchedFoodInRefrigerator}
+              setSearchedFoodInRefrigerator={setSearchedFoodInRefrigerator}
+              // 選択されたカテゴリータブ
+              selectedFoodListCategory={selectedFoodListCategory}
+              selectedRefrigeratorCategory={selectedRefrigeratorCategory}
+              setSelectedRefrigeratorCategory={setSelectedRefrigeratorCategory}
             />
           }
         />

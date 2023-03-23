@@ -28,7 +28,7 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
                     (material) => !mapFoodInTheRefrigerator.includes(material)
                   )
                   .map((data, index) => (
-                    <li className="materialList" key={index}>{`・${data}`}</li>
+                    <li className="materialList" key={index}>{`${data}、`}</li>
                   ))}
               </ul>
             </div>
