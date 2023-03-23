@@ -43,9 +43,10 @@ export const RecipesPage = ({
   const whichRecipeInRecipesList = () => {
     // 配列を作ってそこに入れるようにする
     let whichRecipesArray = [];
+    const randomRecipesArray = recipesData.sort(() => Math.random() - 0.5);
     // カテゴリーがTOPの時
     if (selectedRecipesCategory === "TOP") {
-      whichRecipesArray = recipesData;
+      whichRecipesArray = randomRecipesArray;
     }
     if (searchedRecipes.length > 0) {
       whichRecipesArray = searchedRecipes;

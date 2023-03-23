@@ -376,6 +376,10 @@
   align-items: center;
 }
 
+.recipesList {
+  width: 370px;
+}
+
 .redText {
   text-align: center;
   color: red;
@@ -385,13 +389,17 @@
   height: 150px;
   padding: 15px;
   border-bottom: 1px solid gray;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .imageAndOther {
   display: flex;
-  align-items: center;
   justify-content: center;
+}
+
+.recipeImageBox {
+  position: relative;
+  padding-top: 15px;
 }
 
 .recipeImage {
@@ -422,6 +430,7 @@
 }
 
 .material {
+  padding-top: 0px;
   padding-left: 10px;
 }
 

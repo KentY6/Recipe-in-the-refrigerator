@@ -15,7 +15,9 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
           key={data.recipeTitle}
         >
           <div className="imageAndOther">
-            <img className="recipeImage" alt="" src={data.mediumImageUrl} />
+            <div className="recipeImageBox">
+              <img className="recipeImage" alt="" src={data.mediumImageUrl} />
+            </div>
             <div className="recipeOther">
               <div className="foodTag">{data.foodName}</div>
               <div className="recipeTitle">{data.recipeTitle}</div>
