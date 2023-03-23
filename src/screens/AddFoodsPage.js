@@ -74,15 +74,15 @@ export const AddFoodsPage = ({
   // ワード検索機能
   const searchFood = (searchWord, attribute) => {
     if (attribute === "foodList") {
-      const filterFoodList = foodList.filter(
-        (food) => food.name.indexOf(searchWord) !== -1
+      const filterFoodList = foodList.filter((food) =>
+        food.name.includes(searchWord)
       );
       setSearchedFoodInFoodList(filterFoodList);
       setSelectedFoodListCategory("TOP");
     }
     if (attribute === "refrigerator") {
-      const filterRefrigerator = foodInTheRefrigerator.filter(
-        (food) => food.name.indexOf(searchWord) !== -1
+      const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
+        food.name.includes(searchWord)
       );
       setSearchedFoodInRefrigerator(filterRefrigerator);
       setSelectedRefrigeratorCategory("TOP");
