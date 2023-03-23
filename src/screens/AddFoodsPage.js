@@ -145,7 +145,7 @@ export const AddFoodsPage = ({
           <div className="foodList">
             <List
               isFood={whichFoodInFoodListResult}
-              addFoodInRefrigerator={addFoodInRefrigerator}
+              addFood={addFoodInRefrigerator}
               deleteFood={deleteFood}
               attribute={"foodList"}
               foodInTheRefrigerator={foodInTheRefrigerator}
