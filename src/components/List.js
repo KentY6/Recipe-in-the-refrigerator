@@ -40,7 +40,9 @@ export const List = ({
                 <div
                   // 選択した食材のデータを関数に渡す
                   className={
-                    attribute === "foodList" ? "addButton" : "nonActiveButton"
+                    attribute === "refrigerator"
+                      ? "nonActiveButton"
+                      : "addButton"
                   }
                   onClick={() => addFood(data)}
                 >

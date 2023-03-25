@@ -108,7 +108,9 @@ export const Main = () => {
     []
   );
   const [searchedRecipes, setSearchedRecipes] = useState([]);
-  const [seachedFreeRecipes, setSeachedFreeRecipes] = useState([]);
+  const [searchedFoodInFreeRecipes, setSearchedFoodInFreeRecipes] = useState(
+    []
+  );
 
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
@@ -162,6 +164,13 @@ export const Main = () => {
       setSearchedRecipes(filterRecipes);
       setSelectedRecipesCategory("TOP");
     }
+    if (attribute === "freeRecipes") {
+      const filterFreeRecipes = foodList.filter((food) =>
+        food.name.includes(searchWord)
+      );
+      setSearchedFoodInFreeRecipes(filterFreeRecipes);
+      setSelectedFreeRecipesCategory("TOP");
+    }
   };
 
   // カテゴリー検索機能
@@ -185,6 +194,13 @@ export const Main = () => {
       setSelectedRecipesCategory(Category);
       setCategorizedRecipes(
         recipesData.filter((data) => data.category === Category)
+      );
+    }
+    if (attribute === "freeRecipes") {
+      setSearchedFoodInFreeRecipes("");
+      setSelectedFreeRecipesCategory(Category);
+      setCategorizedFoodInFreeRecipes(
+        foodList.filter((data) => data.category === Category)
       );
     }
     return;
@@ -248,10 +264,15 @@ export const Main = () => {
           element={
             <FreeRecipesPage
               foodList={foodList}
-              attribute={"freeRecipes"}
+              foodCategory={foodCategory}
+              categorySearch={categorySearch}
+              searchFood={searchFood}
               getRecipesAPI={getRecipesAPI}
               foodInFreeRecipesBox={foodInFreeRecipesBox}
               setFoodInFreeRecipesBox={setFoodInFreeRecipesBox}
+              searchedFoodInFreeRecipes={searchedFoodInFreeRecipes}
+              categorizedFoodInFreeRecipes={categorizedFoodInFreeRecipes}
+              selectedFreeRecipesCategory={selectedFreeRecipesCategory}
               setSelectedFreeRecipesCategory={setSelectedFreeRecipesCategory}
             />
           }

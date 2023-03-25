@@ -324,6 +324,18 @@
   border: 1px solid black;
   border-radius: 4px;
 }
+
+.freeRecipesNonActiveFood {
+  display: flex;
+  flex-flow: column;
+  width: 140px;
+  height: 140px;
+  margin: 16px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
 .refrigeratorNonActiveFood {
   display: flex;
   flex-flow: column;
