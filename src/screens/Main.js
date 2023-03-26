@@ -6,6 +6,7 @@ import { FreeRecipesPage } from "./FreeRecipesPage";
 import { LoginForm } from "./LoginForm";
 import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
+import { categorySearch } from "../utils/search";
 
 export const Main = () => {
   const foodList = [
@@ -271,7 +272,9 @@ export const Main = () => {
               foodInFreeRecipesBox={foodInFreeRecipesBox}
               setFoodInFreeRecipesBox={setFoodInFreeRecipesBox}
               searchedFoodInFreeRecipes={searchedFoodInFreeRecipes}
+              setSearchedFoodInFreeRecipes={setSearchedFoodInFreeRecipes}
               categorizedFoodInFreeRecipes={categorizedFoodInFreeRecipes}
+              setCategorizedFoodInFreeRecipes={setCategorizedFoodInFreeRecipes}
               selectedFreeRecipesCategory={selectedFreeRecipesCategory}
               setSelectedFreeRecipesCategory={setSelectedFreeRecipesCategory}
             />

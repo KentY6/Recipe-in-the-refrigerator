@@ -11,14 +11,23 @@ export const List = ({
   deleteFood,
   attribute,
   foodInTheRefrigerator,
+  foodInFreeRecipesBox,
 }) => {
   // 冷蔵庫に入っている食材をアクティブにする機能
   const isActiveFood = (data) => {
-    return (
-      // state配列の初期値が空のため,、findエラー対策で確認をはさむ
-      foodInTheRefrigerator &&
-      foodInTheRefrigerator.find((food) => food.name === data.name)
-    );
+    if (attribute !== "freeRecipes") {
+      return (
+        // state配列の初期値が空のため,、findエラー対策で確認をはさむ
+        foodInTheRefrigerator &&
+        foodInTheRefrigerator.find((food) => food.name === data.name)
+      );
+    }
+    if (attribute === "freeRecipes") {
+      return (
+        foodInFreeRecipesBox &&
+        foodInFreeRecipesBox.find((food) => food.name === data.name)
+      );
+    }
   };
 
   return (
