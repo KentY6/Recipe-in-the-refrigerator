@@ -15,38 +15,29 @@ export const FreeRecipesPage = ({
   foodInFreeRecipesBox,
   setFoodInFreeRecipesBox,
   searchedFoodInFreeRecipes,
+  setSearchedFoodInFreeRecipes,
   categorizedFoodInFreeRecipes,
+  setCategorizedFoodInFreeRecipes,
   selectedFreeRecipesCategory,
   setSelectedFreeRecipesCategory,
 }) => {
-  // フリーレシピ検索用に食材リストで選択した食材を追加する機能
-  const addFoodInFreeRecipes = (data) => {
+  // フリーレシピ画面用食材を追加する機能
+  const addFoodInFreeRecipes = (data, attribute) => {
     // フリーレシピの中に入っている食材は追加されないようにする
     if (
       foodInFreeRecipesBox.find((food) => food.name === data.name) !== undefined
     )
       return;
     else setFoodInFreeRecipesBox([...foodInFreeRecipesBox, data]);
-    setSelectedFreeRecipesCategory("TOP");
     // 追加した食材でAPIをたたく
-    getRecipesAPI(data);
+    // getRecipesAPI(data);
   };
 
-  // 冷蔵庫の中の食材を削除する機能
+  // 食材を削除する機能
   const deleteFoodInFreeRecipes = (name) => {
-    // setFoodInTheRefrigerator(
-    //   foodInTheRefrigerator.filter((food) => food.name !== name)
-    // );
-    // if (categorizedFoodInRefrigerator.length !== 0) {
-    //   setCategorizedFoodInRefrigerator(
-    //     categorizedFoodInRefrigerator.filter((food) => food.name !== name)
-    //   );
-    // }
-    // if (searchedFoodInRefrigerator.length !== 0) {
-    //   setSearchedFoodInRefrigerator(
-    //     searchedFoodInRefrigerator.filter((food) => food.name !== name)
-    //   );
-    // }
+    setFoodInFreeRecipesBox(
+      foodInFreeRecipesBox.filter((food) => food.name !== name)
+    );
     // if (recipesData.length > 0) {
     //   setRecipesData(recipesData.filter((food) => food.foodName !== name));
     // }
@@ -98,6 +89,7 @@ export const FreeRecipesPage = ({
 
       <List
         isFood={whichFoodInFreeRecipesResult}
+        foodInFreeRecipesBox={foodInFreeRecipesBox}
         attribute={"freeRecipes"}
         addFood={addFoodInFreeRecipes}
         deleteFood={deleteFoodInFreeRecipes}
