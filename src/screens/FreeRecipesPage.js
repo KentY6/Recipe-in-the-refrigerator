@@ -68,7 +68,7 @@ export const FreeRecipesPage = ({
   const whichFoodInFreeRecipesResult = whichFoodInFreeRecipes();
 
   return (
-    <div>
+    <div className="freeRecipesPage">
       <div className="returnAndTitle">
         <div onClick={resetFreeRecipes}>
           <Link to={"/"} className="returnButton">
@@ -77,32 +77,34 @@ export const FreeRecipesPage = ({
         </div>
         <PageTitle PageTitle={"フリーレシピ検索"} />
       </div>
-      <SearchBar searchFood={searchFood} attribute={"freeRecipes"} />
-      <div className="tabsBox">
-        <div className="categoryTab">
-          {foodCategory.map((category, index) => (
-            <CategoryTab
-              categorySearch={categorySearch}
-              category={category}
-              attribute={"freeRecipesFoods"}
-              selectedCategory={selectedFreeRecipesFoodsCategory}
-              key={index}
-            />
-          ))}
+      <div className="freeRecipesZone">
+        <SearchBar searchFood={searchFood} attribute={"freeRecipes"} />
+        <div className="tabsBox">
+          <div className="categoryTab">
+            {foodCategory.map((category, index) => (
+              <CategoryTab
+                categorySearch={categorySearch}
+                category={category}
+                attribute={"freeRecipesFoods"}
+                selectedCategory={selectedFreeRecipesFoodsCategory}
+                key={index}
+              />
+            ))}
+          </div>
+          <div>食材を複数選択してレシピを検索できます</div>
         </div>
-        <div>食材を複数選択してレシピを検索できます</div>
-      </div>
-      <Link to={`/recipesPage`} className="link">
-        <FreeRecipesButton />
-      </Link>
+        <Link to={`/recipesPage`} className="link">
+          <FreeRecipesButton />
+        </Link>
 
-      <List
-        isFood={whichFoodInFreeRecipesResult}
-        foodInFreeRecipesBox={foodInFreeRecipesBox}
-        attribute={"freeRecipesFoods"}
-        addFood={addFoodInFreeRecipes}
-        deleteFood={deleteFoodInFreeRecipes}
-      />
+        <List
+          isFood={whichFoodInFreeRecipesResult}
+          foodInFreeRecipesBox={foodInFreeRecipesBox}
+          attribute={"freeRecipesFoods"}
+          addFood={addFoodInFreeRecipes}
+          deleteFood={deleteFoodInFreeRecipes}
+        />
+      </div>
     </div>
   );
 };
