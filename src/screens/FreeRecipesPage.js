@@ -5,21 +5,22 @@ import { PageTitle } from "../components/PageTitle";
 import { List } from "../components/List";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
+import { FreeRecipesButton } from "../components/FreeRecipesButton";
 
 export const FreeRecipesPage = ({
+  resetFreeRecipes,
   foodList,
   foodCategory,
   searchFood,
   categorySearch,
-  getRecipesAPI,
+  getFreeRecipesAPI,
   foodInFreeRecipesBox,
   setFoodInFreeRecipesBox,
   searchedFoodInFreeRecipes,
-  setSearchedFoodInFreeRecipes,
   categorizedFoodInFreeRecipes,
-  setCategorizedFoodInFreeRecipes,
-  selectedFreeRecipesCategory,
-  setSelectedFreeRecipesCategory,
+  selectedFreeRecipesFoodsCategory,
+  freeRecipesData,
+  setFreeRecipesData,
 }) => {
   // フリーレシピ画面用食材を追加する機能
   const addFoodInFreeRecipes = (data, attribute) => {
@@ -30,7 +31,7 @@ export const FreeRecipesPage = ({
       return;
     else setFoodInFreeRecipesBox([...foodInFreeRecipesBox, data]);
     // 追加した食材でAPIをたたく
-    // getRecipesAPI(data);
+    getFreeRecipesAPI(data);
   };
 
   // 食材を削除する機能
@@ -38,9 +39,11 @@ export const FreeRecipesPage = ({
     setFoodInFreeRecipesBox(
       foodInFreeRecipesBox.filter((food) => food.name !== name)
     );
-    // if (recipesData.length > 0) {
-    //   setRecipesData(recipesData.filter((food) => food.foodName !== name));
-    // }
+    if (freeRecipesData.length > 0) {
+      setFreeRecipesData(
+        freeRecipesData.filter((food) => food.foodName !== name)
+      );
+    }
   };
 
   // リストに表示する食材を決める
@@ -48,7 +51,7 @@ export const FreeRecipesPage = ({
     // 配列を作ってそこに入れるようにする
     let whichFoodArray = [];
     // カテゴリーがTOPの時
-    if (selectedFreeRecipesCategory === "TOP") {
+    if (selectedFreeRecipesFoodsCategory === "TOP") {
       whichFoodArray = foodList;
     }
     if (searchedFoodInFreeRecipes.length > 0) {
@@ -56,7 +59,7 @@ export const FreeRecipesPage = ({
     }
     if (
       categorizedFoodInFreeRecipes.length > 0 &&
-      selectedFreeRecipesCategory !== "TOP"
+      selectedFreeRecipesFoodsCategory !== "TOP"
     ) {
       whichFoodArray = categorizedFoodInFreeRecipes;
     }
@@ -67,9 +70,11 @@ export const FreeRecipesPage = ({
   return (
     <div>
       <div className="returnAndTitle">
-        <Link to={"/"} className="returnButton">
-          <UndoRoundedIcon fontSize="40px" />
-        </Link>
+        <div onClick={resetFreeRecipes}>
+          <Link to={"/"} className="returnButton">
+            <UndoRoundedIcon fontSize="40px" />
+          </Link>
+        </div>
         <PageTitle PageTitle={"フリーレシピ検索"} />
       </div>
       <SearchBar searchFood={searchFood} attribute={"freeRecipes"} />
@@ -79,18 +84,22 @@ export const FreeRecipesPage = ({
             <CategoryTab
               categorySearch={categorySearch}
               category={category}
-              attribute={"freeRecipes"}
-              selectedCategory={selectedFreeRecipesCategory}
+              attribute={"freeRecipesFoods"}
+              selectedCategory={selectedFreeRecipesFoodsCategory}
               key={index}
             />
           ))}
         </div>
+        <div>食材を複数選択してレシピを検索できます</div>
       </div>
+      <Link to={`/recipesPage`} className="link">
+        <FreeRecipesButton />
+      </Link>
 
       <List
         isFood={whichFoodInFreeRecipesResult}
         foodInFreeRecipesBox={foodInFreeRecipesBox}
-        attribute={"freeRecipes"}
+        attribute={"freeRecipesFoods"}
         addFood={addFoodInFreeRecipes}
         deleteFood={deleteFoodInFreeRecipes}
       />

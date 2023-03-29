@@ -93,6 +93,7 @@ export const Main = () => {
   const [categorizedRecipes, setCategorizedRecipes] = useState([]);
   const [categorizedFoodInFreeRecipes, setCategorizedFoodInFreeRecipes] =
     useState([]);
+  const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
 
   // 選択されたカテゴリータブ
   const [selectedFoodListCategory, setSelectedFoodListCategory] =
@@ -100,6 +101,10 @@ export const Main = () => {
   const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
     useState("TOP");
   const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+  const [
+    selectedFreeRecipesFoodsCategory,
+    setSelectedFreeRecipesFoodsCategory,
+  ] = useState("TOP");
   const [selectedFreeRecipesCategory, setSelectedFreeRecipesCategory] =
     useState("TOP");
 
@@ -112,6 +117,7 @@ export const Main = () => {
   const [searchedFoodInFreeRecipes, setSearchedFoodInFreeRecipes] = useState(
     []
   );
+  const [searchedFreeRecipes, setSearchedFreeRecipes] = useState([]);
 
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
@@ -142,6 +148,55 @@ export const Main = () => {
       .catch((err) => console.log(err));
   };
 
+  // フリーレシピ用API取得
+  const getFreeRecipesAPI = (food) => {
+    axios
+      .get(
+        `https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=${appID}&categoryId=${food.categoryId}`
+      )
+
+      .then((res) => {
+        const apiData = res.data.result;
+
+        // 取得したAPIのオブジェクトにAPI取得に使用した食材を項目として追加する
+        const mapApiData = apiData.map((source) => ({
+          ...source,
+          foodName: food.name,
+          category: food.category,
+        }));
+        setFreeRecipesData([...freeRecipesData, ...mapApiData]);
+      })
+
+      .catch((err) => console.log(err));
+  };
+
+  // フリーレシピ検索用のState・レシピ一覧のカテゴリータブをリセットする
+  const resetFreeRecipes = () => {
+    if (foodInFreeRecipesBox.length > 0) {
+      setFoodInFreeRecipesBox([]);
+    }
+
+    if (categorizedFoodInFreeRecipes.length > 0) {
+      setCategorizedFoodInFreeRecipes([]);
+    }
+
+    if (searchedFoodInFreeRecipes.length > 0) {
+      setSearchedFoodInFreeRecipes([]);
+    }
+
+    if (selectedFreeRecipesFoodsCategory !== "TOP") {
+      setSelectedFreeRecipesFoodsCategory("TOP");
+    }
+
+    if (freeRecipesData.length > 0) {
+      setFreeRecipesData([]);
+    }
+
+    if (selectedRecipesCategory !== "TOP") {
+      setSelectedRecipesCategory("TOP");
+    }
+  };
+
   // ワード検索機能
   const searchFood = (searchWord, attribute) => {
     if (attribute === "foodList") {
@@ -165,11 +220,18 @@ export const Main = () => {
       setSearchedRecipes(filterRecipes);
       setSelectedRecipesCategory("TOP");
     }
-    if (attribute === "freeRecipes") {
-      const filterFreeRecipes = foodList.filter((food) =>
+    if (attribute === "freeRecipesFoods") {
+      const filterFreeRecipesFoods = foodList.filter((food) =>
         food.name.includes(searchWord)
       );
-      setSearchedFoodInFreeRecipes(filterFreeRecipes);
+      setSearchedFoodInFreeRecipes(filterFreeRecipesFoods);
+      setSelectedFreeRecipesFoodsCategory("TOP");
+    }
+    if (attribute === "freeRecipes") {
+      const filterFreeRecipes = freeRecipesData.filter((data) =>
+        data.recipeMaterial.includes(searchWord)
+      );
+      setSearchedFreeRecipes(filterFreeRecipes);
       setSelectedFreeRecipesCategory("TOP");
     }
   };
@@ -197,13 +259,21 @@ export const Main = () => {
         recipesData.filter((data) => data.category === Category)
       );
     }
-    if (attribute === "freeRecipes") {
+    if (attribute === "freeRecipesFoods") {
       setSearchedFoodInFreeRecipes("");
-      setSelectedFreeRecipesCategory(Category);
+      setSelectedFreeRecipesFoodsCategory(Category);
       setCategorizedFoodInFreeRecipes(
         foodList.filter((data) => data.category === Category)
       );
     }
+    if (attribute === "freeRecipes") {
+      setSearchedFreeRecipes("");
+      setSelectedFreeRecipesCategory(Category);
+      setCategorizedFreeRecipes(
+        freeRecipesData.filter((data) => data.category === Category)
+      );
+    }
+
     return;
   };
 
@@ -215,17 +285,22 @@ export const Main = () => {
           path={"/recipesPage"}
           element={
             <RecipesPage
+              resetFreeRecipes={resetFreeRecipes}
               recipesData={recipesData}
+              freeRecipesData={freeRecipesData}
               foodInTheRefrigerator={foodInTheRefrigerator}
               foodCategory={foodCategory}
               searchFood={searchFood}
               categorySearch={categorySearch}
               // カテゴリー検索されたリスト
               categorizedRecipes={categorizedRecipes}
+              categorizedFreeRecipes={categorizedFreeRecipes}
               // ワード検索されたリスト
               searchedRecipes={searchedRecipes}
+              searchedFreeRecipes={searchedFreeRecipes}
               // 選択されたカテゴリータブ
               selectedRecipesCategory={selectedRecipesCategory}
+              selectedFreeRecipesCategory={selectedFreeRecipesCategory}
             />
           }
         />
@@ -233,6 +308,7 @@ export const Main = () => {
           path={"/addFoodsPage"}
           element={
             <AddFoodsPage
+              resetFreeRecipes={resetFreeRecipes}
               foodList={foodList}
               foodInTheRefrigerator={foodInTheRefrigerator}
               setFoodInTheRefrigerator={setFoodInTheRefrigerator}
@@ -264,19 +340,23 @@ export const Main = () => {
           path={"/freeRecipesPage"}
           element={
             <FreeRecipesPage
+              resetFreeRecipes={resetFreeRecipes}
               foodList={foodList}
               foodCategory={foodCategory}
               categorySearch={categorySearch}
               searchFood={searchFood}
-              getRecipesAPI={getRecipesAPI}
+              getFreeRecipesAPI={getFreeRecipesAPI}
+              freeRecipesData={freeRecipesData}
+              setFreeRecipesData={setFreeRecipesData}
               foodInFreeRecipesBox={foodInFreeRecipesBox}
               setFoodInFreeRecipesBox={setFoodInFreeRecipesBox}
               searchedFoodInFreeRecipes={searchedFoodInFreeRecipes}
               setSearchedFoodInFreeRecipes={setSearchedFoodInFreeRecipes}
               categorizedFoodInFreeRecipes={categorizedFoodInFreeRecipes}
               setCategorizedFoodInFreeRecipes={setCategorizedFoodInFreeRecipes}
-              selectedFreeRecipesCategory={selectedFreeRecipesCategory}
-              setSelectedFreeRecipesCategory={setSelectedFreeRecipesCategory}
+              selectedFreeRecipesFoodsCategory={
+                selectedFreeRecipesFoodsCategory
+              }
             />
           }
         />

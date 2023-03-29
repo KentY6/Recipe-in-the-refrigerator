@@ -325,7 +325,7 @@
   border-radius: 4px;
 }
 
-.freeRecipesNonActiveFood {
+.freeRecipesFoodsNonActiveFood {
   display: flex;
   flex-flow: column;
   width: 140px;

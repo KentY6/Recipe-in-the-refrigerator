@@ -8,6 +8,7 @@ import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
 
 export const AddFoodsPage = ({
+  resetFreeRecipes,
   foodList,
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
@@ -109,9 +110,11 @@ export const AddFoodsPage = ({
   return (
     <div className="addFoodsPage">
       <div className="returnAndTitle">
-        <Link to={"/"} className="returnButton">
-          <UndoRoundedIcon fontSize="40px" />
-        </Link>
+        <div onClick={resetFreeRecipes}>
+          <Link to={"/"} className="returnButton">
+            <UndoRoundedIcon fontSize="40px" />
+          </Link>
+        </div>
         <PageTitle PageTitle={"冷蔵庫に食材を追加する"} />
       </div>
 

@@ -7,14 +7,19 @@ import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
 
 export const RecipesPage = ({
+  resetFreeRecipes,
   recipesData,
+  freeRecipesData,
   foodInTheRefrigerator,
   foodCategory,
   searchFood,
   categorySearch,
   categorizedRecipes,
+  categorizedFreeRecipes,
   searchedRecipes,
+  searchedFreeRecipes,
   selectedRecipesCategory,
+  selectedFreeRecipesCategory,
 }) => {
   // リストに表示するレシピを決める
   const whichRecipeInRecipesList = () => {
@@ -35,25 +40,57 @@ export const RecipesPage = ({
   };
   const whichRecipeInRecipesListResult = whichRecipeInRecipesList();
 
+  // リストに表示するレシピを決める
+  const whichFreeRecipeInRecipesList = () => {
+    // 配列を作ってそこに入れるようにする
+    let whichFreeRecipesArray = [];
+    // カテゴリーがTOPの時
+    if (selectedFreeRecipesCategory === "TOP") {
+      whichFreeRecipesArray = freeRecipesData;
+    }
+    if (searchedFreeRecipes.length > 0) {
+      whichFreeRecipesArray = searchedFreeRecipes;
+    }
+    if (
+      categorizedFreeRecipes.length > 0 &&
+      selectedFreeRecipesCategory !== "TOP"
+    ) {
+      whichFreeRecipesArray = categorizedFreeRecipes;
+    }
+    return whichFreeRecipesArray;
+  };
+  const whichFreeRecipeInRecipesListResult = whichFreeRecipeInRecipesList();
+
   return (
     <div className="recipesPage">
       <div className="returnAndTitle">
-        <Link to={"/"} className="returnButton">
-          <UndoRoundedIcon fontSize="40px" />
-        </Link>
+        <div onClick={resetFreeRecipes}>
+          <Link to={"/"} className="returnButton">
+            <UndoRoundedIcon fontSize="40px" />
+          </Link>
+        </div>
         <PageTitle PageTitle={"レシピ一覧"} />
       </div>
       <div className="recipesZone">
         <div className="searchContainer"></div>
-        <SearchBar searchFood={searchFood} attribute={"recipes"} />
+        <SearchBar
+          searchFood={searchFood}
+          attribute={freeRecipesData.length > 0 ? "freeRecipes" : "recipes"}
+        />
         <div className="tabsBox">
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
               <CategoryTab
                 categorySearch={categorySearch}
                 category={category}
-                attribute={"recipes"}
-                selectedCategory={selectedRecipesCategory}
+                attribute={
+                  freeRecipesData.length > 0 ? "freeRecipes" : "recipes"
+                }
+                selectedCategory={
+                  freeRecipesData.length > 0
+                    ? selectedFreeRecipesCategory
+                    : selectedRecipesCategory
+                }
                 key={index}
               />
             ))}
@@ -62,9 +99,12 @@ export const RecipesPage = ({
         </div>
 
         <RecipesList
-          recipesData={recipesData}
           foodInTheRefrigerator={foodInTheRefrigerator}
-          isRecipes={whichRecipeInRecipesListResult}
+          isRecipes={
+            freeRecipesData.length > 0
+              ? whichFreeRecipeInRecipesListResult
+              : whichRecipeInRecipesListResult
+          }
         />
       </div>
     </div>
