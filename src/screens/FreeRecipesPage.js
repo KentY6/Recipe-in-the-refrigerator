@@ -78,7 +78,7 @@ export const FreeRecipesPage = ({
         <PageTitle PageTitle={"フリーレシピ検索"} />
       </div>
       <div className="freeRecipesZone">
-        <SearchBar searchFood={searchFood} attribute={"freeRecipes"} />
+        <SearchBar searchFood={searchFood} attribute={"freeRecipesFoods"} />
         <div className="tabsBox">
           <div className="categoryTab">
             {foodCategory.map((category, index) => (

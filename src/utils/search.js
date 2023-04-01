@@ -1,6 +1,5 @@
 // カテゴリー検索機能
-export const categorySearch = (Category, foodList) => {
-  console.log("categorySearch");
+export const testCategorySearch = (Category, foodList) => {
   const foodListFilter = foodList.filter((food) => food.category === Category);
   return foodListFilter;
 };

@@ -6,7 +6,7 @@ import { FreeRecipesPage } from "./FreeRecipesPage";
 import { LoginForm } from "./LoginForm";
 import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
-import { categorySearch } from "../utils/search";
+import { testCategorySearch } from "../utils/search";
 
 export const Main = () => {
   const foodList = [
@@ -237,41 +237,39 @@ export const Main = () => {
   };
 
   // カテゴリー検索機能
-  const categorySearch = (Category, attribute) => {
+  const categorySearch = (category, attribute) => {
     if (attribute === "foodList") {
       setSearchedFoodInFoodList("");
-      setSelectedFoodListCategory(Category);
-      setCategorizedFoodInFoodList(
-        foodList.filter((food) => food.category === Category)
-      );
+      setSelectedFoodListCategory(category);
+      const foodListFilter = testCategorySearch(category, foodList);
+      setCategorizedFoodInFoodList(foodListFilter);
     }
     if (attribute === "refrigerator") {
       setSearchedFoodInRefrigerator("");
-      setSelectedRefrigeratorCategory(Category);
-      setCategorizedFoodInRefrigerator(
-        foodInTheRefrigerator.filter((food) => food.category === Category)
+      setSelectedRefrigeratorCategory(category);
+      const foodListFilter = testCategorySearch(
+        category,
+        foodInTheRefrigerator
       );
+      setCategorizedFoodInRefrigerator(foodListFilter);
     }
     if (attribute === "recipes") {
       setSearchedRecipes("");
-      setSelectedRecipesCategory(Category);
-      setCategorizedRecipes(
-        recipesData.filter((data) => data.category === Category)
-      );
+      setSelectedRecipesCategory(category);
+      const foodListFilter = testCategorySearch(category, recipesData);
+      setCategorizedRecipes(foodListFilter);
     }
     if (attribute === "freeRecipesFoods") {
       setSearchedFoodInFreeRecipes("");
-      setSelectedFreeRecipesFoodsCategory(Category);
-      setCategorizedFoodInFreeRecipes(
-        foodList.filter((data) => data.category === Category)
-      );
+      setSelectedFreeRecipesFoodsCategory(category);
+      const foodListFilter = testCategorySearch(category, foodList);
+      setCategorizedFoodInFreeRecipes(foodListFilter);
     }
     if (attribute === "freeRecipes") {
       setSearchedFreeRecipes("");
-      setSelectedFreeRecipesCategory(Category);
-      setCategorizedFreeRecipes(
-        freeRecipesData.filter((data) => data.category === Category)
-      );
+      setSelectedFreeRecipesCategory(category);
+      const foodListFilter = testCategorySearch(category, freeRecipesData);
+      setCategorizedFreeRecipes(foodListFilter);
     }
 
     return;
