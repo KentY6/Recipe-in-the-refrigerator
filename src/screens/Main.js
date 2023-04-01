@@ -85,9 +85,6 @@ export const Main = () => {
   const [foodInFreeRecipesBox, setFoodInFreeRecipesBox] = useState([]);
 
   // カテゴリー検索されたリスト
-  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
-    []
-  );
   const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
     useState([]);
   const [categorizedRecipes, setCategorizedRecipes] = useState([]);
@@ -96,8 +93,6 @@ export const Main = () => {
   const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
 
   // 選択されたカテゴリータブ
-  const [selectedFoodListCategory, setSelectedFoodListCategory] =
-    useState("TOP");
   const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
     useState("TOP");
   const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
@@ -109,7 +104,6 @@ export const Main = () => {
     useState("TOP");
 
   // ワード検索されたリスト
-  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
   const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
     []
   );
@@ -199,13 +193,13 @@ export const Main = () => {
 
   // ワード検索機能
   const searchFood = (searchWord, attribute) => {
-    if (attribute === "foodList") {
-      const filterFoodList = foodList.filter((food) =>
-        food.name.includes(searchWord)
-      );
-      setSearchedFoodInFoodList(filterFoodList);
-      setSelectedFoodListCategory("TOP");
-    }
+    // if (attribute === "foodList") {
+    //   const filterFoodList = foodList.filter((food) =>
+    //     food.name.includes(searchWord)
+    //   );
+    //   setSearchedFoodInFoodList(filterFoodList);
+    //   setSelectedFoodListCategory("TOP");
+    // }
     if (attribute === "refrigerator") {
       const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
         food.name.includes(searchWord)
@@ -238,12 +232,6 @@ export const Main = () => {
 
   // カテゴリー検索機能
   const categorySearch = (category, attribute) => {
-    if (attribute === "foodList") {
-      setSearchedFoodInFoodList("");
-      setSelectedFoodListCategory(category);
-      const foodListFilter = testCategorySearch(category, foodList);
-      setCategorizedFoodInFoodList(foodListFilter);
-    }
     if (attribute === "refrigerator") {
       setSearchedFoodInRefrigerator("");
       setSelectedRefrigeratorCategory(category);
@@ -310,24 +298,21 @@ export const Main = () => {
               foodList={foodList}
               foodInTheRefrigerator={foodInTheRefrigerator}
               setFoodInTheRefrigerator={setFoodInTheRefrigerator}
-              foodCategory={foodCategory}
+              // foodCategory={foodCategory}
               getRecipesAPI={getRecipesAPI}
               recipesData={recipesData}
               setRecipesData={setRecipesData}
               searchFood={searchFood}
               categorySearch={categorySearch}
               // カテゴリー検索されたリスト
-              categorizedFoodInFoodList={categorizedFoodInFoodList}
               categorizedFoodInRefrigerator={categorizedFoodInRefrigerator}
               setCategorizedFoodInRefrigerator={
                 setCategorizedFoodInRefrigerator
               }
               // ワード検索されたリスト
-              searchedFoodInFoodList={searchedFoodInFoodList}
               searchedFoodInRefrigerator={searchedFoodInRefrigerator}
               setSearchedFoodInRefrigerator={setSearchedFoodInRefrigerator}
               // 選択されたカテゴリータブ
-              selectedFoodListCategory={selectedFoodListCategory}
               selectedRefrigeratorCategory={selectedRefrigeratorCategory}
               setSelectedRefrigeratorCategory={setSelectedRefrigeratorCategory}
             />

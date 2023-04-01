@@ -5,6 +5,7 @@ export const CategoryTab = ({
   category,
   attribute,
   selectedCategory,
+  onClick,
 }) => {
   const inputCategory = (category) => {
     categorySearch(category, attribute);
@@ -17,7 +18,7 @@ export const CategoryTab = ({
           ? "activeCategoryText"
           : "nonActiveCategoryText"
       }
-      onClick={() => inputCategory(category)}
+      onClick={() => onClick(category)}
     >
       {category}
     </div>

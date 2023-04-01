@@ -6,31 +6,42 @@ import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
+import { foodCategory, testCategorySearch } from "../utils/search";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
   foodList,
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
-  foodCategory,
   getRecipesAPI,
   recipesData,
   setRecipesData,
   searchFood,
   categorySearch,
-  categorizedFoodInFoodList,
   categorizedFoodInRefrigerator,
   setCategorizedFoodInRefrigerator,
-  searchedFoodInFoodList,
   searchedFoodInRefrigerator,
   setSearchedFoodInRefrigerator,
-  selectedFoodListCategory,
   selectedRefrigeratorCategory,
   setSelectedRefrigeratorCategory,
 }) => {
+  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
+    []
+  );
+  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
+  const [selectedFoodListCategory, setSelectedFoodListCategory] =
+    useState("TOP");
+
   // アコーディオンボタンがアクティブか否かのシグナル
   const [isActiveFoodList, setIsActiveFoodList] = useState(false);
   const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
+
+  const refrigeratorListInit = (category) => {
+    setSearchedFoodInFoodList("");
+    setSelectedFoodListCategory(category);
+    const foodListFilter = testCategorySearch(category, foodList);
+    setCategorizedFoodInFoodList(foodListFilter);
+  };
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
   const addFoodInRefrigerator = (data) => {
@@ -139,6 +150,7 @@ export const AddFoodsPage = ({
                   category={category}
                   attribute={"foodList"}
                   selectedCategory={selectedFoodListCategory}
+                  onClick={(category) => refrigeratorListInit(category)}
                   key={index}
                 />
               ))}
