@@ -18,29 +18,41 @@ export const AddFoodsPage = ({
   setRecipesData,
   searchFood,
   categorySearch,
-  categorizedFoodInRefrigerator,
-  setCategorizedFoodInRefrigerator,
-  searchedFoodInRefrigerator,
-  setSearchedFoodInRefrigerator,
-  selectedRefrigeratorCategory,
-  setSelectedRefrigeratorCategory,
 }) => {
+  // カテゴリー検索されたリスト
   const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
     []
   );
+  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
+    useState([]);
+
+  // ワード検索されたリスト
   const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
+  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
+    []
+  );
   const [selectedFoodListCategory, setSelectedFoodListCategory] =
+    useState("TOP");
+  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
     useState("TOP");
 
   // アコーディオンボタンがアクティブか否かのシグナル
   const [isActiveFoodList, setIsActiveFoodList] = useState(false);
   const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
 
-  const refrigeratorListInit = (category) => {
+  // フードリストのカテゴリー検索機能
+  const foodListCategorySearch = (category) => {
     setSearchedFoodInFoodList("");
     setSelectedFoodListCategory(category);
     const foodListFilter = testCategorySearch(category, foodList);
     setCategorizedFoodInFoodList(foodListFilter);
+  };
+
+  const refrigeratorCategorySearch = (category) => {
+    setSearchedFoodInRefrigerator("");
+    setSelectedRefrigeratorCategory(category);
+    const foodListFilter = testCategorySearch(category, foodInTheRefrigerator);
+    setCategorizedFoodInRefrigerator(foodListFilter);
   };
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
@@ -148,9 +160,8 @@ export const AddFoodsPage = ({
                 <CategoryTab
                   categorySearch={categorySearch}
                   category={category}
-                  attribute={"foodList"}
                   selectedCategory={selectedFoodListCategory}
-                  onClick={(category) => refrigeratorListInit(category)}
+                  onClick={(category) => foodListCategorySearch(category)}
                   key={index}
                 />
               ))}
@@ -187,9 +198,8 @@ export const AddFoodsPage = ({
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
                 <CategoryTab
-                  categorySearch={categorySearch}
+                  onClick={(category) => refrigeratorCategorySearch(category)}
                   category={category}
-                  attribute={"refrigerator"}
                   selectedCategory={selectedRefrigeratorCategory}
                   key={index}
                 />

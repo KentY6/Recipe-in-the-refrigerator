@@ -6,7 +6,7 @@ import { FreeRecipesPage } from "./FreeRecipesPage";
 import { LoginForm } from "./LoginForm";
 import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
-import { testCategorySearch } from "../utils/search";
+import { testCategorySearch, foodCategory } from "../utils/search";
 
 export const Main = () => {
   const foodList = [
@@ -78,23 +78,18 @@ export const Main = () => {
     },
   ];
 
-  const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
   // 冷蔵庫の中身
   const [foodInTheRefrigerator, setFoodInTheRefrigerator] = useState([]);
   // フリーレシピ検索用食材
   const [foodInFreeRecipesBox, setFoodInFreeRecipesBox] = useState([]);
 
   // カテゴリー検索されたリスト
-  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
-    useState([]);
   const [categorizedRecipes, setCategorizedRecipes] = useState([]);
   const [categorizedFoodInFreeRecipes, setCategorizedFoodInFreeRecipes] =
     useState([]);
   const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
 
   // 選択されたカテゴリータブ
-  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
-    useState("TOP");
   const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
   const [
     selectedFreeRecipesFoodsCategory,
@@ -104,9 +99,6 @@ export const Main = () => {
     useState("TOP");
 
   // ワード検索されたリスト
-  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
-    []
-  );
   const [searchedRecipes, setSearchedRecipes] = useState([]);
   const [searchedFoodInFreeRecipes, setSearchedFoodInFreeRecipes] = useState(
     []
@@ -200,13 +192,13 @@ export const Main = () => {
     //   setSearchedFoodInFoodList(filterFoodList);
     //   setSelectedFoodListCategory("TOP");
     // }
-    if (attribute === "refrigerator") {
-      const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
-        food.name.includes(searchWord)
-      );
-      setSearchedFoodInRefrigerator(filterRefrigerator);
-      setSelectedRefrigeratorCategory("TOP");
-    }
+    // if (attribute === "refrigerator") {
+    //   const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
+    //     food.name.includes(searchWord)
+    //   );
+    //   setSearchedFoodInRefrigerator(filterRefrigerator);
+    //   setSelectedRefrigeratorCategory("TOP");
+    // }
     if (attribute === "recipes") {
       const filterRecipes = recipesData.filter((data) =>
         data.recipeMaterial.includes(searchWord)
@@ -232,15 +224,6 @@ export const Main = () => {
 
   // カテゴリー検索機能
   const categorySearch = (category, attribute) => {
-    if (attribute === "refrigerator") {
-      setSearchedFoodInRefrigerator("");
-      setSelectedRefrigeratorCategory(category);
-      const foodListFilter = testCategorySearch(
-        category,
-        foodInTheRefrigerator
-      );
-      setCategorizedFoodInRefrigerator(foodListFilter);
-    }
     if (attribute === "recipes") {
       setSearchedRecipes("");
       setSelectedRecipesCategory(category);
@@ -298,23 +281,11 @@ export const Main = () => {
               foodList={foodList}
               foodInTheRefrigerator={foodInTheRefrigerator}
               setFoodInTheRefrigerator={setFoodInTheRefrigerator}
-              // foodCategory={foodCategory}
               getRecipesAPI={getRecipesAPI}
               recipesData={recipesData}
               setRecipesData={setRecipesData}
               searchFood={searchFood}
               categorySearch={categorySearch}
-              // カテゴリー検索されたリスト
-              categorizedFoodInRefrigerator={categorizedFoodInRefrigerator}
-              setCategorizedFoodInRefrigerator={
-                setCategorizedFoodInRefrigerator
-              }
-              // ワード検索されたリスト
-              searchedFoodInRefrigerator={searchedFoodInRefrigerator}
-              setSearchedFoodInRefrigerator={setSearchedFoodInRefrigerator}
-              // 選択されたカテゴリータブ
-              selectedRefrigeratorCategory={selectedRefrigeratorCategory}
-              setSelectedRefrigeratorCategory={setSelectedRefrigeratorCategory}
             />
           }
         />

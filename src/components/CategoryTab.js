@@ -1,16 +1,6 @@
 import React from "react";
 
-export const CategoryTab = ({
-  categorySearch,
-  category,
-  attribute,
-  selectedCategory,
-  onClick,
-}) => {
-  const inputCategory = (category) => {
-    categorySearch(category, attribute);
-  };
-
+export const CategoryTab = ({ category, selectedCategory, onClick }) => {
   return (
     <div
       className={
