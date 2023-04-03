@@ -47,7 +47,7 @@ export const AddFoodsPage = ({
     const foodListFilter = testCategorySearch(category, foodList);
     setCategorizedFoodInFoodList(foodListFilter);
   };
-
+  // 冷蔵庫の中身のカテゴリー検索機能
   const refrigeratorCategorySearch = (category) => {
     setSearchedFoodInRefrigerator("");
     setSelectedRefrigeratorCategory(category);

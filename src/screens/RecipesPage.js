@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
 import { RecipesList } from "../components/RecipesList";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
+import { foodCategory, testCategorySearch } from "../utils/search";
 
 export const RecipesPage = ({
   resetFreeRecipes,
   recipesData,
   freeRecipesData,
   foodInTheRefrigerator,
-  foodCategory,
   searchFood,
-  categorySearch,
-  categorizedRecipes,
   categorizedFreeRecipes,
-  searchedRecipes,
   searchedFreeRecipes,
-  selectedRecipesCategory,
   selectedFreeRecipesCategory,
 }) => {
+  // カテゴリー検索されたリスト
+  const [categorizedRecipes, setCategorizedRecipes] = useState([]);
+  // ワード検索されたカテゴリータブ
+  const [searchedRecipes, setSearchedRecipes] = useState([]);
+  // 選択されたカテゴリータブ
+  const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+
+  // カテゴリー検索機能
+  const recipesCategorySearch = (category) => {
+    setSearchedRecipes("");
+    setSelectedRecipesCategory(category);
+    const foodListFilter = testCategorySearch(category, recipesData);
+    setCategorizedRecipes(foodListFilter);
+  };
+
   // リストに表示するレシピを決める
   const whichRecipeInRecipesList = () => {
     // 配列を作ってそこに入れるようにする
@@ -81,7 +92,7 @@ export const RecipesPage = ({
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
               <CategoryTab
-                categorySearch={categorySearch}
+                onClick={(category) => recipesCategorySearch(category)}
                 category={category}
                 attribute={
                   freeRecipesData.length > 0 ? "freeRecipes" : "recipes"

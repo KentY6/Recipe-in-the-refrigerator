@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
@@ -6,22 +6,32 @@ import { List } from "../components/List";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
 import { FreeRecipesButton } from "../components/FreeRecipesButton";
+import { foodCategory, testCategorySearch } from "../utils/search";
 
 export const FreeRecipesPage = ({
   resetFreeRecipes,
   foodList,
-  foodCategory,
   searchFood,
   categorySearch,
   getFreeRecipesAPI,
   foodInFreeRecipesBox,
   setFoodInFreeRecipesBox,
-  searchedFoodInFreeRecipes,
-  categorizedFoodInFreeRecipes,
-  selectedFreeRecipesFoodsCategory,
   freeRecipesData,
   setFreeRecipesData,
 }) => {
+  // カテゴリー検索されたリスト
+  const [categorizedFoodInFreeRecipes, setCategorizedFoodInFreeRecipes] =
+    useState([]);
+  // ワード検索されたカテゴリータブ
+  const [searchedFoodInFreeRecipes, setSearchedFoodInFreeRecipes] = useState(
+    []
+  );
+  // 選択されたカテゴリータブ
+  const [
+    selectedFreeRecipesFoodsCategory,
+    setSelectedFreeRecipesFoodsCategory,
+  ] = useState("TOP");
+
   // フリーレシピ画面用食材を追加する機能
   const addFoodInFreeRecipes = (data, attribute) => {
     // フリーレシピの中に入っている食材は追加されないようにする
@@ -44,6 +54,13 @@ export const FreeRecipesPage = ({
         freeRecipesData.filter((food) => food.foodName !== name)
       );
     }
+  };
+
+  const foodsInFreeRecipesCategorySearch = (category) => {
+    setSearchedFoodInFreeRecipes("");
+    setSelectedFreeRecipesFoodsCategory(category);
+    const foodListFilter = testCategorySearch(category, foodList);
+    setCategorizedFoodInFreeRecipes(foodListFilter);
   };
 
   // リストに表示する食材を決める
@@ -83,7 +100,9 @@ export const FreeRecipesPage = ({
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
               <CategoryTab
-                categorySearch={categorySearch}
+                onClick={(category) =>
+                  foodsInFreeRecipesCategorySearch(category)
+                }
                 category={category}
                 attribute={"freeRecipesFoods"}
                 selectedCategory={selectedFreeRecipesFoodsCategory}
