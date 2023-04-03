@@ -12,7 +12,6 @@ export const FreeRecipesPage = ({
   resetFreeRecipes,
   foodList,
   searchFood,
-  categorySearch,
   getFreeRecipesAPI,
   foodInFreeRecipesBox,
   setFoodInFreeRecipesBox,

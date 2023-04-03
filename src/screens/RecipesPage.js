@@ -5,7 +5,7 @@ import { PageTitle } from "../components/PageTitle";
 import { RecipesList } from "../components/RecipesList";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
-import { foodCategory, testCategorySearch } from "../utils/search";
+import { foodCategory, categorySearch } from "../utils/search";
 
 export const RecipesPage = ({
   resetFreeRecipes,
@@ -13,23 +13,33 @@ export const RecipesPage = ({
   freeRecipesData,
   foodInTheRefrigerator,
   searchFood,
-  categorizedFreeRecipes,
-  searchedFreeRecipes,
-  selectedFreeRecipesCategory,
 }) => {
   // カテゴリー検索されたリスト
   const [categorizedRecipes, setCategorizedRecipes] = useState([]);
+  const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
+
   // ワード検索されたカテゴリータブ
   const [searchedRecipes, setSearchedRecipes] = useState([]);
+  const [searchedFreeRecipes, setSearchedFreeRecipes] = useState([]);
+
   // 選択されたカテゴリータブ
   const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+  const [selectedFreeRecipesCategory, setSelectedFreeRecipesCategory] =
+    useState("TOP");
 
   // カテゴリー検索機能
   const recipesCategorySearch = (category) => {
     setSearchedRecipes("");
     setSelectedRecipesCategory(category);
-    const foodListFilter = testCategorySearch(category, recipesData);
+    const foodListFilter = categorySearch(category, recipesData);
     setCategorizedRecipes(foodListFilter);
+  };
+
+  const freeRecipesCategorySearch = (category) => {
+    setSearchedFreeRecipes("");
+    setSelectedFreeRecipesCategory(category);
+    const foodListFilter = categorySearch(category, freeRecipesData);
+    setCategorizedFreeRecipes(foodListFilter);
   };
 
   // リストに表示するレシピを決める
@@ -92,11 +102,12 @@ export const RecipesPage = ({
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
               <CategoryTab
-                onClick={(category) => recipesCategorySearch(category)}
-                category={category}
-                attribute={
-                  freeRecipesData.length > 0 ? "freeRecipes" : "recipes"
+                onClick={(category) =>
+                  freeRecipesData.length > 0
+                    ? freeRecipesCategorySearch(category)
+                    : recipesCategorySearch(category)
                 }
+                category={category}
                 selectedCategory={
                   freeRecipesData.length > 0
                     ? selectedFreeRecipesCategory

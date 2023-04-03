@@ -6,7 +6,7 @@ import { FreeRecipesPage } from "./FreeRecipesPage";
 import { LoginForm } from "./LoginForm";
 import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
-import { testCategorySearch, foodCategory } from "../utils/search";
+import { foodCategory } from "../utils/search";
 
 export const Main = () => {
   const foodList = [
@@ -83,16 +83,6 @@ export const Main = () => {
   // フリーレシピ検索用食材
   const [foodInFreeRecipesBox, setFoodInFreeRecipesBox] = useState([]);
 
-  // カテゴリー検索されたリスト
-  const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
-
-  // 選択されたカテゴリータブ
-  const [selectedFreeRecipesCategory, setSelectedFreeRecipesCategory] =
-    useState("TOP");
-
-  // ワード検索されたリスト
-  const [searchedFreeRecipes, setSearchedFreeRecipes] = useState([]);
-
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
   const [freeRecipesData, setFreeRecipesData] = useState([]);
@@ -149,26 +139,9 @@ export const Main = () => {
     if (foodInFreeRecipesBox.length > 0) {
       setFoodInFreeRecipesBox([]);
     }
-
-    // if (categorizedFoodInFreeRecipes.length > 0) {
-    //   setCategorizedFoodInFreeRecipes([]);
-    // }
-
-    // if (searchedFoodInFreeRecipes.length > 0) {
-    //   setSearchedFoodInFreeRecipes([]);
-    // }
-
-    // if (selectedFreeRecipesFoodsCategory !== "TOP") {
-    //   setSelectedFreeRecipesFoodsCategory("TOP");
-    // }
-
-    // if (freeRecipesData.length > 0) {
-    //   setFreeRecipesData([]);
-    // }
-
-    // if (selectedRecipesCategory !== "TOP") {
-    //   setSelectedRecipesCategory("TOP");
-    // }
+    if (freeRecipesData.length > 0) {
+      setFreeRecipesData([]);
+    }
   };
 
   // ワード検索機能
@@ -201,25 +174,13 @@ export const Main = () => {
     //   setSearchedFoodInFreeRecipes(filterFreeRecipesFoods);
     //   setSelectedFreeRecipesFoodsCategory("TOP");
     // }
-    if (attribute === "freeRecipes") {
-      const filterFreeRecipes = freeRecipesData.filter((data) =>
-        data.recipeMaterial.includes(searchWord)
-      );
-      setSearchedFreeRecipes(filterFreeRecipes);
-      setSelectedFreeRecipesCategory("TOP");
-    }
-  };
-
-  // カテゴリー検索機能
-  const categorySearch = (category, attribute) => {
-    if (attribute === "freeRecipes") {
-      setSearchedFreeRecipes("");
-      setSelectedFreeRecipesCategory(category);
-      const foodListFilter = testCategorySearch(category, freeRecipesData);
-      setCategorizedFreeRecipes(foodListFilter);
-    }
-
-    return;
+    // if (attribute === "freeRecipes") {
+    //   const filterFreeRecipes = freeRecipesData.filter((data) =>
+    //     data.recipeMaterial.includes(searchWord)
+    //   );
+    //   setSearchedFreeRecipes(filterFreeRecipes);
+    //   setSelectedFreeRecipesCategory("TOP");
+    // }
   };
 
   return (
@@ -236,13 +197,6 @@ export const Main = () => {
               foodInTheRefrigerator={foodInTheRefrigerator}
               foodCategory={foodCategory}
               searchFood={searchFood}
-              categorySearch={categorySearch}
-              // カテゴリー検索されたリスト
-              categorizedFreeRecipes={categorizedFreeRecipes}
-              // ワード検索されたリスト
-              searchedFreeRecipes={searchedFreeRecipes}
-              // 選択されたカテゴリータブ
-              selectedFreeRecipesCategory={selectedFreeRecipesCategory}
             />
           }
         />
@@ -269,7 +223,6 @@ export const Main = () => {
               resetFreeRecipes={resetFreeRecipes}
               foodList={foodList}
               foodCategory={foodCategory}
-              categorySearch={categorySearch}
               searchFood={searchFood}
               getFreeRecipesAPI={getFreeRecipesAPI}
               freeRecipesData={freeRecipesData}

@@ -6,7 +6,7 @@ import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
-import { foodCategory, testCategorySearch } from "../utils/search";
+import { foodCategory, categorySearch } from "../utils/search";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
@@ -17,7 +17,6 @@ export const AddFoodsPage = ({
   recipesData,
   setRecipesData,
   searchFood,
-  categorySearch,
 }) => {
   // カテゴリー検索されたリスト
   const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
@@ -31,6 +30,8 @@ export const AddFoodsPage = ({
   const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
     []
   );
+
+  // 選択されたカテゴリータブ
   const [selectedFoodListCategory, setSelectedFoodListCategory] =
     useState("TOP");
   const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
@@ -44,14 +45,14 @@ export const AddFoodsPage = ({
   const foodListCategorySearch = (category) => {
     setSearchedFoodInFoodList("");
     setSelectedFoodListCategory(category);
-    const foodListFilter = testCategorySearch(category, foodList);
+    const foodListFilter = categorySearch(category, foodList);
     setCategorizedFoodInFoodList(foodListFilter);
   };
   // 冷蔵庫の中身のカテゴリー検索機能
   const refrigeratorCategorySearch = (category) => {
     setSearchedFoodInRefrigerator("");
     setSelectedRefrigeratorCategory(category);
-    const foodListFilter = testCategorySearch(category, foodInTheRefrigerator);
+    const foodListFilter = categorySearch(category, foodInTheRefrigerator);
     setCategorizedFoodInRefrigerator(foodListFilter);
   };
 
@@ -158,7 +159,6 @@ export const AddFoodsPage = ({
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
                 <CategoryTab
-                  categorySearch={categorySearch}
                   category={category}
                   selectedCategory={selectedFoodListCategory}
                   onClick={(category) => foodListCategorySearch(category)}
