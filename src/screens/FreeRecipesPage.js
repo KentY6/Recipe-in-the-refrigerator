@@ -6,7 +6,7 @@ import { List } from "../components/List";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
 import { FreeRecipesButton } from "../components/FreeRecipesButton";
-import { foodCategory, testCategorySearch } from "../utils/search";
+import { foodCategory, categorySearch } from "../utils/search";
 
 export const FreeRecipesPage = ({
   resetFreeRecipes,
@@ -58,7 +58,7 @@ export const FreeRecipesPage = ({
   const foodsInFreeRecipesCategorySearch = (category) => {
     setSearchedFoodInFreeRecipes("");
     setSelectedFreeRecipesFoodsCategory(category);
-    const foodListFilter = testCategorySearch(category, foodList);
+    const foodListFilter = categorySearch(category, foodList);
     setCategorizedFoodInFreeRecipes(foodListFilter);
   };
 
