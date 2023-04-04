@@ -1,15 +1,6 @@
 import React from "react";
 
-export const CategoryTab = ({
-  categorySearch,
-  category,
-  attribute,
-  selectedCategory,
-}) => {
-  const inputCategory = (category) => {
-    categorySearch(category, attribute);
-  };
-
+export const CategoryTab = ({ category, selectedCategory, onClick }) => {
   return (
     <div
       className={
@@ -17,7 +8,7 @@ export const CategoryTab = ({
           ? "activeCategoryText"
           : "nonActiveCategoryText"
       }
-      onClick={() => inputCategory(category)}
+      onClick={() => onClick(category)}
     >
       {category}
     </div>

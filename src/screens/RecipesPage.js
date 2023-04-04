@@ -1,26 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
 import { RecipesList } from "../components/RecipesList";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
+import {
+  foodCategory,
+  categorySearch,
+  searchRecipesFood,
+} from "../utils/search";
 
 export const RecipesPage = ({
   resetFreeRecipes,
   recipesData,
   freeRecipesData,
   foodInTheRefrigerator,
-  foodCategory,
-  searchFood,
-  categorySearch,
-  categorizedRecipes,
-  categorizedFreeRecipes,
-  searchedRecipes,
-  searchedFreeRecipes,
-  selectedRecipesCategory,
-  selectedFreeRecipesCategory,
 }) => {
+  // カテゴリー検索されたリスト
+  const [categorizedRecipes, setCategorizedRecipes] = useState([]);
+  const [categorizedFreeRecipes, setCategorizedFreeRecipes] = useState([]);
+
+  // ワード検索されたカテゴリータブ
+  const [searchedRecipes, setSearchedRecipes] = useState([]);
+  const [searchedFreeRecipes, setSearchedFreeRecipes] = useState([]);
+
+  // 選択されたカテゴリータブ
+  const [selectedRecipesCategory, setSelectedRecipesCategory] = useState("TOP");
+  const [selectedFreeRecipesCategory, setSelectedFreeRecipesCategory] =
+    useState("TOP");
+
+  // カテゴリー検索機能
+  const recipesCategorySearch = (category) => {
+    setSearchedRecipes("");
+    setSelectedRecipesCategory(category);
+    const foodListFilter = categorySearch(category, recipesData);
+    setCategorizedRecipes(foodListFilter);
+  };
+  // フリーレシピのカテゴリー検索機能
+  const freeRecipesCategorySearch = (category) => {
+    setSearchedFreeRecipes("");
+    setSelectedFreeRecipesCategory(category);
+    const foodListFilter = categorySearch(category, freeRecipesData);
+    setCategorizedFreeRecipes(foodListFilter);
+  };
+
+  // ワード検索機能
+  const recipesWordSearch = (searchWord) => {
+    const foodListFilter = searchRecipesFood(searchWord, recipesData);
+    setSearchedRecipes(foodListFilter);
+    setSelectedRecipesCategory("TOP");
+  };
+  // フリーレシピ用ワード検索機能
+  const freeRecipesWordSearch = (searchWord) => {
+    const foodListFilter = searchRecipesFood(searchWord, freeRecipesData);
+    setSearchedFreeRecipes(foodListFilter);
+    setSelectedFreeRecipesCategory("TOP");
+  };
+
   // リストに表示するレシピを決める
   const whichRecipeInRecipesList = () => {
     // 配列を作ってそこに入れるようにする
@@ -74,18 +111,23 @@ export const RecipesPage = ({
       <div className="recipesZone">
         <div className="searchContainer"></div>
         <SearchBar
-          searchFood={searchFood}
+          searchFood={
+            freeRecipesData.length > 0
+              ? freeRecipesWordSearch
+              : recipesWordSearch
+          }
           attribute={freeRecipesData.length > 0 ? "freeRecipes" : "recipes"}
         />
         <div className="tabsBox">
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
               <CategoryTab
-                categorySearch={categorySearch}
-                category={category}
-                attribute={
-                  freeRecipesData.length > 0 ? "freeRecipes" : "recipes"
+                onClick={(category) =>
+                  freeRecipesData.length > 0
+                    ? freeRecipesCategorySearch(category)
+                    : recipesCategorySearch(category)
                 }
+                category={category}
                 selectedCategory={
                   freeRecipesData.length > 0
                     ? selectedFreeRecipesCategory

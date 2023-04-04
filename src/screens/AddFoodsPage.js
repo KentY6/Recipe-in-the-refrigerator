@@ -6,31 +6,67 @@ import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
+import { foodCategory, categorySearch, searchFood } from "../utils/search";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
   foodList,
   foodInTheRefrigerator,
   setFoodInTheRefrigerator,
-  foodCategory,
   getRecipesAPI,
   recipesData,
   setRecipesData,
-  searchFood,
-  categorySearch,
-  categorizedFoodInFoodList,
-  categorizedFoodInRefrigerator,
-  setCategorizedFoodInRefrigerator,
-  searchedFoodInFoodList,
-  searchedFoodInRefrigerator,
-  setSearchedFoodInRefrigerator,
-  selectedFoodListCategory,
-  selectedRefrigeratorCategory,
-  setSelectedRefrigeratorCategory,
 }) => {
+  // カテゴリー検索されたリスト
+  const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
+    []
+  );
+  const [categorizedFoodInRefrigerator, setCategorizedFoodInRefrigerator] =
+    useState([]);
+
+  // ワード検索されたリスト
+  const [searchedFoodInFoodList, setSearchedFoodInFoodList] = useState([]);
+  const [searchedFoodInRefrigerator, setSearchedFoodInRefrigerator] = useState(
+    []
+  );
+
+  // 選択されたカテゴリータブ
+  const [selectedFoodListCategory, setSelectedFoodListCategory] =
+    useState("TOP");
+  const [selectedRefrigeratorCategory, setSelectedRefrigeratorCategory] =
+    useState("TOP");
+
   // アコーディオンボタンがアクティブか否かのシグナル
   const [isActiveFoodList, setIsActiveFoodList] = useState(false);
   const [isActiveRefrigerator, setIsActiveRefrigerator] = useState(false);
+
+  // フードリストのカテゴリー検索機能
+  const foodListCategorySearch = (category) => {
+    setSearchedFoodInFoodList("");
+    setSelectedFoodListCategory(category);
+    const foodListFilter = categorySearch(category, foodList);
+    setCategorizedFoodInFoodList(foodListFilter);
+  };
+  // 冷蔵庫の中身のカテゴリー検索機能
+  const refrigeratorCategorySearch = (category) => {
+    setSearchedFoodInRefrigerator("");
+    setSelectedRefrigeratorCategory(category);
+    const foodListFilter = categorySearch(category, foodInTheRefrigerator);
+    setCategorizedFoodInRefrigerator(foodListFilter);
+  };
+
+  // フードリストのワード検索機能
+  const foodListWordSearch = (searchWord) => {
+    const foodListFilter = searchFood(searchWord, foodList);
+    setSearchedFoodInFoodList(foodListFilter);
+    setSelectedFoodListCategory("TOP");
+  };
+  // 冷蔵庫の中身のワード検索機能
+  const refrigeratorWordSearch = (searchWord) => {
+    const foodListFilter = searchFood(searchWord, foodInTheRefrigerator);
+    setSearchedFoodInRefrigerator(foodListFilter);
+    setSelectedRefrigeratorCategory("TOP");
+  };
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
   const addFoodInRefrigerator = (data) => {
@@ -130,15 +166,14 @@ export const AddFoodsPage = ({
         <div
           className={isActiveFoodList === true ? "foodListBox" : "nonActive"}
         >
-          <SearchBar searchFood={searchFood} attribute={"foodList"} />
+          <SearchBar searchFood={foodListWordSearch} attribute={"foodList"} />
           <div className="tabsBox">
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
                 <CategoryTab
-                  categorySearch={categorySearch}
                   category={category}
-                  attribute={"foodList"}
                   selectedCategory={selectedFoodListCategory}
+                  onClick={(category) => foodListCategorySearch(category)}
                   key={index}
                 />
               ))}
@@ -170,14 +205,16 @@ export const AddFoodsPage = ({
             isActiveRefrigerator === true ? "refrigeratorBox" : "nonActive"
           }
         >
-          <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
+          <SearchBar
+            searchFood={refrigeratorWordSearch}
+            attribute={"refrigerator"}
+          />
           <div className="tabsBox">
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
                 <CategoryTab
-                  categorySearch={categorySearch}
+                  onClick={(category) => refrigeratorCategorySearch(category)}
                   category={category}
-                  attribute={"refrigerator"}
                   selectedCategory={selectedRefrigeratorCategory}
                   key={index}
                 />
