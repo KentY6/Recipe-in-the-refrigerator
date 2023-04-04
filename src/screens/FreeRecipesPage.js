@@ -6,12 +6,11 @@ import { List } from "../components/List";
 import { SearchBar } from "../components/SearchBar";
 import { CategoryTab } from "../components/CategoryTab";
 import { FreeRecipesButton } from "../components/FreeRecipesButton";
-import { foodCategory, categorySearch } from "../utils/search";
+import { foodCategory, categorySearch, searchFood } from "../utils/search";
 
 export const FreeRecipesPage = ({
   resetFreeRecipes,
   foodList,
-  searchFood,
   getFreeRecipesAPI,
   foodInFreeRecipesBox,
   setFoodInFreeRecipesBox,
@@ -55,11 +54,19 @@ export const FreeRecipesPage = ({
     }
   };
 
+  // カテゴリー検索機能
   const foodsInFreeRecipesCategorySearch = (category) => {
     setSearchedFoodInFreeRecipes("");
     setSelectedFreeRecipesFoodsCategory(category);
     const foodListFilter = categorySearch(category, foodList);
     setCategorizedFoodInFreeRecipes(foodListFilter);
+  };
+
+  // ワード検索機能
+  const freeRecipesFoodWordSearch = (searchWord) => {
+    const foodListFilter = searchFood(searchWord, foodList);
+    setSearchedFoodInFreeRecipes(foodListFilter);
+    setSelectedFreeRecipesFoodsCategory("TOP");
   };
 
   // リストに表示する食材を決める
@@ -94,7 +101,10 @@ export const FreeRecipesPage = ({
         <PageTitle PageTitle={"フリーレシピ検索"} />
       </div>
       <div className="freeRecipesZone">
-        <SearchBar searchFood={searchFood} attribute={"freeRecipesFoods"} />
+        <SearchBar
+          searchFood={freeRecipesFoodWordSearch}
+          attribute={"freeRecipesFoods"}
+        />
         <div className="tabsBox">
           <div className="categoryTab">
             {foodCategory.map((category, index) => (
