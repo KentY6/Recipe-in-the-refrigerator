@@ -51,6 +51,12 @@ export const RecipesPage = ({
     setSearchedRecipes(foodListFilter);
     setSelectedRecipesCategory("TOP");
   };
+  // フリーレシピ用ワード検索機能
+  const freeRecipesWordSearch = (searchWord) => {
+    const foodListFilter = searchRecipesFood(searchWord, freeRecipesData);
+    setSearchedFreeRecipes(foodListFilter);
+    setSelectedFreeRecipesCategory("TOP");
+  };
 
   // リストに表示するレシピを決める
   const whichRecipeInRecipesList = () => {
@@ -105,7 +111,11 @@ export const RecipesPage = ({
       <div className="recipesZone">
         <div className="searchContainer"></div>
         <SearchBar
-          searchFood={recipesWordSearch}
+          searchFood={
+            freeRecipesData.length > 0
+              ? freeRecipesWordSearch
+              : recipesWordSearch
+          }
           attribute={freeRecipesData.length > 0 ? "freeRecipes" : "recipes"}
         />
         <div className="tabsBox">

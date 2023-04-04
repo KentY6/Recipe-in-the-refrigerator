@@ -144,45 +144,6 @@ export const Main = () => {
     }
   };
 
-  // ワード検索機能
-  const searchFood = (searchWord, attribute) => {
-    // if (attribute === "foodList") {
-    //   const filterFoodList = foodList.filter((food) =>
-    //     food.name.includes(searchWord)
-    //   );
-    //   setSearchedFoodInFoodList(filterFoodList);
-    //   setSelectedFoodListCategory("TOP");
-    // }
-    // if (attribute === "refrigerator") {
-    //   const filterRefrigerator = foodInTheRefrigerator.filter((food) =>
-    //     food.name.includes(searchWord)
-    //   );
-    //   setSearchedFoodInRefrigerator(filterRefrigerator);
-    //   setSelectedRefrigeratorCategory("TOP");
-    // }
-    // if (attribute === "recipes") {
-    //   const filterRecipes = recipesData.filter((data) =>
-    //     data.recipeMaterial.includes(searchWord)
-    //   );
-    //   setSearchedRecipes(filterRecipes);
-    //   setSelectedRecipesCategory("TOP");
-    // }
-    // if (attribute === "freeRecipesFoods") {
-    //   const filterFreeRecipesFoods = foodList.filter((food) =>
-    //     food.name.includes(searchWord)
-    //   );
-    //   setSearchedFoodInFreeRecipes(filterFreeRecipesFoods);
-    //   setSelectedFreeRecipesFoodsCategory("TOP");
-    // }
-    // if (attribute === "freeRecipes") {
-    //   const filterFreeRecipes = freeRecipesData.filter((data) =>
-    //     data.recipeMaterial.includes(searchWord)
-    //   );
-    //   setSearchedFreeRecipes(filterFreeRecipes);
-    //   setSelectedFreeRecipesCategory("TOP");
-    // }
-  };
-
   return (
     <BrowserRouter>
       <Routes>
@@ -196,7 +157,6 @@ export const Main = () => {
               freeRecipesData={freeRecipesData}
               foodInTheRefrigerator={foodInTheRefrigerator}
               foodCategory={foodCategory}
-              searchFood={searchFood}
             />
           }
         />
@@ -211,7 +171,6 @@ export const Main = () => {
               getRecipesAPI={getRecipesAPI}
               recipesData={recipesData}
               setRecipesData={setRecipesData}
-              searchFood={searchFood}
             />
           }
         />
@@ -223,7 +182,6 @@ export const Main = () => {
               resetFreeRecipes={resetFreeRecipes}
               foodList={foodList}
               foodCategory={foodCategory}
-              searchFood={searchFood}
               getFreeRecipesAPI={getFreeRecipesAPI}
               freeRecipesData={freeRecipesData}
               setFreeRecipesData={setFreeRecipesData}
