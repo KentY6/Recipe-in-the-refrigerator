@@ -14,3 +14,10 @@ export const searchFood = (searchWord, foodList) => {
   );
   return foodListFilter;
 };
+
+export const searchRecipesFood = (searchWord, foodList) => {
+  const foodListFilter = foodList.filter((food) =>
+    food.recipeMaterial.includes(searchWord)
+  );
+  return foodListFilter;
+};
