@@ -6,3 +6,11 @@ export const categorySearch = (Category, foodList) => {
   const foodListFilter = foodList.filter((food) => food.category === Category);
   return foodListFilter;
 };
+
+// ワード検索機能
+export const searchFood = (searchWord, foodList) => {
+  const foodListFilter = foodList.filter((food) =>
+    food.name.includes(searchWord)
+  );
+  return foodListFilter;
+};

@@ -6,7 +6,7 @@ import { CategoryTab } from "../components/CategoryTab";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
-import { foodCategory, categorySearch } from "../utils/search";
+import { foodCategory, categorySearch, searchFood } from "../utils/search";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
@@ -16,7 +16,6 @@ export const AddFoodsPage = ({
   getRecipesAPI,
   recipesData,
   setRecipesData,
-  searchFood,
 }) => {
   // カテゴリー検索されたリスト
   const [categorizedFoodInFoodList, setCategorizedFoodInFoodList] = useState(
@@ -54,6 +53,13 @@ export const AddFoodsPage = ({
     setSelectedRefrigeratorCategory(category);
     const foodListFilter = categorySearch(category, foodInTheRefrigerator);
     setCategorizedFoodInRefrigerator(foodListFilter);
+  };
+
+  // フードリストのワード検索機能
+  const foodListWordSearch = (searchWord) => {
+    const foodListFilter = searchFood(searchWord, foodList);
+    setSearchedFoodInFoodList(foodListFilter);
+    setSelectedFoodListCategory("TOP");
   };
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
@@ -154,7 +160,7 @@ export const AddFoodsPage = ({
         <div
           className={isActiveFoodList === true ? "foodListBox" : "nonActive"}
         >
-          <SearchBar searchFood={searchFood} attribute={"foodList"} />
+          <SearchBar searchFood={foodListWordSearch} attribute={"foodList"} />
           <div className="tabsBox">
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
