@@ -61,6 +61,12 @@ export const AddFoodsPage = ({
     setSearchedFoodInFoodList(foodListFilter);
     setSelectedFoodListCategory("TOP");
   };
+  // 冷蔵庫の中身のワード検索機能
+  const refrigeratorWordSearch = (searchWord) => {
+    const foodListFilter = searchFood(searchWord, foodInTheRefrigerator);
+    setSearchedFoodInRefrigerator(foodListFilter);
+    setSelectedRefrigeratorCategory("TOP");
+  };
 
   // 冷蔵庫の中身に食材リストで選択した食材を追加する機能
   const addFoodInRefrigerator = (data) => {
@@ -199,7 +205,10 @@ export const AddFoodsPage = ({
             isActiveRefrigerator === true ? "refrigeratorBox" : "nonActive"
           }
         >
-          <SearchBar searchFood={searchFood} attribute={"refrigerator"} />
+          <SearchBar
+            searchFood={refrigeratorWordSearch}
+            attribute={"refrigerator"}
+          />
           <div className="tabsBox">
             <div className="categoryTab">
               {foodCategory.map((category, index) => (
