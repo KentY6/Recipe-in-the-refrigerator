@@ -50,7 +50,11 @@ export const RecipesPage = ({
     const foodListFilter = searchRecipesFood(searchWord, recipesData);
     setSearchedRecipes(foodListFilter);
     setSelectedRecipesCategory("TOP");
+    if (foodListFilter.length === 0) {
+      setSearchedRecipes("notFound");
+    }
   };
+  console.log(searchedRecipes);
   // フリーレシピ用ワード検索機能
   const freeRecipesWordSearch = (searchWord) => {
     const foodListFilter = searchRecipesFood(searchWord, freeRecipesData);
@@ -69,6 +73,9 @@ export const RecipesPage = ({
     }
     if (searchedRecipes.length > 0) {
       whichRecipesArray = searchedRecipes;
+    }
+    if (searchedRecipes === "notFound") {
+      whichRecipesArray = [];
     }
     if (categorizedRecipes.length > 0 && selectedRecipesCategory !== "TOP") {
       whichRecipesArray = categorizedRecipes;
