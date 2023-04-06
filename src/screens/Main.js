@@ -174,7 +174,10 @@ export const Main = () => {
             />
           }
         />
-        <Route path={"/loginForm"} element={<LoginForm />} />
+        <Route
+          path={"/loginForm"}
+          element={<LoginForm resetFreeRecipes={resetFreeRecipes} />}
+        />
         <Route
           path={"/freeRecipesPage"}
           element={
