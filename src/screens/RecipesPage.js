@@ -54,7 +54,6 @@ export const RecipesPage = ({
       setSearchedRecipes("notFound");
     }
   };
-  console.log(searchedRecipes);
   // フリーレシピ用ワード検索機能
   const freeRecipesWordSearch = (searchWord) => {
     const foodListFilter = searchRecipesFood(searchWord, freeRecipesData);
