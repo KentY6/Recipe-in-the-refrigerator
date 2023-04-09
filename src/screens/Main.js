@@ -19,6 +19,9 @@ export const Main = () => {
   const [recipesData, setRecipesData] = useState([]);
   const [freeRecipesData, setFreeRecipesData] = useState([]);
 
+  //ログインされているかどうかのサイン
+  const [logInState, setLogInState] = useState(false);
+
   // APIキー
   const appID = process.env.REACT_APP_Application_ID;
 
@@ -108,7 +111,13 @@ export const Main = () => {
         />
         <Route
           path={"/loginForm"}
-          element={<LoginForm resetFreeRecipes={resetFreeRecipes} />}
+          element={
+            <LoginForm
+              resetFreeRecipes={resetFreeRecipes}
+              logInState={logInState}
+              setLogInState={setLogInState}
+            />
+          }
         />
         <Route
           path={"/freeRecipesPage"}

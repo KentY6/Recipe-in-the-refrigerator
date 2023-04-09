@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-export const AuthenticationInputForm = ({ text, getText }) => {
+export const AuthenticationInputForm = ({ type, text, getText }) => {
   const [authenticationText, setAuthenticationText] = useState("");
 
   const getInputText = (e) => {
-    e.preventDefault();
     getText(authenticationText);
   };
 
@@ -13,7 +12,7 @@ export const AuthenticationInputForm = ({ text, getText }) => {
       <div>{text}</div>
       <form onChange={getInputText}>
         <input
-          type="text"
+          type={type}
           value={authenticationText}
           onChange={(e) => setAuthenticationText(e.target.value)}
         />
