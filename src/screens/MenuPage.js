@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCarrot, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-export const MenuPage = () => {
+export const MenuPage = ({ logInState }) => {
   return (
     <div className="refrigerator">
       <div className="mainTitle">
@@ -59,7 +59,9 @@ export const MenuPage = () => {
                 <div className="loginIcon">
                   <FontAwesomeIcon icon={faRightToBracket} />
                 </div>
-                <div className="loginText">ログイン</div>
+                <div className="loginText">
+                  {logInState === false ? "ログイン" : "ログアウト"}
+                </div>
               </div>
             </div>
           </Link>

@@ -79,10 +79,16 @@ export const Main = () => {
     }
   };
 
+  // データベースに保存されたデータを冷蔵庫の中身とレシピデータに入れる
+  const inputUsersData = (data) => {
+    setFoodInTheRefrigerator(data.refrigerator);
+    setRecipesData(data.recipesData);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={<MenuPage />} />
+        <Route path={"/"} element={<MenuPage logInState={logInState} />} />
         <Route
           path={"/recipesPage"}
           element={
@@ -116,6 +122,9 @@ export const Main = () => {
               resetFreeRecipes={resetFreeRecipes}
               logInState={logInState}
               setLogInState={setLogInState}
+              foodInTheRefrigerator={foodInTheRefrigerator}
+              recipesData={recipesData}
+              inputUsersData={inputUsersData}
             />
           }
         />

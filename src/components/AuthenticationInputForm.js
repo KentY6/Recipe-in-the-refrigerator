@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const AuthenticationInputForm = ({ type, text, getText }) => {
-  const [authenticationText, setAuthenticationText] = useState("");
-
-  const getInputText = (e) => {
-    getText(authenticationText);
-  };
-
+export const AuthenticationInputForm = ({ type, label, getText }) => {
   return (
     <div>
-      <div>{text}</div>
-      <form onChange={getInputText}>
-        <input
-          type={type}
-          value={authenticationText}
-          onChange={(e) => setAuthenticationText(e.target.value)}
-        />
+      <div>{label}</div>
+      <form>
+        <input type={type} />
       </form>
     </div>
   );
