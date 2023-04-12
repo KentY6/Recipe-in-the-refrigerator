@@ -19,6 +19,9 @@ export const Main = () => {
   const [recipesData, setRecipesData] = useState([]);
   const [freeRecipesData, setFreeRecipesData] = useState([]);
 
+  //ログインされているかどうかのサイン
+  const [logInState, setLogInState] = useState(false);
+
   // APIキー
   const appID = process.env.REACT_APP_Application_ID;
 
@@ -76,10 +79,16 @@ export const Main = () => {
     }
   };
 
+  // データベースに保存されたデータを冷蔵庫の中身とレシピデータに入れる
+  const inputUsersData = (data) => {
+    setFoodInTheRefrigerator(data.refrigerator);
+    setRecipesData(data.recipesData);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={<MenuPage />} />
+        <Route path={"/"} element={<MenuPage logInState={logInState} />} />
         <Route
           path={"/recipesPage"}
           element={
@@ -108,7 +117,16 @@ export const Main = () => {
         />
         <Route
           path={"/loginForm"}
-          element={<LoginForm resetFreeRecipes={resetFreeRecipes} />}
+          element={
+            <LoginForm
+              resetFreeRecipes={resetFreeRecipes}
+              logInState={logInState}
+              setLogInState={setLogInState}
+              foodInTheRefrigerator={foodInTheRefrigerator}
+              recipesData={recipesData}
+              inputUsersData={inputUsersData}
+            />
+          }
         />
         <Route
           path={"/freeRecipesPage"}
