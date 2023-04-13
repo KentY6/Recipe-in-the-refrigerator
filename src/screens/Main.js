@@ -81,8 +81,10 @@ export const Main = () => {
 
   // データベースに保存されたデータを冷蔵庫の中身とレシピデータに入れる
   const inputUsersData = (data) => {
-    setFoodInTheRefrigerator(data.refrigerator);
-    setRecipesData(data.recipesData);
+    if (foodInTheRefrigerator.length === 0) {
+      setFoodInTheRefrigerator(data.refrigerator);
+      setRecipesData(data.recipesData);
+    }
   };
 
   return (
