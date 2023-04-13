@@ -15,6 +15,7 @@ export const LoginForm = ({
   inputUsersData,
 }) => {
   const [usersData, setUsersData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // 認証機能用Ref
   const mailAddressRef = useRef();
@@ -44,9 +45,14 @@ export const LoginForm = ({
     try {
       await auth.createUserWithEmailAndPassword(mailAddress, passWord);
       setLogInState(true);
+      setErrorMessage("");
     } catch (err) {
       setLogInState(false);
       console.error(err);
+      setErrorMessage(
+        `メールアドレスかパスワードが間違っています
+        パスワードは半角英数字で6文字以上必要です`
+      );
     }
   };
   // ログイン機能
@@ -57,10 +63,13 @@ export const LoginForm = ({
 
     try {
       await auth.signInWithEmailAndPassword(mailAddress, passWord);
-      await setLogInState(true);
+      setLogInState(true);
+      setErrorMessage("");
     } catch (err) {
       setLogInState(false);
       console.error(err);
+      setErrorMessage(`メールアドレスかパスワードが間違っています
+      パスワードは半角英数字で6文字以上必要です`);
     }
   };
   // サインアウト機能
@@ -73,9 +82,9 @@ export const LoginForm = ({
     }
   };
   // ログアウト機能
-  const logOut = async () => {
+  const logOut = () => {
     try {
-      await auth.signOut();
+      auth.signOut();
       setLogInState(false);
       saveFoodInTheRefrigerator();
       saveRecipesData();
@@ -124,21 +133,51 @@ export const LoginForm = ({
         />
       </div>
       <form>
-        <div className="loginForm">
-          <label>・メールアドレス</label>
-          <input type="email" ref={mailAddressRef} />
-          <label>・パスワード</label>
-          <input type="password" ref={passWordRef} />
+        <div className={logInState === false ? "loginForm" : "nonActive"}>
+          <div className="authenticationForm">
+            <label className="label">・メールアドレス</label>
+            <input className="form" type="email" ref={mailAddressRef} />
+          </div>
+          <div className="authenticationForm">
+            <label className="label">・パスワード</label>
+            <input className="form" type="password" ref={passWordRef} />
+          </div>
         </div>
-        <div className="authenticationButton">
-          <button onClick={logInState === false ? (e) => logIn(e) : logOut}>
+        <div className={logInState === false ? "nonActive" : "loggedText"}>
+          ログイン状態です
+        </div>
+        <div
+          className={
+            logInState === false
+              ? "authenticationButtons"
+              : "loggedInStateButtons"
+          }
+        >
+          <button
+            className={
+              logInState === false
+                ? "authenticationButton"
+                : "loggedInStateButton"
+            }
+            onClick={logInState === false ? (e) => logIn(e) : logOut}
+          >
             {logInState === false ? "ログイン" : "ログアウト"}
           </button>
-          <button onClick={logInState === false ? (e) => signIn(e) : signOut}>
+          <button
+            className={
+              logInState === false
+                ? "authenticationButton"
+                : "loggedInStateButton"
+            }
+            onClick={logInState === false ? (e) => signIn(e) : signOut}
+          >
             {logInState === false ? "サインアップ" : "サインアウト"}
           </button>
         </div>
       </form>
+      <div className={errorMessage === "" ? "nonActive" : "errorMessage"}>
+        {errorMessage}
+      </div>
     </div>
   );
 };
