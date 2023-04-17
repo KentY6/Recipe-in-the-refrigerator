@@ -1,43 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
 import { auth } from "../firebase";
 
-export const LoginForm = ({
-  resetFreeRecipes,
-  logInState,
-  setLogInState,
-  foodInTheRefrigerator,
-  recipesData,
-  inputUsersData,
-}) => {
-  const [usersData, setUsersData] = useState([]);
+export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // 認証機能用Ref
   const mailAddressRef = useRef();
   const passWordRef = useRef();
 
-  // 登録するユーザー
-  const user = firebase.auth().currentUser;
-
-  // 冷蔵庫の中身を保存する機能
-  const saveFoodInTheRefrigerator = () => {
-    firebase
-      .database()
-      .ref(`${user.uid}/refrigerator`)
-      .set(foodInTheRefrigerator);
-  };
-  // レシピデータを保存する機能
-  const saveRecipesData = () => {
-    firebase.database().ref(`${user.uid}/recipesData`).set(recipesData);
-  };
-
   // サインアップ機能
-  const signIn = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     const mailAddress = mailAddressRef.current.value;
     const passWord = passWordRef.current.value;
@@ -48,7 +23,7 @@ export const LoginForm = ({
       setErrorMessage("");
     } catch (err) {
       setLogInState(false);
-      console.error(err);
+      console.log(err);
       setErrorMessage(
         `メールアドレスかパスワードが間違っています
         パスワードは半角英数字で6文字以上必要です`
@@ -86,39 +61,10 @@ export const LoginForm = ({
     try {
       auth.signOut();
       setLogInState(false);
-      saveFoodInTheRefrigerator();
-      saveRecipesData();
     } catch (err) {
       console.error(err);
     }
   };
-
-  // ユーザーデータ取得
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
-          const getDataBasesData = await firebase
-            .database()
-            .ref(user.uid)
-            .once(`value`);
-          const dataBasesData = getDataBasesData.val();
-          setUsersData(dataBasesData);
-        } catch (err) {
-          console.error(err);
-        }
-      } else {
-        setUsersData([]);
-      }
-    });
-  }, [logInState]);
-
-  // データベースから取得したデータを親に渡す
-  useEffect(() => {
-    if (usersData && Object.keys(usersData).length > 0) {
-      inputUsersData(usersData);
-    } else return;
-  }, [usersData, inputUsersData]);
 
   return (
     <div>
@@ -169,7 +115,7 @@ export const LoginForm = ({
                 ? "authenticationButton"
                 : "loggedInStateButton"
             }
-            onClick={logInState === false ? (e) => signIn(e) : signOut}
+            onClick={logInState === false ? (e) => signUp(e) : signOut}
           >
             {logInState === false ? "サインアップ" : "サインアウト"}
           </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MainTitle } from "../components/MainTitle";
 import KitchenRoundedIcon from "@mui/icons-material/KitchenRounded";
@@ -8,8 +8,86 @@ import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCarrot, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db } from "../firebase";
 
-export const MenuPage = ({ logInState }) => {
+export const MenuPage = ({
+  logInState,
+  setFoodInTheRefrigerator,
+  setRecipesData,
+}) => {
+  const [usersRefrigeratorData, setUsersRefrigeratorData] = useState([]);
+  const [usersRecipesData, setUsersRecipesData] = useState([]);
+
+  // 登録するユーザー
+  const user = firebase.auth().currentUser;
+
+  // ユーザーデータ取得
+  const getRefrigeratorData = () => {
+    if (user) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`refrigerator`)
+        .doc(`refrigerator`)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            setUsersRefrigeratorData(userData);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+  const getRecipesData = () => {
+    if (user) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`recipesData`)
+        .doc(`recipesData`)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            setUsersRecipesData(userData);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (logInState === true) {
+      getRefrigeratorData();
+      getRecipesData();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      usersRefrigeratorData &&
+      Object.keys(usersRefrigeratorData).length > 0
+    ) {
+      setFoodInTheRefrigerator(usersRefrigeratorData.foodInTheRefrigerator);
+      setRecipesData(usersRecipesData.recipesData);
+      setUsersRefrigeratorData([]);
+      setUsersRecipesData([]);
+    }
+  }, [
+    setFoodInTheRefrigerator,
+    setRecipesData,
+    usersRecipesData,
+    usersRefrigeratorData,
+  ]);
+
+  console.log(usersRefrigeratorData.foodInTheRefrigerator);
+  console.log(usersRecipesData.recipesData);
+
   return (
     <div className="refrigerator">
       <div className="mainTitle">

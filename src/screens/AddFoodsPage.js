@@ -7,6 +7,9 @@ import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
 import { foodCategory, categorySearch, searchFood } from "../utils/search";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db } from "../firebase";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
@@ -143,6 +146,39 @@ export const AddFoodsPage = ({
   };
   const whichFoodInRefrigeratorResult = whichFoodInRefrigerator();
 
+  // 登録するユーザー
+  const user = firebase.auth().currentUser;
+
+  // 冷蔵庫の中身を保存する機能
+  const saveFoodInTheRefrigerator = () => {
+    db.collection(`users`)
+      .doc(user.uid)
+      .collection(`users`)
+      .doc(`refrigerator`)
+      .set({ foodInTheRefrigerator })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  // レシピデータを保存する機能
+  const saveRecipesData = () => {
+    db.collection(`users`)
+      .doc(user.uid)
+      .collection(`users`)
+      .doc(`recipesData`)
+      .set({ recipesData })
+      .catch((err) => {
+        console.error(err);
+        return;
+      });
+  };
+
+  // データ保存機能
+  const saveData = () => {
+    saveFoodInTheRefrigerator();
+    saveRecipesData();
+  };
+
   return (
     <div className="addFoodsPage">
       <div className="returnAndTitle">
@@ -238,6 +274,8 @@ export const AddFoodsPage = ({
           />
         </Link>
       </div>
+      {/* データ保存ボタン */}
+      {/* <button onClick={saveData}>データ保存</button> */}
     </div>
   );
 };

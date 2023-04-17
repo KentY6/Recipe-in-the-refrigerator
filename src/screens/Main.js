@@ -79,6 +79,13 @@ export const Main = () => {
     }
   };
 
+  // // データベースから取得したデータを親に渡す
+  // useEffect(() => {
+  //   if (usersData && Object.keys(usersData).length > 0) {
+  //     inputUsersData(usersData);
+  //   } else return;
+  // }, [usersData, inputUsersData]);
+
   // データベースに保存されたデータを冷蔵庫の中身とレシピデータに入れる
   const inputUsersData = (data) => {
     if (foodInTheRefrigerator.length === 0) {
@@ -90,7 +97,16 @@ export const Main = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={<MenuPage logInState={logInState} />} />
+        <Route
+          path={"/"}
+          element={
+            <MenuPage
+              logInState={logInState}
+              setFoodInTheRefrigerator={setFoodInTheRefrigerator}
+              setRecipesData={setRecipesData}
+            />
+          }
+        />
         <Route
           path={"/recipesPage"}
           element={
