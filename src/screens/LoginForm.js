@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
@@ -9,16 +10,14 @@ import { db } from "../firebase";
 
 export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [mailAddress, setMailAddress] = useState("");
+  const [passWord, setPassWord] = useState("");
 
-  // 認証機能用Ref
-  const mailAddressRef = useRef();
-  const passWordRef = useRef();
+  const navigate = useNavigate();
 
   // サインアップ機能
   const signUp = async (e) => {
     e.preventDefault();
-    const mailAddress = mailAddressRef.current.value;
-    const passWord = passWordRef.current.value;
 
     try {
       await auth.createUserWithEmailAndPassword(mailAddress, passWord);
@@ -36,8 +35,6 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   // ログイン機能
   const logIn = async (e) => {
     e.preventDefault();
-    const mailAddress = mailAddressRef.current.value;
-    const passWord = passWordRef.current.value;
 
     try {
       await auth.signInWithEmailAndPassword(mailAddress, passWord);
@@ -73,6 +70,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     } catch (err) {
       console.error(err);
     }
+    navigate("/");
   };
   // ログアウト機能
   const logOut = () => {
@@ -82,6 +80,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     } catch (err) {
       console.error(err);
     }
+    navigate("/");
   };
 
   return (
@@ -103,11 +102,19 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         <div className={logInState === false ? "loginForm" : "nonActive"}>
           <div className="authenticationForm">
             <label className="label">・メールアドレス</label>
-            <input className="form" type="email" ref={mailAddressRef} />
+            <input
+              className="form"
+              type="email"
+              onChange={(e) => setMailAddress(e.target.value)}
+            />
           </div>
           <div className="authenticationForm">
             <label className="label">・パスワード</label>
-            <input className="form" type="password" ref={passWordRef} />
+            <input
+              className="form"
+              type="password"
+              onChange={(e) => setPassWord(e.target.value)}
+            />
           </div>
         </div>
         <div className={logInState === false ? "nonActive" : "loggedText"}>
