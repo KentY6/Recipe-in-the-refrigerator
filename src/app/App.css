@@ -185,6 +185,18 @@
   margin-top: 86px;
 }
 
+.RefrigeratorContainer {
+  margin-top: 20px;
+}
+
+.searchRecipe {
+  margin-top: 20px;
+}
+
+.saveButton {
+  margin-top: 45px;
+}
+
 .foodListBar {
   display: flex;
   width: 330px;
@@ -218,6 +230,7 @@
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
+
 .goToRecipesPageBar {
   display: flex;
   width: 330px;
@@ -227,6 +240,23 @@
   margin-right: 28px;
   margin-bottom: 0px;
   background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.dataSaveBar {
+  display: flex;
+  width: 330px;
+  height: 56px;
+  margin-top: 12px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-bottom: 0px;
+  background-color: #cefec2;
   align-items: center;
   justify-content: space-between;
   border: 1px solid black;

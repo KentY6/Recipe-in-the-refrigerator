@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
 import { RectangleButton } from "../components/RectangleButton";
 import { CategoryTab } from "../components/CategoryTab";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
 import { foodCategory, categorySearch, searchFood } from "../utils/search";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db } from "../firebase";
 
 export const AddFoodsPage = ({
   resetFreeRecipes,
@@ -143,6 +146,42 @@ export const AddFoodsPage = ({
   };
   const whichFoodInRefrigeratorResult = whichFoodInRefrigerator();
 
+  // 冷蔵庫の中身を保存する機能
+  const saveFoodInTheRefrigerator = () => {
+    const user = firebase.auth().currentUser;
+    if (user && foodInTheRefrigerator.length > 0) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`refrigerator`)
+        .doc(`refrigerator`)
+        .set({ foodInTheRefrigerator })
+        .catch((err) => {
+          console.error(err);
+          return;
+        });
+    }
+  };
+  // レシピデータを保存する機能
+  const saveRecipesData = () => {
+    const user = firebase.auth().currentUser;
+    if (user && recipesData.length > 0) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`recipesData`)
+        .doc(`recipesData`)
+        .set({ recipesData })
+        .catch((err) => {
+          console.error(err);
+          return;
+        });
+    }
+  };
+  useEffect(() => {
+    // データ保存機能
+    saveFoodInTheRefrigerator();
+    saveRecipesData();
+  }, [foodInTheRefrigerator, recipesData]);
+
   return (
     <div className="addFoodsPage">
       <div className="returnAndTitle">
@@ -156,7 +195,6 @@ export const AddFoodsPage = ({
 
       {/* 食材リスト */}
       <div className="foodListContainer">
-        {/* todo:RectangleButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
         <RectangleButton
           text={"食材リスト"}
           isActive={isActiveFoodList}
