@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
 import { RectangleButton } from "../components/RectangleButton";
 import { CategoryTab } from "../components/CategoryTab";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { List } from "../components/List";
 import { foodCategory, categorySearch, searchFood } from "../utils/search";
@@ -146,38 +146,41 @@ export const AddFoodsPage = ({
   };
   const whichFoodInRefrigeratorResult = whichFoodInRefrigerator();
 
-  // 登録するユーザー
-  const user = firebase.auth().currentUser;
-
   // 冷蔵庫の中身を保存する機能
   const saveFoodInTheRefrigerator = () => {
-    db.collection(`users`)
-      .doc(user.uid)
-      .collection(`users`)
-      .doc(`refrigerator`)
-      .set({ foodInTheRefrigerator })
-      .catch((err) => {
-        console.error(err);
-      });
+    const user = firebase.auth().currentUser;
+    if (user && foodInTheRefrigerator.length > 0) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`refrigerator`)
+        .doc(`refrigerator`)
+        .set({ foodInTheRefrigerator })
+        .catch((err) => {
+          console.error(err);
+          return;
+        });
+    }
   };
   // レシピデータを保存する機能
   const saveRecipesData = () => {
-    db.collection(`users`)
-      .doc(user.uid)
-      .collection(`users`)
-      .doc(`recipesData`)
-      .set({ recipesData })
-      .catch((err) => {
-        console.error(err);
-        return;
-      });
+    const user = firebase.auth().currentUser;
+    if (user && recipesData.length > 0) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`recipesData`)
+        .doc(`recipesData`)
+        .set({ recipesData })
+        .catch((err) => {
+          console.error(err);
+          return;
+        });
+    }
   };
-
-  // データ保存機能
-  const saveData = () => {
+  useEffect(() => {
+    // データ保存機能
     saveFoodInTheRefrigerator();
     saveRecipesData();
-  };
+  }, [foodInTheRefrigerator, recipesData]);
 
   return (
     <div className="addFoodsPage">
@@ -192,7 +195,6 @@ export const AddFoodsPage = ({
 
       {/* 食材リスト */}
       <div className="foodListContainer">
-        {/* todo:RectangleButtonの名前が要リファクタリング(アセンブリのイメージで細分化)*/}
         <RectangleButton
           text={"食材リスト"}
           isActive={isActiveFoodList}
@@ -274,8 +276,6 @@ export const AddFoodsPage = ({
           />
         </Link>
       </div>
-      {/* データ保存ボタン */}
-      {/* <button onClick={saveData}>データ保存</button> */}
     </div>
   );
 };

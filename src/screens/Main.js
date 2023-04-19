@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AddFoodsPage } from "./AddFoodsPage";
 import { FreeRecipesPage } from "./FreeRecipesPage";
@@ -8,6 +8,9 @@ import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
 import { foodCategory } from "../utils/search";
 import { catalogList } from "../utils/catalogList";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db } from "../firebase";
 
 export const Main = () => {
   // 冷蔵庫の中身
@@ -21,6 +24,9 @@ export const Main = () => {
 
   //ログインされているかどうかのサイン
   const [logInState, setLogInState] = useState(false);
+  // ログイン後取得するデータ
+  const [usersRefrigeratorData, setUsersRefrigeratorData] = useState([]);
+  const [usersRecipesData, setUsersRecipesData] = useState([]);
 
   // APIキー
   const appID = process.env.REACT_APP_Application_ID;
@@ -79,20 +85,75 @@ export const Main = () => {
     }
   };
 
-  // // データベースから取得したデータを親に渡す
-  // useEffect(() => {
-  //   if (usersData && Object.keys(usersData).length > 0) {
-  //     inputUsersData(usersData);
-  //   } else return;
-  // }, [usersData, inputUsersData]);
+  // 登録するユーザー
+  const user = firebase.auth().currentUser;
 
-  // データベースに保存されたデータを冷蔵庫の中身とレシピデータに入れる
-  const inputUsersData = (data) => {
-    if (foodInTheRefrigerator.length === 0) {
-      setFoodInTheRefrigerator(data.refrigerator);
-      setRecipesData(data.recipesData);
+  // ユーザーデータ取得
+  const getRefrigeratorData = () => {
+    if (user) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`refrigerator`)
+        .doc(`refrigerator`)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            setUsersRefrigeratorData(userData);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setUsersRefrigeratorData([]);
     }
   };
+  const getRecipesData = () => {
+    if (user) {
+      db.collection(`users`)
+        .doc(user.uid)
+        .collection(`recipesData`)
+        .doc(`recipesData`)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            setUsersRecipesData(userData);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setUsersRecipesData([]);
+    }
+  };
+
+  useEffect(() => {
+    if (logInState === true) {
+      getRefrigeratorData();
+      getRecipesData();
+    }
+    return;
+  }, [logInState]);
+
+  useEffect(() => {
+    if (
+      usersRefrigeratorData &&
+      Object.keys(usersRefrigeratorData).length > 0
+    ) {
+      setFoodInTheRefrigerator(usersRefrigeratorData.foodInTheRefrigerator);
+      setRecipesData(usersRecipesData.recipesData);
+      setUsersRefrigeratorData([]);
+      setUsersRecipesData([]);
+    }
+  }, [
+    setFoodInTheRefrigerator,
+    setRecipesData,
+    usersRecipesData,
+    usersRefrigeratorData,
+  ]);
 
   return (
     <BrowserRouter>
@@ -142,7 +203,6 @@ export const Main = () => {
               setLogInState={setLogInState}
               foodInTheRefrigerator={foodInTheRefrigerator}
               recipesData={recipesData}
-              inputUsersData={inputUsersData}
             />
           }
         />

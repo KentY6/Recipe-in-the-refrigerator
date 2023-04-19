@@ -3,6 +3,9 @@ import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
 import { auth } from "../firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { db } from "../firebase";
 
 export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,8 +52,23 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   };
   // サインアウト機能
   const signOut = async () => {
+    const user = firebase.auth().currentUser;
     try {
-      await auth.currentUser.delete();
+      // データベースのデータ削除
+      await db
+        .collection(`users`)
+        .doc(user.uid)
+        .collection(`refrigerator`)
+        .doc(`refrigerator`)
+        .delete();
+      await db
+        .collection(`users`)
+        .doc(user.uid)
+        .collection(`recipesData`)
+        .doc(`recipesData`)
+        .delete();
+      await db.collection(`users`).doc(user.uid).delete();
+      await user.delete();
       setLogInState(false);
     } catch (err) {
       console.error(err);
