@@ -159,7 +159,7 @@ export const Main = () => {
     <BrowserRouter>
       <Routes>
         <Route
-          path={"/"}
+          path={logInState === true ? "/" : "menuPage"}
           element={
             <MenuPage
               logInState={logInState}
@@ -195,7 +195,7 @@ export const Main = () => {
           }
         />
         <Route
-          path={"/loginForm"}
+          path={logInState === true ? "/loginForm" : "/"}
           element={
             <LoginForm
               resetFreeRecipes={resetFreeRecipes}

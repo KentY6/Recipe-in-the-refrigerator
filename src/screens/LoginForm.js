@@ -88,7 +88,10 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     <div>
       <div className="returnAndTitle">
         <div onClick={resetFreeRecipes}>
-          <Link to={"/"} className="returnButton">
+          <Link
+            to={"/"}
+            className={logInState === true ? "returnButton" : "nonActive"}
+          >
             <UndoRoundedIcon fontSize="40px" />
           </Link>
         </div>
