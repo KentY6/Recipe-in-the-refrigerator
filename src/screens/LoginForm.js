@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
@@ -15,36 +15,66 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
 
   const navigate = useNavigate();
 
+  // ヴァリデーション設定
+  const getErrorMessage = () => {
+    let message = "";
+    if (
+      mailAddress.length > 0 &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mailAddress)
+    ) {
+      message = `メールアドレスが正しい形式で入力されていません`;
+    }
+    if (passWord.length > 0 && passWord.length < 6) {
+      message = "パスワードは6文字以上入力してください";
+    }
+    if (
+      (mailAddress.length > 0 && !/^[!-~]+$/.test(mailAddress)) ||
+      (passWord.length > 0 && !/^[!-~]+$/.test(passWord))
+    ) {
+      message = "半角英数字で記載してください";
+    }
+    return setErrorMessage(message);
+  };
+
+  useEffect(() => {
+    getErrorMessage();
+  }, [mailAddress, passWord]);
+
   // サインアップ機能
   const signUp = async (e) => {
     e.preventDefault();
 
-    try {
-      await auth.createUserWithEmailAndPassword(mailAddress, passWord);
-      setLogInState(true);
-      setErrorMessage("");
-    } catch (err) {
-      setLogInState(false);
-      console.log(err);
-      setErrorMessage(
-        `メールアドレスかパスワードが間違っています
-        パスワードは半角英数字で6文字以上必要です`
-      );
+    if (errorMessage === "") {
+      try {
+        await auth.createUserWithEmailAndPassword(mailAddress, passWord);
+        setLogInState(true);
+        setErrorMessage("");
+      } catch (err) {
+        setLogInState(false);
+        console.log(err);
+        setErrorMessage(
+          `メールアドレス・パスワードが間違っている、
+          もしくは既に登録済みのユーザーです`
+        );
+      }
     }
   };
   // ログイン機能
   const logIn = async (e) => {
     e.preventDefault();
-
-    try {
-      await auth.signInWithEmailAndPassword(mailAddress, passWord);
-      setLogInState(true);
-      setErrorMessage("");
-    } catch (err) {
-      setLogInState(false);
-      console.error(err);
-      setErrorMessage(`メールアドレスかパスワードが間違っています
-      パスワードは半角英数字で6文字以上必要です`);
+    if (errorMessage === "") {
+      try {
+        await auth.signInWithEmailAndPassword(mailAddress, passWord);
+        setLogInState(true);
+        setErrorMessage("");
+      } catch (err) {
+        setLogInState(false);
+        console.error(err);
+        setErrorMessage(
+          `メールアドレス・パスワードが間違っている、
+          もしくはユーザーが登録されていません`
+        );
+      }
     }
   };
   // サインアウト機能
