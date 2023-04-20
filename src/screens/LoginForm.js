@@ -114,7 +114,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   };
 
   return (
-    <div>
+    <div className="logInFormPage">
       <div className="returnAndTitle">
         <div onClick={resetFreeRecipes}>
           <Link
@@ -128,8 +128,10 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
           PageTitle={logInState === false ? "ログイン" : "ログアウト"}
         />
       </div>
-      <form>
-        <div className={logInState === false ? "loginForm" : "nonActive"}>
+      <form className={logInState === true ? "loggedForm" : "logInForm"}>
+        <div
+          className={logInState === false ? "loginFormContainer" : "nonActive"}
+        >
           <div className="authenticationForm">
             <label className="label">・メールアドレス</label>
             <input
@@ -150,38 +152,29 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         <div className={logInState === false ? "nonActive" : "loggedText"}>
           ログイン状態です
         </div>
+
+        {/* エラーメッセージ */}
+        <div className={errorMessage === "" ? "nonActive" : "errorMessage"}>
+          {errorMessage}
+        </div>
+
         <div
-          className={
-            logInState === false
-              ? "authenticationButtons"
-              : "loggedInStateButtons"
-          }
+          className={logInState === true ? "loggedSubmitArea" : "submitArea"}
         >
           <button
-            className={
-              logInState === false
-                ? "authenticationButton"
-                : "loggedInStateButton"
-            }
+            className={"authenticationButton"}
             onClick={logInState === false ? (e) => logIn(e) : logOut}
           >
             {logInState === false ? "ログイン" : "ログアウト"}
           </button>
           <button
-            className={
-              logInState === false
-                ? "authenticationButton"
-                : "loggedInStateButton"
-            }
+            className={"authenticationButton"}
             onClick={logInState === false ? (e) => signUp(e) : signOut}
           >
-            {logInState === false ? "サインアップ" : "サインアウト"}
+            {logInState === false ? "アカウント登録" : "アカウント削除"}
           </button>
         </div>
       </form>
-      <div className={errorMessage === "" ? "nonActive" : "errorMessage"}>
-        {errorMessage}
-      </div>
     </div>
   );
 };
