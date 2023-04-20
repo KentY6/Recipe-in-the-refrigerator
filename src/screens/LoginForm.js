@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 import { Link } from "react-router-dom";
 import { PageTitle } from "../components/PageTitle";
@@ -9,45 +10,71 @@ import { db } from "../firebase";
 
 export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [mailAddress, setMailAddress] = useState("");
+  const [passWord, setPassWord] = useState("");
 
-  // 認証機能用Ref
-  const mailAddressRef = useRef();
-  const passWordRef = useRef();
+  const navigate = useNavigate();
+
+  // ヴァリデーション設定
+  const getErrorMessage = () => {
+    let message = "";
+    if (
+      mailAddress.length > 0 &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mailAddress)
+    ) {
+      message = `メールアドレスが正しい形式で入力されていません`;
+    }
+    if (passWord.length > 0 && passWord.length < 6) {
+      message = "パスワードは6文字以上入力してください";
+    }
+    if (
+      (mailAddress.length > 0 && !/^[!-~]+$/.test(mailAddress)) ||
+      (passWord.length > 0 && !/^[!-~]+$/.test(passWord))
+    ) {
+      message = "半角英数字で記載してください";
+    }
+    return setErrorMessage(message);
+  };
+
+  useEffect(() => {
+    getErrorMessage();
+  }, [mailAddress, passWord]);
 
   // サインアップ機能
   const signUp = async (e) => {
     e.preventDefault();
-    const mailAddress = mailAddressRef.current.value;
-    const passWord = passWordRef.current.value;
 
-    try {
-      await auth.createUserWithEmailAndPassword(mailAddress, passWord);
-      setLogInState(true);
-      setErrorMessage("");
-    } catch (err) {
-      setLogInState(false);
-      console.log(err);
-      setErrorMessage(
-        `メールアドレスかパスワードが間違っています
-        パスワードは半角英数字で6文字以上必要です`
-      );
+    if (errorMessage === "") {
+      try {
+        await auth.createUserWithEmailAndPassword(mailAddress, passWord);
+        setLogInState(true);
+        setErrorMessage("");
+      } catch (err) {
+        setLogInState(false);
+        console.log(err);
+        setErrorMessage(
+          `メールアドレス・パスワードが間違っている、
+          もしくは既に登録済みのユーザーです`
+        );
+      }
     }
   };
   // ログイン機能
   const logIn = async (e) => {
     e.preventDefault();
-    const mailAddress = mailAddressRef.current.value;
-    const passWord = passWordRef.current.value;
-
-    try {
-      await auth.signInWithEmailAndPassword(mailAddress, passWord);
-      setLogInState(true);
-      setErrorMessage("");
-    } catch (err) {
-      setLogInState(false);
-      console.error(err);
-      setErrorMessage(`メールアドレスかパスワードが間違っています
-      パスワードは半角英数字で6文字以上必要です`);
+    if (errorMessage === "") {
+      try {
+        await auth.signInWithEmailAndPassword(mailAddress, passWord);
+        setLogInState(true);
+        setErrorMessage("");
+      } catch (err) {
+        setLogInState(false);
+        console.error(err);
+        setErrorMessage(
+          `メールアドレス・パスワードが間違っている、
+          もしくはユーザーが登録されていません`
+        );
+      }
     }
   };
   // サインアウト機能
@@ -73,6 +100,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     } catch (err) {
       console.error(err);
     }
+    navigate("/");
   };
   // ログアウト機能
   const logOut = () => {
@@ -82,6 +110,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     } catch (err) {
       console.error(err);
     }
+    navigate("/");
   };
 
   return (
@@ -103,11 +132,19 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         <div className={logInState === false ? "loginForm" : "nonActive"}>
           <div className="authenticationForm">
             <label className="label">・メールアドレス</label>
-            <input className="form" type="email" ref={mailAddressRef} />
+            <input
+              className="form"
+              type="email"
+              onChange={(e) => setMailAddress(e.target.value)}
+            />
           </div>
           <div className="authenticationForm">
             <label className="label">・パスワード</label>
-            <input className="form" type="password" ref={passWordRef} />
+            <input
+              className="form"
+              type="password"
+              onChange={(e) => setPassWord(e.target.value)}
+            />
           </div>
         </div>
         <div className={logInState === false ? "nonActive" : "loggedText"}>
