@@ -11,6 +11,7 @@ import { catalogList } from "../utils/catalogList";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { db } from "../firebase";
+import { OnboardingPage } from "./OnboardingPage";
 
 export const Main = () => {
   // 冷蔵庫の中身
@@ -220,6 +221,7 @@ export const Main = () => {
             />
           }
         />
+        <Route path={"/onboardingPage"} element={<OnboardingPage />} />
       </Routes>
     </BrowserRouter>
   );
