@@ -22,7 +22,8 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       mailAddress.length > 0 &&
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mailAddress)
     ) {
-      message = `メールアドレスが正しい形式で入力されていません`;
+      message = `メールアドレスが正しい形式で
+      入力されていません`;
     }
     if (passWord.length > 0 && passWord.length < 6) {
       message = "パスワードは6文字以上入力してください";

@@ -5,6 +5,7 @@ import {
   faSquareCaretRight,
   faSquareCaretLeft,
 } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 export const OnboardingPage = () => {
   // 表示変更用Num
@@ -73,8 +74,8 @@ export const OnboardingPage = () => {
       みましょう。`;
     }
     if (pageNum === 2) {
-      text = `ログアウト・もしくはアカウントの削除が
-      できます。`;
+      text = `ログアウト・もしくはアカウントの
+      削除ができます。`;
     }
     if (pageNum === 3) {
       text = "食材を複数選んでレシピを検索できます。";
@@ -90,27 +91,39 @@ export const OnboardingPage = () => {
       </div>
 
       <div className="onboardingUI">
-        <div className="onboardingButton" onClick={decrementNum}>
+        <div
+          className={
+            pageNum === 0 ? "nonActiveOnboardingButton" : "onboardingButton"
+          }
+          onClick={decrementNum}
+        >
           <FontAwesomeIcon icon={faSquareCaretLeft} />
         </div>
         <div className="onboardingImg">
           <img className="onboardingImg" src={getImgResult} alt="" />
         </div>
-        <div className="onboardingButton" onClick={incrementNum}>
+        <div
+          className={
+            pageNum === 3 ? "nonActiveOnboardingButton" : "onboardingButton"
+          }
+          onClick={incrementNum}
+        >
           <FontAwesomeIcon icon={faSquareCaretRight} />
         </div>
       </div>
       <div className="description">
-        <div>{getDescriptionTitleResult}</div>
-        <div>{getDescriptionTextResult}</div>
+        <div className="descriptionTitle">{getDescriptionTitleResult}</div>
+        <div className="descriptionText">{getDescriptionTextResult}</div>
       </div>
       <div className="skipAndDots">
-        <div>スキップ</div>
+        <div className="skip">
+          <Link to={"/"}>スキップ</Link>
+        </div>
         <div className="dots">
-          <div className="dot">・</div>
-          <div className="dot">・</div>
-          <div className="dot">・</div>
-          <div className="dot">・</div>
+          <div className={pageNum === 0 ? "dot" : "nonActiveDot"}>●</div>
+          <div className={pageNum === 1 ? "dot" : "nonActiveDot"}>●</div>
+          <div className={pageNum === 2 ? "dot" : "nonActiveDot"}>●</div>
+          <div className={pageNum === 3 ? "dot" : "nonActiveDot"}>●</div>
         </div>
       </div>
     </div>

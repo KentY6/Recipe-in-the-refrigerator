@@ -159,6 +159,7 @@
 
 .nonActiveButton {
   visibility: hidden;
+  pointer-events: none;
 }
 
 .returnAndTitle {
@@ -583,10 +584,12 @@
   text-align: center;
   margin: 20px;
   color: red;
+  white-space: pre-line;
 }
 
 .onboardingPage {
   width: 390px;
+  height: 844px;
 }
 
 .onboardingUI {
@@ -601,7 +604,67 @@
   margin: 25px;
 }
 
+.nonActiveOnboardingButton {
+  visibility: hidden;
+  pointer-events: none;
+  font-size: 50px;
+  margin: 25px;
+}
+
 .onboardingImg {
   width: 200px;
   height: 500px;
+}
+
+.description {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.descriptionTitle {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.descriptionText {
+  margin: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: pre-line;
+}
+
+.skipAndDots {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.skip {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.dots {
+  display: flex;
+}
+
+.dot {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+.nonActiveDot {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+  color: lightgray;
 }
