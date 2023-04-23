@@ -613,7 +613,7 @@
 
 .onboardingImg {
   width: 200px;
-  height: 500px;
+  height: 480px;
 }
 
 .description {
@@ -667,4 +667,13 @@
   font-weight: bold;
   margin: 10px;
   color: lightgray;
+}
+
+.tutorial {
+  width: 250px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 60px;
+  font-size: 16px;
 }

@@ -117,7 +117,7 @@ export const OnboardingPage = () => {
       </div>
       <div className="skipAndDots">
         <div className="skip">
-          <Link to={"/"}>スキップ</Link>
+          <Link to={"/"}>{pageNum === 3 ? "閉じる" : "スキップ"}</Link>
         </div>
         <div className="dots">
           <div className={pageNum === 0 ? "dot" : "nonActiveDot"}>●</div>

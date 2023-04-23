@@ -50,6 +50,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         await auth.createUserWithEmailAndPassword(mailAddress, passWord);
         setLogInState(true);
         setErrorMessage("");
+        navigate("/onboardingPage");
       } catch (err) {
         setLogInState(false);
         console.log(err);
@@ -83,6 +84,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     const user = firebase.auth().currentUser;
     try {
       // データベースのデータ削除
+      navigate("/");
       await db
         .collection(`users`)
         .doc(user.uid)
@@ -101,7 +103,6 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     } catch (err) {
       console.error(err);
     }
-    navigate("/");
   };
   // ログアウト機能
   const logOut = () => {
@@ -174,6 +175,9 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
           >
             {logInState === false ? "アカウント登録" : "アカウント削除"}
           </button>
+        </div>
+        <div className="tutorial">
+          <Link to={"onboardingPage"}>アプリの使い方</Link>
         </div>
       </form>
     </div>
