@@ -584,3 +584,24 @@
   margin: 20px;
   color: red;
 }
+
+.onboardingPage {
+  width: 390px;
+}
+
+.onboardingUI {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.onboardingButton {
+  font-size: 50px;
+  margin: 25px;
+}
+
+.onboardingImg {
+  width: 200px;
+  height: 500px;
+}
