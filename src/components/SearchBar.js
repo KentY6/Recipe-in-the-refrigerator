@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 export const SearchBar = ({ searchFood, attribute }) => {
   const [searchWord, setSearchWord] = useState("");
@@ -15,12 +15,12 @@ export const SearchBar = ({ searchFood, attribute }) => {
         <input
           className="textBox"
           value={searchWord}
-          placeholder="食材を検索"
+          placeholder="食材を絞り込み"
           onChange={(e) => setSearchWord(e.target.value)}
           type="text"
         />
-        <div onClick={getInputText}>
-          <SearchRoundedIcon />
+        <div className="searchIcon" onClick={getInputText}>
+          <FilterAltOutlinedIcon />
         </div>
       </form>
     </div>
