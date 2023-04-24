@@ -61,13 +61,21 @@ export const AddFoodsPage = ({
   // フードリストのワード検索機能
   const foodListWordSearch = (searchWord) => {
     const foodListFilter = searchFood(searchWord, foodList);
-    setSearchedFoodInFoodList(foodListFilter);
+    if (foodListFilter.length === 0) {
+      setSearchedFoodInFoodList("notFound");
+    } else {
+      setSearchedFoodInFoodList(foodListFilter);
+    }
     setSelectedFoodListCategory("TOP");
   };
   // 冷蔵庫の中身のワード検索機能
   const refrigeratorWordSearch = (searchWord) => {
     const foodListFilter = searchFood(searchWord, foodInTheRefrigerator);
-    setSearchedFoodInRefrigerator(foodListFilter);
+    if (foodListFilter.length === 0) {
+      setSearchedFoodInRefrigerator("notFound");
+    } else {
+      setSearchedFoodInRefrigerator(foodListFilter);
+    }
     setSelectedRefrigeratorCategory("TOP");
   };
 
@@ -122,6 +130,9 @@ export const AddFoodsPage = ({
     ) {
       whichFoodArray = categorizedFoodInFoodList;
     }
+    if (searchedFoodInFoodList === "notFound") {
+      whichFoodArray = [];
+    }
     return whichFoodArray;
   };
   const whichFoodInFoodListResult = whichFoodInFoodList();
@@ -141,6 +152,9 @@ export const AddFoodsPage = ({
       selectedRefrigeratorCategory !== "TOP"
     ) {
       whichFoodArray = categorizedFoodInRefrigerator;
+    }
+    if (searchedFoodInRefrigerator === "notFound") {
+      whichFoodArray = [];
     }
     return whichFoodArray;
   };

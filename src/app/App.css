@@ -125,7 +125,7 @@
 
 .categoryTab {
   display: flex;
-  margin-top: 20px;
+  margin-top: 40px;
   padding-bottom: 20px;
   overflow-x: auto;
 }
@@ -182,17 +182,12 @@
   width: 100%;
   margin-top: 16px;
   font-size: 20px;
-  font-weight: bold;
   text-align: center;
   z-index: 0;
 }
 
 .foodListContainer {
-  margin-top: 86px;
-}
-
-.RefrigeratorContainer {
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 .searchRecipe {
@@ -316,17 +311,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 40px;
+
+  margin-right: 10px;
 }
 
 .textBox {
-  width: 130px;
+  width: 160px;
   border: 0;
   border-bottom: 1px solid gray;
   outline: none;
   text-align: center;
   color: gray;
   font-size: 20px;
+}
+
+.searchIcon {
+  color: gray;
 }
 
 .foods {
