@@ -27,8 +27,10 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
                   .filter(
                     (material) => !mapFoodInTheRefrigerator.includes(material)
                   )
-                  .map((data, index) => (
-                    <li className="materialList" key={index}>{`${data}、`}</li>
+                  .map((data, index, array) => (
+                    <li className="materialList" key={index}>
+                      {index === array.length - 1 ? data : `${data}、`}
+                    </li>
                   ))}
               </ul>
             </div>

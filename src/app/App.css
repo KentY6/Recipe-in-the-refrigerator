@@ -132,14 +132,14 @@
 
 .tabsBox {
   border-bottom: 1px solid gray;
-  max-width: 330px;
+  max-width: 310px;
 }
 
 .activeCategoryText {
   color: black;
   font-weight: bold;
   font-size: 20px;
-  margin-left: 20px;
+  margin-right: 20px;
   border-bottom: 1px solid blue;
   justify-content: center;
   white-space: nowrap;
@@ -147,7 +147,7 @@
 .nonActiveCategoryText {
   white-space: nowrap;
   color: gray;
-  margin-left: 20px;
+  margin-right: 20px;
   font-size: 20px;
 }
 
@@ -170,6 +170,8 @@
 
 .returnButton {
   position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
   font-size: 40px;
   color: black;
   z-index: 1;
@@ -178,8 +180,9 @@
 .PageTitle {
   position: absolute;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 16px;
   font-size: 20px;
+  font-weight: bold;
   text-align: center;
   z-index: 0;
 }
@@ -433,7 +436,8 @@
 
 .recipe {
   height: 150px;
-  padding: 15px;
+  margin: 15px;
+  padding-bottom: 20px;
   border-bottom: 1px solid gray;
   overflow: hidden;
 }
@@ -476,8 +480,9 @@
 }
 
 .material {
-  padding-top: 0px;
   padding-left: 10px;
+  height: 52px;
+  overflow: hidden;
 }
 
 .materialList {
