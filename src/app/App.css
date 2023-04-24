@@ -125,28 +125,29 @@
 
 .categoryTab {
   display: flex;
-  max-width: 360px;
-  align-items: center;
-  justify-content: center;
   margin-top: 20px;
   padding-bottom: 20px;
+  overflow-x: auto;
 }
 
 .tabsBox {
   border-bottom: 1px solid gray;
+  max-width: 330px;
 }
 
 .activeCategoryText {
   color: black;
   font-weight: bold;
-  margin: 10px;
   font-size: 20px;
+  margin-left: 20px;
   border-bottom: 1px solid blue;
   justify-content: center;
+  white-space: nowrap;
 }
 .nonActiveCategoryText {
+  white-space: nowrap;
   color: gray;
-  margin: 10px;
+  margin-left: 20px;
   font-size: 20px;
 }
 

@@ -1,5 +1,16 @@
 // 食材の種類
-export const foodCategory = ["TOP", "肉", "野菜", "魚", "粉物", "調味料"];
+export const foodCategory = [
+  "TOP",
+  "肉",
+  "乳製品",
+  "野菜",
+  "豆類",
+  "果物",
+  "魚",
+  "粉物",
+  "穀物",
+  "調味料",
+];
 
 // カテゴリー検索機能
 export const categorySearch = (Category, foodList) => {

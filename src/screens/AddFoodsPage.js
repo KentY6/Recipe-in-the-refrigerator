@@ -182,6 +182,11 @@ export const AddFoodsPage = ({
     saveRecipesData();
   }, [foodInTheRefrigerator, recipesData]);
 
+  const handleScroll = (event) => {
+    const overFlow = CategoryTab.offsetWidth < CategoryTab.scrollWidth;
+    event.target.classList.toggle("is-scrollable", overFlow);
+  };
+
   return (
     <div className="addFoodsPage">
       <div className="returnAndTitle">
@@ -206,7 +211,7 @@ export const AddFoodsPage = ({
         >
           <SearchBar searchFood={foodListWordSearch} attribute={"foodList"} />
           <div className="tabsBox">
-            <div className="categoryTab">
+            <div className="categoryTab" onScroll={handleScroll}>
               {foodCategory.map((category, index) => (
                 <CategoryTab
                   category={category}
