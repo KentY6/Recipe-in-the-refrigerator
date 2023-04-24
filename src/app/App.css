@@ -190,10 +190,6 @@
   margin-top: 100px;
 }
 
-.searchRecipe {
-  margin-top: 20px;
-}
-
 .saveButton {
   margin-top: 45px;
 }
@@ -683,4 +679,9 @@
   align-items: center;
   margin-top: 60px;
   font-size: 16px;
+}
+
+.indicateNumber {
+  font-size: 20px;
+  margin: 10px;
 }

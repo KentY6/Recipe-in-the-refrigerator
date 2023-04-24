@@ -145,6 +145,13 @@ export const RecipesPage = ({
           </div>
           <div className="redText">冷蔵庫に無い食材は赤文字で表示されます</div>
         </div>
+        <div className="indicateNumber">
+          表示件数：
+          {freeRecipesData.length > 0
+            ? whichFreeRecipeInRecipesListResult.length
+            : whichRecipeInRecipesListResult.length}
+          件
+        </div>
 
         <RecipesList
           foodInTheRefrigerator={foodInTheRefrigerator}
