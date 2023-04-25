@@ -43,7 +43,7 @@ export const List = ({
                   ? `activeFood`
                   : `${attribute}NonActiveFood`
               }
-              key={data.categoryId}
+              key={data.name}
             >
               <div className="buttonAndName">
                 <div
