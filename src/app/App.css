@@ -398,7 +398,8 @@
 
 .foodName {
   width: 70px;
-  font-size: 14px;
+  height: 14px;
+  font-size: 13px;
   margin: 5px;
 }
 
@@ -406,6 +407,7 @@
   margin-top: 10px;
   width: 100px;
   height: 80px;
+  border-radius: 5px;
 }
 
 .searchContainer {
@@ -458,6 +460,7 @@
 .recipeOther {
   display: flex;
   flex-flow: column;
+  width: 200px;
 }
 
 .foodTag {
