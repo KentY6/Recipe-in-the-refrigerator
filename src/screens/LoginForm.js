@@ -177,7 +177,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
           </button>
         </div>
         <div className="tutorial">
-          <Link to={"onboardingPage"}>アプリの使い方</Link>
+          <Link to={"/onboardingPage"}>アプリの使い方</Link>
         </div>
       </form>
     </div>

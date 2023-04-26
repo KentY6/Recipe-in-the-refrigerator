@@ -1,13 +1,29 @@
+.menuPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .refrigerator {
-  display: block;
+  display: flex;
+  flex-flow: column;
   width: 389px;
   height: 843px;
+  cursor: pointer;
+  @media (min-width: 400px) {
+    width: 350px;
+    height: 700px;
+  }
 }
 
 .mainTitle {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   height: 50px;
   color: white;
   background-color: black;
@@ -15,7 +31,8 @@
 
 .upperContainer {
   display: flex;
-  height: 400px;
+  width: 100%;
+  height: 50%;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -47,6 +64,9 @@
   display: block;
   font-size: 70px;
   color: black;
+  @media (min-width: 400px) {
+    font-size: 60px;
+  }
 }
 
 .boxIcon {
@@ -65,11 +85,13 @@
 
 .lowerContainer {
   display: block;
+  width: 100%;
+  height: 40%;
 }
 
 .loginContainer {
   border: 1px solid black;
-  height: 140px;
+  height: 42%;
   font-size: 25px;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
@@ -89,11 +111,15 @@
 .loginText {
   margin-left: 65px;
   color: black;
+  @media (min-width: 400px) {
+    font-size: 24px;
+    margin-left: 50px;
+  }
 }
 
 .freeRecipesContainer {
   border: 1px solid black;
-  height: 240px;
+  height: 65%;
 }
 
 .freeRecipeIconText {
@@ -120,7 +146,10 @@
 }
 
 .addFoodsPage {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 
 .categoryTab {
@@ -128,6 +157,7 @@
   margin-top: 40px;
   padding-bottom: 20px;
   overflow-x: auto;
+  cursor: pointer;
 }
 
 .tabsBox {
@@ -166,6 +196,7 @@
 .returnAndTitle {
   display: flex;
   position: relative;
+  width: 390px;
 }
 
 .returnButton {
@@ -175,23 +206,25 @@
   font-size: 40px;
   color: black;
   z-index: 1;
+  cursor: pointer;
 }
 
 .PageTitle {
-  position: absolute;
   width: 100%;
   margin-top: 16px;
   font-size: 20px;
   text-align: center;
+  white-space: nowrap;
   z-index: 0;
 }
 
 .foodListContainer {
-  margin-top: 100px;
+  margin-top: 50px;
+  width: 390px;
 }
 
-.saveButton {
-  margin-top: 45px;
+.RefrigeratorContainer {
+  width: 390px;
 }
 
 .foodListBar {
@@ -208,7 +241,6 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 .refrigeratorBar {
@@ -225,7 +257,6 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 .goToRecipesPageBar {
@@ -237,23 +268,6 @@
   margin-right: 28px;
   margin-bottom: 0px;
   background-color: white;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
-
-.dataSaveBar {
-  display: flex;
-  width: 330px;
-  height: 56px;
-  margin-top: 12px;
-  margin-left: 28px;
-  margin-right: 28px;
-  margin-bottom: 0px;
-  background-color: #cefec2;
   align-items: center;
   justify-content: space-between;
   border: 1px solid black;
@@ -276,6 +290,7 @@
   font-size: 30px;
   margin-right: 15px;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .activeRectangleButton {
@@ -284,6 +299,7 @@
   margin-bottom: 5.5px;
   transform: rotate(180deg);
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .foodListBox {
@@ -410,12 +426,11 @@
   border-radius: 5px;
 }
 
-.searchContainer {
-  margin-top: 86px;
-}
-
 .recipesPage {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 
 .recipesZone {
@@ -494,7 +509,10 @@
 }
 
 .freeRecipesPage {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
   text-align: center;
 }
 
@@ -502,6 +520,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  width: 380px;
   margin-top: 50px;
 }
 
@@ -517,7 +536,10 @@
 }
 
 .logInFormPage {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 
 .logInForm {
@@ -594,7 +616,10 @@
 }
 
 .onboardingPage {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
   height: 844px;
 }
 
@@ -602,12 +627,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 50px;
 }
 
 .onboardingButton {
   font-size: 50px;
   margin: 25px;
+  cursor: pointer;
+  @media (min-width: 400px) {
+    font-size: 40px;
+  }
 }
 
 .nonActiveOnboardingButton {
@@ -620,6 +649,10 @@
 .onboardingImg {
   width: 200px;
   height: 480px;
+  @media (min-width: 400px) {
+    width: 160px;
+    height: 380px;
+  }
 }
 
 .description {
