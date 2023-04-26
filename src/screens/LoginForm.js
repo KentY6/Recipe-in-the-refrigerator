@@ -41,10 +41,31 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     getErrorMessage();
   }, [mailAddress, passWord]);
 
-  // サインアップ機能
-  const signUp = async (e) => {
+  // 選択ウィンドウ表示
+  const signUpOrSignOut = (e, sign) => {
     e.preventDefault();
+    let windowText = "";
+    let executeFunction = "";
+    if (sign === signUp) {
+      windowText = "アカウントを登録しますか？";
+    } else {
+      windowText = "アカウントを削除しますか？";
+    }
+    if (sign === signUp) {
+      executeFunction = signUp;
+    } else {
+      executeFunction = signOut;
+    }
+    const choice = window.confirm(windowText);
+    if (choice) {
+      executeFunction();
+    } else {
+      console.log("キャンセルされました");
+    }
+  };
 
+  // サインアップ機能
+  const signUp = async () => {
     if (errorMessage === "") {
       try {
         await auth.createUserWithEmailAndPassword(mailAddress, passWord);
@@ -61,6 +82,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       }
     }
   };
+
   // ログイン機能
   const logIn = async (e) => {
     e.preventDefault();
@@ -79,6 +101,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       }
     }
   };
+
   // サインアウト機能
   const signOut = async () => {
     const user = firebase.auth().currentUser;
@@ -104,8 +127,10 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       console.error(err);
     }
   };
+
   // ログアウト機能
-  const logOut = () => {
+  const logOut = (e) => {
+    e.preventDefault();
     try {
       auth.signOut();
       setLogInState(false);
@@ -165,13 +190,17 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         >
           <button
             className={"authenticationButton"}
-            onClick={logInState === false ? (e) => logIn(e) : logOut}
+            onClick={logInState === false ? (e) => logIn(e) : (e) => logOut(e)}
           >
             {logInState === false ? "ログイン" : "ログアウト"}
           </button>
           <button
             className={"authenticationButton"}
-            onClick={logInState === false ? (e) => signUp(e) : signOut}
+            onClick={
+              logInState === false
+                ? (e) => signUpOrSignOut(e, signUp)
+                : (e) => signUpOrSignOut(e, signOut)
+            }
           >
             {logInState === false ? "アカウント登録" : "アカウント削除"}
           </button>
