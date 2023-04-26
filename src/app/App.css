@@ -90,6 +90,8 @@
 }
 
 .loginContainer {
+  display: flex;
+  justify-content: center;
   border: 1px solid black;
   height: 42%;
   font-size: 25px;
@@ -112,12 +114,14 @@
   margin-left: 65px;
   color: black;
   @media (min-width: 400px) {
-    font-size: 24px;
+    font-size: 22px;
     margin-left: 50px;
   }
 }
 
 .freeRecipesContainer {
+  display: flex;
+  justify-content: center;
   border: 1px solid black;
   height: 65%;
 }
@@ -137,6 +141,9 @@
 
 .freeRecipeText {
   margin-left: 15px;
+  @media (min-width: 400px) {
+    font-size: 22px;
+  }
 }
 
 .linkRange {
