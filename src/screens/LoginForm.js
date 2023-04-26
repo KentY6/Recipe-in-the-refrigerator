@@ -44,6 +44,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   // 選択ウィンドウ表示
   const signUpOrSignOut = (e, sign) => {
     e.preventDefault();
+    setErrorMessage("");
     let windowText = "";
     let executeFunction = "";
     if (sign === signUp) {
@@ -86,6 +87,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   // ログイン機能
   const logIn = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     if (errorMessage === "") {
       try {
         await auth.signInWithEmailAndPassword(mailAddress, passWord);

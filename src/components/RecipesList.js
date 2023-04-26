@@ -12,7 +12,7 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
         <div
           className="recipe"
           onClick={() => window.open(data.recipeUrl)}
-          key={data.recipeTitle}
+          key={`${data.recipeTitle}+${data.foodName}`}
         >
           <div className="imageAndOther">
             <div className="recipeImageBox">
