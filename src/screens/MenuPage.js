@@ -54,7 +54,10 @@ export const MenuPage = ({ logInState }) => {
         </div>
         <div className="lowerContainer">
           <div className="loginContainer">
-            <Link to={`/loginForm`} className="linkRange">
+            <Link
+              to={logInState === true ? `/loginForm` : "/"}
+              className="linkRange"
+            >
               <div className="iconsContainer">
                 <div className="loginIconText">
                   <div className="loginIcon">

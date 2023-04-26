@@ -11,6 +11,7 @@ import { catalogList } from "../utils/catalogList";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { db } from "../firebase";
+import { auth } from "../firebase";
 import { OnboardingPage } from "./OnboardingPage";
 
 export const Main = () => {
@@ -155,6 +156,17 @@ export const Main = () => {
     usersRecipesData,
     usersRefrigeratorData,
   ]);
+
+  // タイムアウトした時の処理
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        return;
+      } else {
+        setLogInState(false);
+      }
+    });
+  }, []);
 
   return (
     <BrowserRouter>
