@@ -10,9 +10,9 @@
 .refrigerator {
   display: flex;
   flex-flow: column;
-  width: 389px;
-  height: 823px;
-  margin-top: 30px;
+  width: 99%;
+  height: 92vh;
+  margin-top: 10%;
   cursor: pointer;
   @media (min-width: 400px) {
     width: 350px;
@@ -25,15 +25,15 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 5%;
   color: white;
   background-color: black;
 }
 
 .upperContainer {
-  display: flex;
   width: 100%;
-  height: 50%;
+  height: 55%;
+  display: flex;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -63,11 +63,8 @@
 
 .upperIcons {
   display: block;
-  font-size: 70px;
+  font-size: 450%;
   color: black;
-  @media (min-width: 400px) {
-    font-size: 60px;
-  }
 }
 
 .boxIcon {
@@ -94,9 +91,9 @@
   display: flex;
   justify-content: center;
   border: 1px solid black;
-  height: 42%;
   font-size: 25px;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
+  height: 40%;
 }
 
 .loginIconText {
@@ -162,15 +159,19 @@
 
 .categoryTab {
   display: flex;
-  margin-top: 40px;
-  padding-bottom: 20px;
+  width: 100%;
+  margin-top: 15%;
+  padding-bottom: 10%;
   overflow-x: auto;
   cursor: pointer;
 }
 
 .tabsBox {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   border-bottom: 1px solid gray;
-  max-width: 310px;
+  width: 85%;
 }
 
 .activeCategoryText {
@@ -204,7 +205,7 @@
 .returnAndTitle {
   display: flex;
   position: relative;
-  width: 390px;
+  width: 100%;
 }
 
 .returnButton {
@@ -227,22 +228,32 @@
 }
 
 .foodListContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   margin-top: 50px;
-  width: 390px;
+  width: 100%;
 }
 
 .RefrigeratorContainer {
-  width: 390px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+}
+
+.searchRecipe {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 
 .foodListBar {
   display: flex;
-  width: 330px;
+  width: 85%;
   height: 56px;
   margin-top: 36px;
-  margin-left: 28px;
-  margin-right: 28px;
-  margin-bottom: 0px;
   background-color: #fa9c9c;
   align-items: center;
   justify-content: space-between;
@@ -253,12 +264,9 @@
 
 .refrigeratorBar {
   display: flex;
-  width: 330px;
+  width: 85%;
   height: 56px;
-  margin-top: 12px;
-  margin-left: 28px;
-  margin-right: 28px;
-  margin-bottom: 0px;
+  margin-top: 15%;
   background-color: #e1e5fb;
   align-items: center;
   justify-content: space-between;
@@ -269,12 +277,9 @@
 
 .goToRecipesPageBar {
   display: flex;
-  width: 330px;
+  margin-top: 20%;
+  width: 100%;
   height: 56px;
-  margin-top: 12px;
-  margin-left: 28px;
-  margin-right: 28px;
-  margin-bottom: 0px;
   background-color: white;
   align-items: center;
   justify-content: space-between;
@@ -290,6 +295,9 @@
 }
 
 .link {
+  width: 85%;
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: black;
 }
@@ -313,6 +321,7 @@
 .foodListBox {
   display: flex;
   flex-flow: column;
+  width: 100%;
   opacity: 1;
   transition: 0.5s;
   align-items: center;
@@ -321,6 +330,7 @@
 .refrigeratorBox {
   display: flex;
   flex-flow: column;
+  width: 100%;
   opacity: 1;
   transition: 0.5s;
   align-items: center;
@@ -332,7 +342,6 @@
   align-items: center;
   justify-content: center;
   margin-top: 40px;
-
   margin-right: 10px;
 }
 
@@ -353,11 +362,9 @@
 .foods {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 5%;
   text-align: center;
   justify-content: center;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .activeFood {
@@ -445,10 +452,11 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  width: 100%;
 }
 
 .recipesList {
-  width: 370px;
+  width: 90%;
 }
 
 .redText {
@@ -528,19 +536,35 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  width: 380px;
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .freeRecipesButton {
   display: flex;
   align-items: center;
-  margin-top: 28px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-top: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
   border: 1px solid black;
   border-radius: 4px;
   background-color: #d9d9d9;
+}
+
+.freeRecipesLink {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 100%;
+  font-size: 90%;
+}
+
+.freeRecipesDescription {
+  font-size: 90%;
 }
 
 .logInFormPage {
@@ -628,18 +652,20 @@
   flex-flow: column;
   align-items: center;
   width: 100%;
-  height: 844px;
+  height: 100%;
 }
 
 .onboardingUI {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10%;
+  height: 350%;
+  width: 90%;
 }
 
 .onboardingButton {
-  font-size: 50px;
+  font-size: 250%;
   margin: 25px;
   cursor: pointer;
   @media (min-width: 400px) {
@@ -650,13 +676,13 @@
 .nonActiveOnboardingButton {
   visibility: hidden;
   pointer-events: none;
-  font-size: 50px;
+  font-size: 250%;
   margin: 25px;
 }
 
 .onboardingImg {
-  width: 200px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
   @media (min-width: 400px) {
     width: 160px;
     height: 380px;
@@ -668,17 +694,17 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  height: 50%;
 }
 
 .descriptionTitle {
-  margin-top: 16px;
-  font-size: 20px;
+  margin: 16px;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
 .descriptionText {
-  margin: 24px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   white-space: pre-line;
 }
@@ -695,7 +721,7 @@
 }
 
 .skip {
-  font-size: 20px;
+  font-size: 100%;
   font-weight: bold;
   color: black;
 }
@@ -705,7 +731,7 @@
 }
 
 .dot {
-  font-size: 20px;
+  font-size: 150%;
   font-weight: bold;
   margin: 10px;
 }

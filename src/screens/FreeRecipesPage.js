@@ -119,9 +119,11 @@ export const FreeRecipesPage = ({
               />
             ))}
           </div>
-          <div>食材を複数選択してレシピを検索できます</div>
+          <div className="freeRecipesDescription">
+            食材を複数選択してレシピを検索できます
+          </div>
         </div>
-        <Link to={`/recipesPage`} className="link">
+        <Link to={`/recipesPage`} className="freeRecipesLink">
           <FreeRecipesButton />
         </Link>
 

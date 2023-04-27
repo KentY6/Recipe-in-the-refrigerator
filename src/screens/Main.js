@@ -48,6 +48,7 @@ export const Main = () => {
           ...source,
           foodName: food.name,
           category: food.category,
+          tag: food.tag,
         }));
         setRecipesData([...recipesData, ...mapApiData]);
       })
@@ -70,6 +71,7 @@ export const Main = () => {
           ...source,
           foodName: food.name,
           category: food.category,
+          tag: food.tag,
         }));
         setFreeRecipesData([...freeRecipesData, ...mapApiData]);
       })
