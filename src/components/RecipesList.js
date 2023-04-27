@@ -19,7 +19,7 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
               <img className="recipeImage" alt="" src={data.mediumImageUrl} />
             </div>
             <div className="recipeOther">
-              <div className={"foodTag"}>{data.foodName}</div>
+              <div className={`foodTag${data.foodTag}`}>{data.foodName}</div>
               <div className="recipeTitle">{data.recipeTitle}</div>
               <ul className="material">
                 {/* 冷蔵庫に入っていない食材のみを表示する */}

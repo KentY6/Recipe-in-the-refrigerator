@@ -494,7 +494,7 @@
   width: 200px;
 }
 
-.foodTag {
+.foodTagMeat {
   width: 90px;
   font-size: 12px;
   margin-left: 10px;
@@ -502,6 +502,78 @@
   justify-content: center;
   border-radius: 10px;
   background-color: #ffd4d4;
+}
+.foodTagFish {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #a8bef7;
+}
+.foodTagDairyProduct {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #fbfcc6;
+}
+.foodTagVegetable {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #cafcc6;
+}
+.foodTagBeans {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #f9b38c;
+}
+.foodTagFruits {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #b58cf9;
+}
+.foodTagPowdered {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #f6f984;
+}
+.foodTagGrains {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #f8db92;
+}
+.foodTagSeasoning {
+  width: 90px;
+  font-size: 12px;
+  margin-left: 10px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #92d3f8;
 }
 
 .recipeTitle {

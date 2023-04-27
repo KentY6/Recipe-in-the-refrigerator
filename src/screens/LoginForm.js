@@ -123,8 +123,10 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       await db.collection(`users`).doc(user.uid).delete();
       await user.delete();
       setLogInState(false);
+      window.alert("アカウントを削除しました");
     } catch (err) {
       console.error(err);
+      window.alert("一度ログインし直して再度実行してください");
     }
   };
 
