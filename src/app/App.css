@@ -668,6 +668,9 @@
 
 .loggedSubmitArea {
   display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .loginFormContainer {
@@ -680,8 +683,24 @@
 .authenticationButton {
   font-size: 16px;
   margin-top: 20px;
-  margin-right: 20px;
   width: 140px;
+  height: 28px;
+}
+
+.authenticationText {
+  font-size: 16px;
+  margin-top: 40px;
+  width: 120px;
+  color: blue;
+  border-bottom: 2px solid blue;
+}
+
+.backText {
+  font-size: 16px;
+  margin-top: 40px;
+  width: 32px;
+  color: blue;
+  border-bottom: 2px solid blue;
 }
 
 .authenticationForm {
@@ -712,9 +731,16 @@
   font-size: 16px;
 }
 
+.registrationDescription {
+  width: 100%;
+  margin-top: 10%;
+  white-space: pre-line;
+}
+
 .errorMessage {
   text-align: center;
-  margin: 20px;
+  font-size: 1rem;
+  margin-top: 10%;
   color: red;
   white-space: pre-line;
 }

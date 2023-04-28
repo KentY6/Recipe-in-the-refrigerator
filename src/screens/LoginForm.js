@@ -12,6 +12,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [mailAddress, setMailAddress] = useState("");
   const [passWord, setPassWord] = useState("");
+  const [whatAuth, setWhatAuth] = useState("ログイン");
 
   const navigate = useNavigate();
 
@@ -64,11 +65,19 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     }
   };
 
+  // アカウント登録画面にする
+  const accountRegistration = () => {
+    setWhatAuth("アカウント登録");
+    setMailAddress("");
+    setPassWord("");
+  };
+
   // サインアップ機能
   const signUp = async () => {
     if (errorMessage === "") {
       try {
         await auth.createUserWithEmailAndPassword(mailAddress, passWord);
+        setWhatAuth("ログアウト");
         setLogInState(true);
         setErrorMessage("");
         navigate("/onboardingPage");
@@ -89,6 +98,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     if (errorMessage === "") {
       try {
         await auth.signInWithEmailAndPassword(mailAddress, passWord);
+        setWhatAuth("ログアウト");
         setLogInState(true);
         setErrorMessage("");
       } catch (err) {
@@ -142,6 +152,38 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     navigate("/");
   };
 
+  // どの認証設定をするか決める
+  const getAuthFunction = () => {
+    let whichAuthFunction = "";
+    if (whatAuth === "ログイン") {
+      whichAuthFunction = logIn;
+    }
+    if (whatAuth === "ログアウト") {
+      whichAuthFunction = logOut;
+    }
+    if (whatAuth === "アカウント登録") {
+      whichAuthFunction = signUpOrSignOut;
+    }
+    return whichAuthFunction;
+  };
+  const getAuthFunctionResult = getAuthFunction();
+
+  // ログイン画面に戻る
+  const resetAuthState = () => {
+    setWhatAuth("ログイン");
+    setMailAddress("");
+    setPassWord("");
+  };
+
+  useEffect(() => {
+    if (logInState === true) {
+      setWhatAuth("ログアウト");
+    }
+    if (logInState === false && whatAuth === "ログアウト") {
+      setWhatAuth("ログイン");
+    }
+  }, [logInState]);
+
   return (
     <div className="logInFormPage">
       <div className="returnAndTitle">
@@ -153,9 +195,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
             <UndoRoundedIcon fontSize="40px" />
           </Link>
         </div>
-        <PageTitle
-          PageTitle={logInState === false ? "ログイン" : "ログアウト"}
-        />
+        <PageTitle PageTitle={whatAuth} />
       </div>
       <form className={logInState === true ? "loggedForm" : "logInForm"}>
         <div
@@ -166,6 +206,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
             <input
               className="form"
               type="email"
+              value={mailAddress}
               onChange={(e) => setMailAddress(e.target.value)}
             />
           </div>
@@ -174,12 +215,24 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
             <input
               className="form"
               type="password"
+              value={passWord}
               onChange={(e) => setPassWord(e.target.value)}
             />
           </div>
         </div>
         <div className={logInState === false ? "nonActive" : "loggedText"}>
           ログイン状態です
+        </div>
+
+        <div
+          className={
+            whatAuth === "アカウント登録"
+              ? "registrationDescription"
+              : "nonActive"
+          }
+        >
+          {`メールアドレスとパスワードを入力して
+          アカウントを登録してください`}
         </div>
 
         {/* エラーメッセージ */}
@@ -192,20 +245,32 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
         >
           <button
             className={"authenticationButton"}
-            onClick={logInState === false ? (e) => logIn(e) : (e) => logOut(e)}
+            onClick={(e) => getAuthFunctionResult(e, signUp)}
           >
-            {logInState === false ? "ログイン" : "ログアウト"}
+            {whatAuth}
           </button>
-          <button
-            className={"authenticationButton"}
-            onClick={
-              logInState === false
-                ? (e) => signUpOrSignOut(e, signUp)
-                : (e) => signUpOrSignOut(e, signOut)
+          <div
+            className={
+              whatAuth === "ログイン" ? "authenticationText" : "nonActive"
             }
+            onClick={accountRegistration}
           >
-            {logInState === false ? "アカウント登録" : "アカウント削除"}
-          </button>
+            アカウント登録
+          </div>
+          <div
+            className={
+              whatAuth === "ログアウト" ? "authenticationText" : "nonActive"
+            }
+            onClick={(e) => signUpOrSignOut(e, signOut)}
+          >
+            アカウント削除
+          </div>
+          <div
+            className={whatAuth === "アカウント登録" ? "backText" : "nonActive"}
+            onClick={resetAuthState}
+          >
+            戻る
+          </div>
         </div>
         <div className="tutorial">
           <Link to={"/onboardingPage"}>アプリの使い方</Link>
