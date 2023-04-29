@@ -260,6 +260,7 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .refrigeratorBar {
@@ -273,6 +274,7 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .goToRecipesPageBar {
@@ -303,19 +305,22 @@
 }
 
 .nonActiveRectangleButton {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   font-size: 30px;
   margin-right: 15px;
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .activeRectangleButton {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   font-size: 30px;
   margin-right: 15px;
-  margin-bottom: 5.5px;
   transform: rotate(180deg);
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .foodListBox {

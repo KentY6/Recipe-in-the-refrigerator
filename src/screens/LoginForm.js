@@ -175,6 +175,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     setPassWord("");
   };
 
+  // ログイン状態で認証画面を管理する
   useEffect(() => {
     if (logInState === true) {
       setWhatAuth("ログアウト");
