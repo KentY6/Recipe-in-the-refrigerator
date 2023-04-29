@@ -159,17 +159,6 @@ export const Main = () => {
     usersRefrigeratorData,
   ]);
 
-  // タイムアウトした時の処理
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        return;
-      } else {
-        setLogInState(false);
-      }
-    });
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>

@@ -77,6 +77,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     if (errorMessage === "") {
       try {
         await auth.createUserWithEmailAndPassword(mailAddress, passWord);
+        authPersistence();
         setWhatAuth("ログアウト");
         setLogInState(true);
         setErrorMessage("");
@@ -98,6 +99,7 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
     if (errorMessage === "") {
       try {
         await auth.signInWithEmailAndPassword(mailAddress, passWord);
+        authPersistence();
         setWhatAuth("ログアウト");
         setLogInState(true);
         setErrorMessage("");
@@ -150,6 +152,15 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
       console.error(err);
     }
     navigate("/");
+  };
+
+  // ログイン永続化処理
+  const authPersistence = () => {
+    try {
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // どの認証設定をするか決める
