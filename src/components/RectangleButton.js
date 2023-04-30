@@ -11,7 +11,14 @@ export const RectangleButton = ({ text, isActive, setIsActive, attribute }) => {
   };
 
   return (
-    <div className={`${attribute}Bar`} onClick={() => toggleIsActive()}>
+    <div
+      className={`${attribute}Bar`}
+      onClick={
+        attribute !== "goToRecipesPage"
+          ? () => toggleIsActive()
+          : (e) => e.preventDefault
+      }
+    >
       <div className="accordionText">{text}</div>
       <div
         className={

@@ -1,14 +1,15 @@
 import React from "react";
 
-export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
-  // 冷蔵庫に入っている食材をフィルター用に食材名のみに分解しておく。
-  const mapFoodInTheRefrigerator = foodInTheRefrigerator.map(
-    (data) => data.name
+export const RecipesList = ({ isRecipes }) => {
+  // 食材の数が少ない順に並べなおす処理
+  const sortingRecipesData = isRecipes.sort(
+    (a, b) => a.rebuildMaterial.length - b.rebuildMaterial.length
   );
+  console.log(sortingRecipesData);
 
   return (
     <div className="recipesList">
-      {isRecipes.map((data, index) => (
+      {sortingRecipesData.map((data) => (
         <div
           className="recipe"
           onClick={() => window.open(data.recipeUrl)}
@@ -23,15 +24,11 @@ export const RecipesList = ({ isRecipes, foodInTheRefrigerator }) => {
               <div className="recipeTitle">{data.recipeTitle}</div>
               <ul className="material">
                 {/* 冷蔵庫に入っていない食材のみを表示する */}
-                {data.recipeMaterial
-                  .filter(
-                    (material) => !mapFoodInTheRefrigerator.includes(material)
-                  )
-                  .map((data, index, array) => (
-                    <li className="materialList" key={index}>
-                      {index === array.length - 1 ? data : `${data}、`}
-                    </li>
-                  ))}
+                {data.rebuildMaterial.map((data, index, array) => (
+                  <li className="materialList" key={index}>
+                    {index === array.length - 1 ? data : `${data}、`}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
