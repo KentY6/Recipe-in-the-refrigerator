@@ -5,6 +5,7 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .refrigerator {
@@ -164,6 +165,7 @@
   padding-bottom: 10%;
   overflow-x: auto;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tabsBox {
@@ -260,6 +262,7 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .refrigeratorBar {
@@ -273,11 +276,11 @@
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .goToRecipesPageBar {
   display: flex;
-  margin-top: 20%;
   width: 100%;
   height: 56px;
   background-color: white;
@@ -296,6 +299,8 @@
 
 .link {
   width: 85%;
+  height: 56px;
+  margin-top: 16.5%;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -303,19 +308,22 @@
 }
 
 .nonActiveRectangleButton {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   font-size: 30px;
   margin-right: 15px;
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .activeRectangleButton {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   font-size: 30px;
   margin-right: 15px;
-  margin-bottom: 5.5px;
   transform: rotate(180deg);
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .foodListBox {

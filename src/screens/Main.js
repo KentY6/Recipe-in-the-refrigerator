@@ -6,12 +6,10 @@ import { FreeRecipesPage } from "./FreeRecipesPage";
 import { LoginForm } from "./LoginForm";
 import { MenuPage } from "./MenuPage";
 import { RecipesPage } from "./RecipesPage";
-import { foodCategory } from "../utils/search";
 import { catalogList } from "../utils/catalogList";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { db } from "../firebase";
-import { auth } from "../firebase";
 import { OnboardingPage } from "./OnboardingPage";
 
 export const Main = () => {
@@ -23,6 +21,9 @@ export const Main = () => {
   // 取得したレシピAPI
   const [recipesData, setRecipesData] = useState([]);
   const [freeRecipesData, setFreeRecipesData] = useState([]);
+  // 材料をフィルタリングしたレシピデータ
+  const [rebuildRecipesData, setRebuildRecipesData] = useState([]);
+  const [rebuildFreeRecipesData, setRebuildFreeRecipesData] = useState([]);
 
   //ログインされているかどうかのサイン
   const [logInState, setLogInState] = useState(false);
@@ -78,6 +79,33 @@ export const Main = () => {
 
       .catch((err) => console.log(err));
   };
+
+  // 冷蔵庫に入っている食材をフィルター用に食材名のみに分解しておく。
+  const mapFoodInTheRefrigerator = foodInTheRefrigerator.map(
+    (data) => data.name
+  );
+  // レシピの食材から冷蔵庫の中身を抜く処理
+  const addRebuildMaterial = (recipes) => {
+    const rebuildData = recipes.map((data) => ({
+      ...data,
+      rebuildMaterial: data.recipeMaterial.filter(
+        (material) => !mapFoodInTheRefrigerator.includes(material)
+      ),
+    }));
+    if (recipes === recipesData) {
+      setRebuildRecipesData(rebuildData);
+    } else {
+      setRebuildFreeRecipesData(rebuildData);
+    }
+  };
+
+  useEffect(() => {
+    addRebuildMaterial(recipesData);
+  }, [recipesData]);
+
+  useEffect(() => {
+    addRebuildMaterial(freeRecipesData);
+  }, [freeRecipesData]);
 
   // フリーレシピ検索用のState・レシピ一覧のカテゴリータブをリセットする
   const resetFreeRecipes = () => {
@@ -159,17 +187,6 @@ export const Main = () => {
     usersRefrigeratorData,
   ]);
 
-  // タイムアウトした時の処理
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        return;
-      } else {
-        setLogInState(false);
-      }
-    });
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -188,10 +205,9 @@ export const Main = () => {
           element={
             <RecipesPage
               resetFreeRecipes={resetFreeRecipes}
-              recipesData={recipesData}
-              freeRecipesData={freeRecipesData}
+              recipesData={rebuildRecipesData}
+              freeRecipesData={rebuildFreeRecipesData}
               foodInTheRefrigerator={foodInTheRefrigerator}
-              foodCategory={foodCategory}
             />
           }
         />
