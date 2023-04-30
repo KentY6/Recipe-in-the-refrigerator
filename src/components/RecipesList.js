@@ -5,7 +5,6 @@ export const RecipesList = ({ isRecipes }) => {
   const sortingRecipesData = isRecipes.sort(
     (a, b) => a.rebuildMaterial.length - b.rebuildMaterial.length
   );
-  console.log(sortingRecipesData);
 
   return (
     <div className="recipesList">
