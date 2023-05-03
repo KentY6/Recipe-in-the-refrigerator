@@ -187,6 +187,18 @@ export const Main = () => {
     usersRefrigeratorData,
   ]);
 
+  // オートログイン機能
+  useEffect(() => {
+    const checkLogIn = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setLogInState(true);
+      }
+      return checkLogIn;
+    }, []);
+  });
+
+  console.log(user);
+
   return (
     <BrowserRouter>
       <Routes>

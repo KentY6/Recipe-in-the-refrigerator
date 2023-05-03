@@ -143,10 +143,10 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
   };
 
   // ログアウト機能
-  const logOut = (e) => {
+  const logOut = async (e) => {
     e.preventDefault();
     try {
-      auth.signOut();
+      await auth.signOut();
       setLogInState(false);
     } catch (err) {
       console.error(err);
