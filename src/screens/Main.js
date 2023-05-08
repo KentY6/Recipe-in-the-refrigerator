@@ -197,8 +197,6 @@ export const Main = () => {
     }, []);
   });
 
-  console.log(user);
-
   return (
     <BrowserRouter>
       <Routes>
