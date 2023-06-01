@@ -13,7 +13,7 @@
   flex-flow: column;
   width: 99%;
   height: 92vh;
-  margin-top: 10%;
+  margin-top: 5%;
   cursor: pointer;
   @media (min-width: 400px) {
     width: 350px;
@@ -166,12 +166,17 @@
   overflow-x: auto;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  @media (min-width: 1070px) {
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .tabsBox {
   display: flex;
   flex-flow: column;
   align-items: center;
+  justify-content: center;
   border-bottom: 1px solid gray;
   width: 85%;
 }
