@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+#Recipe in the refrigerator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##アプリURL
+recipe-in-rhe-refrigerator.web.app
 
-## Available Scripts
+##環境
+-使用言語：HTML(ver:Living Standard), CSS(ver:CSS3), Java Script(ver:Ecma Script2022)
+-フレームワーク：React.js(ver:18.2), MaterialUI(ver5.11), Font Awesome(ver:6.3)
+-OS：Windows11(ver:2H22),
+-バックエンド環境：Firebase Authentication(Firebase ver.9.19), Firestore Dartabase(Firebase ver.9.19)
 
-In the project directory, you can run:
+##使用API
+-楽天レシピ
 
-### `yarn start`
+##アプリの概要
+-冷蔵庫に入っているものをアプリ内で選択するだけで、食材に応じたレシピを楽天レシピから提案してくれるアプリ。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+##アプリの使い方
+-アカウント登録後、食材追加画面に移動し食材を追加。その後レシピ一覧画面に移動し、レシピを選択する。
+-フリーレシピ検索画面から好きな食材でレシピを検索できる。
+-使い方の詳細はログアウト画面・またはアカウント登録時に表示されるオンボーディングを参照のこと。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##使用した技術
+-React-Routerによる画面遷移機能
+-Firebase Authenticationを使用した認証機能
+-Firestore Databaseを使用したデータベース連携
+-Axiosを使用したAPI取得
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
