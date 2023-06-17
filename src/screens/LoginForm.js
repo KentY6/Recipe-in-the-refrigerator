@@ -284,7 +284,9 @@ export const LoginForm = ({ resetFreeRecipes, logInState, setLogInState }) => {
             戻る
           </div>
         </div>
-        <div className="tutorial">
+        <div
+          className={whatAuth === "ログイン" ? "tutorial" : "tutorialCenter"}
+        >
           <Link to={"/onboardingPage"}>アプリの使い方</Link>
         </div>
       </form>
