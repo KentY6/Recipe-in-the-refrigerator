@@ -1,3 +1,9 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .menuPage {
   width: 100%;
   height: 100%;
@@ -156,6 +162,9 @@
   flex-flow: column;
   align-items: center;
   width: 100%;
+  @media (min-width: 640px) {
+    max-width: 640px;
+  }
 }
 
 .categoryTab {
@@ -166,10 +175,6 @@
   overflow-x: auto;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  @media (min-width: 1070px) {
-    align-items: center;
-    justify-content: center;
-  }
 }
 
 .tabsBox {
@@ -459,6 +464,9 @@
   flex-flow: column;
   align-items: center;
   width: 100%;
+  @media (min-width: 600px) {
+    max-width: 600px;
+  }
 }
 
 .recipesZone {
@@ -615,6 +623,9 @@
   align-items: center;
   width: 100%;
   text-align: center;
+  @media (min-width: 640px) {
+    max-width: 640px;
+  }
 }
 
 .freeRecipesZone {
@@ -657,6 +668,9 @@
   flex-flow: column;
   align-items: center;
   width: 100%;
+  @media (min-width: 640px) {
+    max-width: 640px;
+  }
 }
 
 .logInForm {
@@ -764,6 +778,9 @@
   align-items: center;
   width: 100%;
   height: 100%;
+  @media (min-width: 640px) {
+    max-width: 640px;
+  }
 }
 
 .onboardingUI {
@@ -857,6 +874,15 @@
   width: 250px;
   display: flex;
   justify-content: left;
+  align-items: center;
+  margin-top: 60px;
+  font-size: 16px;
+}
+
+.tutorialCenter {
+  width: 250px;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 60px;
   font-size: 16px;
