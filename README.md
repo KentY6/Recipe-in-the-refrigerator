@@ -5,7 +5,8 @@ recipe-in-rhe-refrigerator.web.app
 
 ## 環境
 -使用言語：HTML(ver:Living Standard), CSS(ver:CSS3), Java Script(ver:Ecma Script2022)<br>
--フレームワーク：React.js(ver:18.2), MaterialUI(ver5.11), Font Awesome(ver:6.3)<br>
+-フレームワーク：React.js(ver:18.2.0)<br>
+-ライブラリ： MaterialUI(ver5.11.12), Font Awesome(ver:6.3.0), Axios(ver:1.3.4)<br>
 -OS：Windows11(ver:2H22)<br>
 -バックエンド環境：Firebase Authentication(Firebase ver.9.19), Firestore Dartabase(Firebase ver.9.19)<br>
 
